@@ -125,7 +125,7 @@ return {
             if config.logo then
                 dashboard.section.header.val = config.logo
             end
-
+            -- stylua: ignore
             dashboard.section.buttons.val = {
                 dashboard.button("f n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
                 dashboard.button("f f", " " .. " Find file", ":Telescope find_files <CR>"),
@@ -133,7 +133,8 @@ return {
                 dashboard.button("f o", " " .. " Recent files", ":Telescope oldfiles <CR>"),
                 dashboard.button("s p", " " .. " Select project", ":Telescope projects <CR>"),
                 dashboard.button("s s", " " .. " Select session", ":Telescope persisted <CR>"),
-                dashboard.button("c c", " " .. " Config", ":e $MYVIMRC | :cd %:p:h <CR>"),
+                dashboard.button("c c", " " .. " Nvim config", ":e $MYVIMRC | :cd %:p:h <CR>"),
+                dashboard.button("c f", " " .. " Global config", ":e $HOME/.config | :cd %:p:h <CR>"),
                 dashboard.button("c p", " " .. " Plugins", ":Lazy<CR>"),
                 dashboard.button("q", " " .. " Quit", ":qa <CR>"),
             }

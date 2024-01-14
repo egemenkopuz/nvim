@@ -174,6 +174,14 @@ M.rename = {
     },
 }
 
+M.files = {
+    -- stylua: ignore
+    n = {
+        -- Function
+        ["<C-n>"] = { function () MiniFiles.open() end }
+    },
+}
+
 M.lsp = {
     -- stylua: ignore
     n = {

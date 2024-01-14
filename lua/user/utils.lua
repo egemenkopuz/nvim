@@ -181,7 +181,6 @@ function M.telescope(builtin, opts)
         require("telescope.builtin")[builtin](opts)
     end
 end
-
 function M.pick_window()
     local picked_window_id = require("window-picker").pick_window {
         include_current_win = true,
