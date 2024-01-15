@@ -8,7 +8,7 @@ return {
     {
         "folke/which-key.nvim",
         opts = {
-            icons = { breadcrumb = "»", separator = "  ", group = "+" },
+            icons = { breadcrumb = "»", separator = "  ", group = "+" },
             hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
             triggers_blacklist = { i = { "j", "k" }, v = { "j", "k" } },
             key_labels = { ["<leader>"] = "SPC" },

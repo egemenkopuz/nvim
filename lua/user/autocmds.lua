@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
--- Highlight on yank
+-- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function()
         vim.highlight.on_yank { higroup = "IncSearch", timeout = 50 }
@@ -26,13 +26,20 @@ vim.api.nvim_create_autocmd("VimResized", {
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
     pattern = {
-        "qf",
+        "PlenaryTestPopup",
         "help",
+        "lspinfo",
         "man",
         "notify",
-        "lspinfo",
-        "dap-float",
-        "null-ls-info",
+        "qf",
+        "query",
+        "spectre_panel",
+        "startuptime",
+        "tsplayground",
+        "neotest-output",
+        "checkhealth",
+        "neotest-summary",
+        "neotest-output-panel",
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false
@@ -40,10 +47,22 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+-- wrap and check for spell in text filetypes
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "gitcommit", "markdown" },
     callback = function()
         vim.opt_local.wrap = true
         vim.opt_local.spell = true
+    end,
+})
+
+-- auto create dir when saving a file, in case some intermediate directory does not exist
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    callback = function(event)
+        if event.match:match "^%w%w+://" then
+            return
+        end
+        local file = vim.loop.fs_realpath(event.match) or event.match
+        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     end,
 })

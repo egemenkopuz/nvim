@@ -177,8 +177,7 @@ M.rename = {
 M.files = {
     -- stylua: ignore
     n = {
-        -- Function
-        ["<C-n>"] = { function () MiniFiles.open() end }
+        ["<C-n>"] = { function () MiniFiles.open() end },
     },
 }
 
@@ -353,6 +352,7 @@ M.bufferline = {
         ["<leader>b7"] = { "<cmd> BufferLineGoToBuffer 7 <cr>", "Go to buffer 7" },
         ["<leader>b8"] = { "<cmd> BufferLineGoToBuffer 8 <cr>", "Go to buffer 8" },
         ["<leader>b9"] = { "<cmd> BufferLineGoToBuffer 9 <cr>", "Go to buffer 9" },
+        ["<leader>bb"] = { "<cmd>e # <cr>", "Go to other buffer"},
         ["<leader>b0"] = { "<cmd> BufferLineGoToBuffer 10 <cr>", "Go to buffer 10" },
         ["<leader>b["] = { "<cmd> BufferLineMovePrev <cr>", "Move buffer left" },
         ["<leader>b]"] = { "<cmd> BufferLineMoveNext <cr>", "Move buffer right" },
