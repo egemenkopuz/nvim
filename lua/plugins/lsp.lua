@@ -91,6 +91,7 @@ return {
                         },
                     },
                 },
+                ["cmake"] = {},
                 ["lua_ls"] = {
                     settings = {
                         Lua = {
