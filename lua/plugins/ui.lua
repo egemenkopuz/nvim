@@ -35,11 +35,11 @@ return {
                 options = {
                     theme = "auto",
                     component_separators = { left = "", right = "" },
-                    section_separators = { left = "", right = "" },
+                    section_separators = { left = " ", right = " " },
                     globalstatus = true,
                     disabled_filetypes = { statusline = { "alpha", "packer", "lazy", "terminal" } },
                 },
-                extensions = { "toggleterm", "neo-tree", "nvim-dap-ui" },
+                extensions = { "toggleterm", "nvim-dap-ui", "lazy" },
                 sections = {
                     lualine_a = { "mode" },
                     lualine_b = { "branch" },
@@ -72,7 +72,7 @@ return {
                         {
                             function()
                                 local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
-                                return "" .. " " .. shiftwidth
+                                return " " .. shiftwidth
                             end,
                             padding = 1,
                         },
@@ -168,30 +168,39 @@ return {
 
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = "BufReadPre",
+        event = "VeryLazy",
         main = "ibl",
         opts = {
-            -- indentLine_enabled = 1,
-            indent = { char = "┊" },
-            -- filetype_exclude = {
-            --     "alpha",
-            --     "mason",
-            --     "lazy",
-            --     "log",
-            --     "gitcommit",
-            --     "packer",
-            --     "vimwiki",
-            --     "markdown",
-            --     "txt",
-            --     "help",
-            --     "neo-tree",
-            --     "git",
-            --     "TelescopePrompt",
-            --     "undotree",
-            --     "",
-            -- },
-            -- buftype_exclude = { "terminal", "nofile" },
+            indent = { char = "│" },
+            scope = {
+                enabled = true,
+                show_start = false,
+                show_end = false,
+                include = {
+                    node_type = {
+                        ["*"] = { "*" },
+                    },
+                },
+            },
+            exclude = {
+                filetypes = {
+                    "help",
+                    "alpha",
+                    "dashboard",
+                    "neo-tree",
+                    "Trouble",
+                    "trouble",
+                    "lazy",
+                    "mason",
+                    "notify",
+                    "toggleterm",
+                    "lazyterm",
+                },
+            },
         },
+        config = function(_, opts)
+            require("ibl").setup(opts)
+        end,
     },
 
     {
@@ -244,5 +253,27 @@ return {
             require("user.utils").load_keymap "lsp_lines"
         end,
         config = true,
+    },
+
+    {
+        "rcarriga/nvim-notify",
+        opts = {
+            timeout = 3000,
+            max_height = function()
+                return math.floor(vim.o.lines * 0.75)
+            end,
+            max_width = function()
+                return math.floor(vim.o.columns * 0.75)
+            end,
+            on_open = function(win)
+                vim.api.nvim_win_set_config(win, { zindex = 100 })
+            end,
+            render = "compact",
+            stages = "fade",
+        },
+        init = function()
+            vim.notify = require "notify"
+            require("user.utils").load_keymap "notify"
+        end,
     },
 }

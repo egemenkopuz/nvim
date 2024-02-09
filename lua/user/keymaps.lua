@@ -147,6 +147,7 @@ M.telescope = {
         ["<leader>so"] = { "<cmd>Telescope vim_options<cr>", "Options" },
         ["<leader>sw"] = { utils.telescope "grep_string", "Word (root dir)" },
         ["<leader>sW"] = { utils.telescope("grep_string", { cwd = false }), "Word (cwd)" },
+        ["<leader>xn"] = {"<cmd> Telescope notify <cr>", "Notifications"},
         ["<leader>ss"] = {
             utils.telescope("lsp_document_symbols", {
                 symbols = {
@@ -275,10 +276,13 @@ M.trouble = {
 M.toggleterm = {
     n = {
         ["<leader>g\\"] = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>", "Lazygit" },
+        ["<leader>utx"] = { "<cmd>ToggleTerm direction=horizontal<cr>", "Toggle horizontal terminal" },
+        ["<leader>utv"] = { "<cmd>ToggleTerm direction=vertical<cr>", "Toggle vertical terminal" },
     },
     -- stylua: ignore
     t = {
         ["<C-x>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "Close terminal", },
+
     },
 }
 
@@ -387,6 +391,17 @@ M.symbols = {
 M.lsp_lines = {
     n = {
         ["<leader>tx"] = { "<cmd>lua require('lsp_lines').toggle() <cr>", "Toggle lsp lines" },
+    },
+}
+
+M.notify = {
+    n = {
+        ["<leader>un"] = {
+            function()
+                require("notify").dismiss { silent = true, pending = true }
+            end,
+            "Dismiss Notifications",
+        },
     },
 }
 

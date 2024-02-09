@@ -5,11 +5,11 @@ return {
         dependencies = {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            -- "hinell/lsp-timeout.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "b0o/schemastore.nvim",
-            "simrat39/rust-tools.nvim",
+            -- "hinell/lsp-timeout.nvim",
             "p00f/clangd_extensions.nvim",
+            -- "simrat39/rust-tools.nvim",
             -- {
             --     "saecki/crates.nvim",
             --     opts = { null_ls = { enabled = true, name = "crates.nvim" } },
@@ -71,12 +71,35 @@ return {
                         "--background-index",
                         "--clang-tidy",
                         "--completion-style=detailed",
-                        "--completion-parse=always",
-                        "--cross-file-rename",
+                        -- "--completion-parse=always",
+                        -- "--cross-file-rename",
                         "--header-insertion=iwyu",
                         "--suggest-missing-includes",
-                        "-j=4", -- number of workers
+                        "--function-arg-placeholders",
+                        "--fallback-style=llvm",
+                        -- "-j=4", -- number of workers
                     },
+                    init_options = {
+                        usePlaceholders = true,
+                        completeUnimported = true,
+                        clangdFileStatus = true,
+                    },
+                    root_dir = function(fname)
+                        return require("lspconfig.util").root_pattern(
+                            "Makefile",
+                            "configure.ac",
+                            "configure.in",
+                            "config.h.in",
+                            "meson.build",
+                            "meson_options.txt",
+                            "build.ninja"
+                        )(fname) or require("lspconfig.util").root_pattern(
+                            "compile_commands.json",
+                            "compile_flags.txt"
+                        )(fname) or require("lspconfig.util").find_git_ancestor(
+                            fname
+                        )
+                    end,
                 },
                 ["pyright"] = {
                     settings = {
@@ -124,9 +147,7 @@ return {
                     server_opts.on_attach = utils.lsp_on_attach()
                     server_opts.capabilities = utils.lsp_capabilities()
 
-                    if server == "clangd" then
-                        server_opts.capabilities.offsetEncoding = "utf-8"
-                    elseif server == "lua_ls" then
+                    if server == "lua_ls" then
                         require("neodev").setup {}
                     end
 
@@ -153,8 +174,31 @@ return {
                             },
                         }
                     elseif server == "clangd" then
-                        require("clangd_extensions").setup { server = server_opts }
+                        server_opts.capabilities.offsetEncoding = "utf-16"
+                        require("clangd_extensions").setup {
+                            -- server = server_opts,
+                            ast = {
+                                role_icons = {
+                                    type = "",
+                                    declaration = "",
+                                    expression = "",
+                                    specifier = "",
+                                    statement = "",
+                                    ["template argument"] = "",
+                                },
+                                kind_icons = {
+                                    Compound = "",
+                                    Recovery = "",
+                                    TranslationUnit = "",
+                                    PackExpansion = "",
+                                    TemplateTypeParm = "",
+                                    TemplateTemplateParm = "",
+                                    TemplateParamObject = "",
+                                },
+                            },
+                        }
                     end
+
                     lspconfig[server].setup(server_opts)
                 end,
             }

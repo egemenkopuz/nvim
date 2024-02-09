@@ -45,7 +45,7 @@ return {
             windows = {
                 preview = true,
                 width_focus = 30,
-                width_preview = 30,
+                width_preview = 50,
             },
         },
         config = function(_, opts)
@@ -102,7 +102,6 @@ return {
                 pattern = "MiniFilesBufferCreate",
                 callback = function(args)
                     local buf_id = args.data.buf_id
-                    -- Tweak keys to your liking
                     map_split(buf_id, "gx", "belowright horizontal")
                     map_split(buf_id, "gv", "belowright vertical")
                 end,
