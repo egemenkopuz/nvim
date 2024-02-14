@@ -57,4 +57,12 @@ return {
     },
 
     { "olimorris/persisted.nvim", config = true },
+
+    {
+        "karb94/neoscroll.nvim",
+        lazy = false,
+        config = function(_, opts)
+            require("neoscroll").setup(opts)
+        end,
+    },
 }

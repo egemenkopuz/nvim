@@ -69,8 +69,8 @@ M.general = {
         -- toggle word wrap
         ["<leader>tw"] = { "<cmd> set wrap! <cr>", "Toggle word wrap" },
         -- centered page navigation
-        ["<C-u>"] = { "<C-u>zz", "Jump half-page up" },
-        ["<C-d>"] = { "<C-d>zz", "Jump half-page down" },
+        -- ["<C-u>"] = { "<C-u>zz", "Jump half-page up" },
+        -- ["<C-d>"] = { "<C-d>zz", "Jump half-page down" },
         -- centered search navigation
         ["n"] = { "nzzzv", "Next searched" },
         ["N"] = { "Nzzzv", "Previous searched" },
@@ -276,7 +276,10 @@ M.trouble = {
 M.toggleterm = {
     n = {
         ["<leader>g\\"] = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>", "Lazygit" },
-        ["<leader>utx"] = { "<cmd>ToggleTerm direction=horizontal<cr>", "Toggle horizontal terminal" },
+        ["<leader>utx"] = {
+            "<cmd>ToggleTerm direction=horizontal<cr>",
+            "Toggle horizontal terminal",
+        },
         ["<leader>utv"] = { "<cmd>ToggleTerm direction=vertical<cr>", "Toggle vertical terminal" },
     },
     -- stylua: ignore

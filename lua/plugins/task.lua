@@ -12,7 +12,24 @@ return {
         "Civitasv/cmake-tools.nvim",
         depends = { "nvim-lua/plenary.nvim", "stevearc/overseer.nvim" },
         ft = { "cmake", "cpp" },
-        opts = {},
+        opts = {
+            cmake_executor = {
+                name = "overseer",
+                default_opts = {
+                    overseer = {
+                        new_task_opts = {
+                            strategy = {
+                                "toggleterm",
+                                direction = "horizontal",
+                                autos_croll = true,
+                                quit_on_exit = "success",
+                            },
+                        },
+                    },
+                    toggleterm = { direction = "horizontal" },
+                },
+            },
+        },
         config = function(_, opts)
             require("cmake-tools").setup(opts)
         end,
