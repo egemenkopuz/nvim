@@ -1,39 +1,4 @@
 return {
-    -- {
-    -- 	"nvim-neo-tree/neo-tree.nvim",
-    -- 	branch = "v2.x",
-    -- 	cmd = "Neotree",
-    -- 	dependencies = {
-    -- 		"nvim-lua/plenary.nvim",
-    -- 		"nvim-tree/nvim-web-devicons",
-    -- 		"MunifTanjim/nui.nvim",
-    -- 		"s1n7ax/nvim-window-picker",
-    -- 	},
-    -- 	init = function()
-    -- 		vim.g.neo_tree_remove_legacy_commands = 1
-    -- 		require("user.utils").load_keymap("neotree")
-    -- 	end,
-    -- 	opts = {
-    -- 		filesystem = {
-    -- 			use_libuv_file_watcher = true,
-    -- 			bind_to_cwd = false,
-    -- 			follow_current_file = true,
-    -- 			hijack_netrw_behavior = "disabled",
-    -- 		},
-    -- 		window = {
-    -- 			mappings = {
-    -- 				["<space>"] = "none",
-    -- 				["<2-LeftMouse>"] = "open_with_window_picker",
-    -- 				["<cr>"] = "open_with_window_picker",
-    -- 				["<C-x>"] = "split_with_window_picker",
-    -- 				["<C-v>"] = "vsplit_with_window_picker",
-    -- 				["Z"] = "expand_all_nodes",
-    -- 				["P"] = { "toggle_preview", config = { use_float = false } },
-    -- 			},
-    -- 		},
-    -- 	},
-    -- },
-
     {
         "echasnovski/mini.files",
         version = false,
@@ -304,6 +269,86 @@ return {
         },
         config = function(_, opts)
             require("mini.bracketed").setup(opts)
+        end,
+    },
+    {
+        "backdround/global-note.nvim",
+        cmd = { "GlobalNote", "ProjectPrivateNote", "ProjectTodo", "ProjectNote" },
+        keys = {
+            { "<leader>ng", "<CMD>GlobalNote<CR>", desc = "Global notes" },
+            { "<leader>np", "<CMD>ProjectPrivateNote<CR>", desc = "Private note" },
+            { "<leader>nn", "<CMD>ProjectNote<CR>", desc = "Local note" },
+            { "<leader>nt", "<CMD>ProjectTodo<CR>", desc = "Local todos" },
+        },
+        config = function(_, opts)
+            local wk = require "which-key"
+            wk.register({
+                n = { name = "notes" },
+            }, { prefix = "<leader>" })
+            require("global-note").setup(opts)
+        end,
+        opts = function()
+            local get_project_name = function()
+                local result = vim.system({
+                    "git",
+                    "rev-parse",
+                    "--show-toplevel",
+                }, {
+                    text = true,
+                }):wait()
+
+                if result.stderr ~= "" then
+                    vim.notify(result.stderr, vim.log.levels.WARN)
+                    return nil
+                end
+
+                local project_directory = result.stdout:gsub("\n", "")
+
+                local project_name = vim.fs.basename(project_directory)
+                if project_name == nil then
+                    vim.notify("Unable to get the project name", vim.log.levels.WARN)
+                    return nil
+                end
+
+                return project_name
+            end
+
+            local global_dir = vim.fn.expand "$HOME" .. "/.notes"
+
+            return {
+                autosave = false,
+                directory = global_dir,
+
+                filename = "global.md",
+
+                additional_presets = {
+                    project_private = {
+                        directory = function()
+                            return vim.fs.joinpath(global_dir, get_project_name())
+                        end,
+                        filename = "note.md",
+                        title = "Private Project Note",
+                        command_name = "ProjectPrivateNote",
+                    },
+                    project_local = {
+                        directory = function()
+                            return vim.fn.getcwd()
+                        end,
+                        filename = "note.md",
+                        title = "Project Note",
+                        command_name = "ProjectNote",
+                    },
+                    project_todo = {
+
+                        directory = function()
+                            return vim.fn.getcwd()
+                        end,
+                        filename = "todo.md",
+                        title = "Project Todo",
+                        command_name = "ProjectTodo",
+                    },
+                },
+            }
         end,
     },
 }
