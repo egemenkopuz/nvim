@@ -44,26 +44,26 @@ M.mason_packages = {
     "codelldb",
     "shfmt",
     "mdformat",
+    "eslint-lsp",
 }
 
 M.nulls_packages = {
     formatting = {
         "isort",
         "black",
-        "trim_newlines",
-        "trim_whitespace",
+        -- "trim_newlines",
+        -- "trim_whitespace",
         "prettier",
         "stylua",
         "clang_format",
-        "rustfmt",
         "shfmt",
         "mdformat",
         "cmake_format",
     },
     diagnostics = {
-        "flake8",
+        -- "flake8",
         "mypy",
-        { "pydocstyle", extra_args = { "--config=$ROOT/setup.cfg" } },
+        -- { "pydocstyle", extra_args = { "--config=$ROOT/setup.cfg" } },
         "hadolint",
         "cmake_lint",
         "cppcheck",

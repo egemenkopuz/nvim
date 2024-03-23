@@ -11,6 +11,7 @@ return {
                 require("dapui").setup { opts }
             end,
         },
+        { "nvim-neotest/nvim-nio" },
         { "theHamsta/nvim-dap-virtual-text" },
         { "mfussenegger/nvim-dap-python" },
     },

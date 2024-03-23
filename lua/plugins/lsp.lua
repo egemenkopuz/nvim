@@ -65,6 +65,7 @@ return {
                 ["jsonls"] = {},
                 ["yamlls"] = {},
                 ["marksman"] = {},
+                ["eslint"] = {},
                 ["clangd"] = {
                     cmd = {
                         "clangd",
