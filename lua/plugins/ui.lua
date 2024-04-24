@@ -25,12 +25,11 @@ return {
 
     {
         "nvim-lualine/lualine.nvim",
-        event = "VeryLazy",
+        event = "BufReadPre",
         dependencies = { "arkav/lualine-lsp-progress" },
         opts = function()
             local icons = require("user.config").icons
             local utils = require "user.utils"
-
 
             return {
                 options = {
@@ -45,6 +44,7 @@ return {
                     lualine_a = { "mode" },
                     lualine_b = { "branch" },
                     lualine_c = {
+                        "git_prompt_string",
                         {
                             "diff",
                             symbols = {
@@ -169,7 +169,7 @@ return {
 
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = "VeryLazy",
+        event = "BufReadPre",
         main = "ibl",
         opts = {
             indent = { char = "│" },
@@ -205,8 +205,27 @@ return {
     },
 
     {
+        "luukvbaal/statuscol.nvim",
+        event = "BufReadPre",
+        config = function(_, _)
+            local builtin = require "statuscol.builtin"
+            local opts = {
+                relculright = true,
+                segments = {
+                    -- { sign = { namespace = { "diagnostic" } } },
+                    -- { text = { "%=", get_lnum, " " } },
+                    -- { text = { "%C" }, click = "v:lua.ScFa" },
+                    { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
+                    { sign = { namespace = { "gitsigns" }, maxwidth = 1, colwidth = 1 } },
+                },
+            }
+            require("statuscol").setup(opts)
+        end,
+    },
+
+    {
         "akinsho/bufferline.nvim",
-        event = "VeryLazy",
+        event = "BufReadPre",
         opts = {
             options = {
                 offsets = {
