@@ -22,6 +22,7 @@ require("lazy").setup("plugins", {
         cache = { enabled = true },
         rtp = { disabled_plugins = require("user.config").disabled_plugins },
     },
+    change_detection = { notify = false },
 })
 
 require "user.autocmds"

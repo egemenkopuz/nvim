@@ -56,7 +56,16 @@ return {
         config = true,
     },
 
-    { "olimorris/persisted.nvim", config = true },
+    { "olimorris/persisted.nvim", lazy = true, config = true },
+
+    {
+        "ahmedkhalf/project.nvim",
+        lazy = true,
+        opts = { manual_mode = true },
+        config = function()
+            require("project_nvim").setup()
+        end,
+    },
 
     {
         "karb94/neoscroll.nvim",

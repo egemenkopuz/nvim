@@ -7,23 +7,7 @@ return {
             "williamboman/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "b0o/schemastore.nvim",
-            -- "hinell/lsp-timeout.nvim",
             "p00f/clangd_extensions.nvim",
-            -- "simrat39/rust-tools.nvim",
-            -- {
-            --     "saecki/crates.nvim",
-            --     opts = { null_ls = { enabled = true, name = "crates.nvim" } },
-            --     config = function(_, opts)
-            --         vim.api.nvim_create_autocmd("BufRead", {
-            --             group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
-            --             pattern = "Cargo.toml",
-            --             callback = function()
-            --                 require("cmp").setup.buffer { sources = { { name = "crates" } } }
-            --             end,
-            --         })
-            --         require("crates").setup(opts)
-            --     end,
-            -- },
             { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
             {
                 "ray-x/lsp_signature.nvim",
@@ -66,6 +50,7 @@ return {
                 ["yamlls"] = {},
                 ["marksman"] = {},
                 ["eslint"] = {},
+                ["ansiblels"] = {},
                 ["clangd"] = {
                     cmd = {
                         "clangd",
@@ -102,18 +87,14 @@ return {
                         )
                     end,
                 },
-                ["pyright"] = {
+                ["basedpyright"] = {
                     settings = {
-                        pyright = { autoImportCompletion = true },
-                        python = {
-                            analysis = {
-                                autoSearchPaths = true,
-                                diagnosticMode = "workspace",
-                                useLibraryCodeForTypes = true,
-                                typeCheckingMode = "off",
-                            },
-                        },
+                        disableOrganizeImports = true,
+                        basedpyright = { analysis = { ignore = { "*" } } },
                     },
+                },
+                ["ruff_lsp"] = {
+                    settings = { args = { "--ignore=F821", "--config=$ROOT/pyproject.toml" } },
                 },
                 ["cmake"] = {},
                 ["lua_ls"] = {
@@ -243,6 +224,48 @@ return {
                     p:install()
                 end
             end
+        end,
+    },
+
+    {
+        "linux-cultist/venv-selector.nvim",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "nvim-telescope/telescope.nvim",
+            "mfussenegger/nvim-dap-python",
+        },
+        lazy = true,
+        cmd = { "VenvSelect", "VenvSelectCahced" },
+        init = function()
+            require("user.utils").load_keymap "venv"
+        end,
+        opts = function(_, opts)
+            opts.dap_enabled = true
+            return vim.tbl_deep_extend("force", opts, {
+                name = {
+                    "venv",
+                    ".venv",
+                    "env",
+                    ".env",
+                },
+            })
+        end,
+        config = function(_, opts)
+            require("venv-selector").setup(opts)
+            local augroup = vim.api.nvim_create_augroup("VenvSelectorRetrieve", { clear = true })
+            vim.api.nvim_create_autocmd({ "LspAttach" }, {
+                pattern = { "*.py" },
+                group = augroup,
+                callback = function(args)
+                    if
+                        vim.lsp.get_client_by_id(args["data"]["client_id"])["name"]
+                        == "basedpyright"
+                    then
+                        require("venv-selector").retrieve_from_cache()
+                        vim.api.nvim_del_augroup_by_id(augroup)
+                    end
+                end,
+            })
         end,
     },
 }

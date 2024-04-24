@@ -117,11 +117,28 @@ return {
 
     {
         "folke/trouble.nvim",
+        branch = "dev",
         cmd = { "TroubleToggle", "Trouble" },
+        opts = {
+            focus = true,
+            modes = {
+                diagnostics_preview = {
+                    mode = "diagnostics",
+                    preview = {
+                        type = "split",
+                        relative = "win",
+                        position = "right",
+                        size = 0.3,
+                    },
+                },
+            },
+        },
         init = function()
             require("user.utils").load_keymap "trouble"
         end,
-        opts = { auto_preview = true, mode = "document_diagnostics" },
+        config = function(_, opts)
+            require("trouble").setup(opts)
+        end,
     },
 
     {
@@ -143,7 +160,7 @@ return {
     { "andymass/vim-matchup", event = "BufReadPost" },
 
     {
-        "moll/vim-bbye",
+        "echasnovski/mini.bufremove",
         event = "BufReadPre",
         config = function(_, _)
             require("user.utils").load_keymap "bufremove"
@@ -160,7 +177,9 @@ return {
 
     {
         "windwp/nvim-spectre",
+        build = false,
         cmd = "Spectre",
+        opts = { open_cmd = "noswapfile vnew" },
         init = function()
             require("user.utils").load_keymap "spectre"
         end,

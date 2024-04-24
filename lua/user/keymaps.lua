@@ -102,8 +102,32 @@ M.clipboard = {
 
 M.bufremove = {
     n = {
-        ["<leader>bd"] = { "<cmd> Bdelete <cr>", "Kill buffer" },
-        ["<leader>bD"] = { "<cmd> Bdelete! <cr>", "Kill force buffer" },
+        ["<leader>bd"] = {
+            function()
+                local bd = require("mini.bufremove").delete
+                if vim.bo.modified then
+                    local choice = vim.fn.confirm(
+                        ("Save changes to %q?"):format(vim.fn.bufname()),
+                        "&Yes\n&No\n&Cancel"
+                    )
+                    if choice == 1 then -- Yes
+                        vim.cmd.write()
+                        bd(0)
+                    elseif choice == 2 then -- No
+                        bd(0, true)
+                    end
+                else
+                    bd(0)
+                end
+            end,
+            "Kill buffer",
+        },
+        ["<leader>bD"] = {
+            function()
+                require("mini.bufremove").delete(0, true)
+            end,
+            "Kill force buffer",
+        },
     },
 }
 
@@ -223,6 +247,8 @@ M.gitsigns = {
         ["<leader>gS"] = { "<cmd> Gitsigns stage_buffer <cr>", "Stage buffer" },
         ["<leader>gR"] = { "<cmd> Gitsigns reset_buffer <cr>", "Reset buffer" },
         ["<leader>gl"] = { function() require("gitsigns").blame_line { full = true } end, "Blame line", },
+        ["<leader>gd"] = { function() require("gitsigns").diffthis() end, "Diff this", },
+        ["<leader>gD"] = { function() require("gitsigns").diffthis("~") end, "Diff this (~)", },
         ["[h"] = {
             function()
                 if vim.wo.diff then return "[h" end vim.schedule(function() require("gitsigns").prev_hunk() end) return "<Ignore>"
@@ -265,11 +291,11 @@ M.hop = {
 M.trouble = {
     -- stylua: ignore
     n = {
-        ["<leader>xx"] = { "<cmd> TroubleToggle <cr>", "Toggle trouble" },
-        ["<leader>xd"] = { "<cmd> TroubleToggle document_diagnostics <cr>", "Document diagnostics", },
-        ["<leader>xD"] = { "<cmd> TroubleToggle workspace_diagnostics <cr>", "Workspace diagnostics", },
-        ["<leader>xl"] = { "<cmd> TroubleToggle loclist <cr>", "Loclist" },
-        ["<leader>xq"] = { "<cmd> TroubleToggle quickfix <cr>", "Quickfix" },
+        ["<leader>xd"] = { "<cmd> Trouble diagnostics_preview toggle filter.buf=0 <cr>", "Buffer diagnostics", },
+        ["<leader>xD"] = { "<cmd> Trouble diagnostics_preview toggle <cr>", "Workspace diagnostics", },
+        ["<leader>xl"] = { "<cmd> Trouble loclist toggle <cr>", "Loclist" },
+        ["<leader>xq"] = { "<cmd> Trouble quickfix toggle <cr>", "Quickfix" },
+        ["<leader>xs"] = { "<cmd> Trouble symbols toggle win.position=right <cr>", "Symbols"},
     },
 }
 
@@ -335,7 +361,12 @@ M.neotree = {
 
 M.spectre = {
     n = {
-        ["<leader>cR"] = { "<cmd> Spectre <cr>", "Replace in files (Spectre)" },
+        ["<leader>cR"] = {
+            function()
+                require("spectre").open()
+            end,
+            "Replace in files (Spectre)",
+        },
     },
 }
 
@@ -368,14 +399,19 @@ M.bufferline = {
         ["<leader>bsd"] = { "<cmd> BufferLineSortByDirectory <cr>", "Sort buffers by directory" },
         ["<leader>bcr"] = { "<cmd> BufferLineCloseRight <cr>", "Close all visible buffers to the right" },
         ["<leader>bcl"] = { "<cmd> BufferLineCloseLeft <cr>", "Close all visible buffers to the left" },
-        ["<leader>bcp"] = { "<cmd> BufferLineTogglePin <cr>", "Pin buffer" },
-        ["<leader>bp"] = { "<cmd> BufferLineGroupClose ungrouped <cr>", "Delete non-pinned buffers" },
+        ["<leader>bp"] = { "<cmd> BufferLineTogglePin <cr>", "Pin buffer" },
+        ["<leader>bcp"] = { "<cmd> BufferLineGroupClose ungrouped <cr>", "Close non-pinned buffers" },
     },
 }
 
 M.neogen = {
     n = {
-        ["<leader>cg"] = { "<cmd>lua require('neogen').generate()<cr>", "Generate doc" },
+        ["<leader>cg"] = {
+            function()
+                require("neogen").generate()
+            end,
+            "Generate doc",
+        },
     },
 }
 
@@ -405,6 +441,23 @@ M.notify = {
             end,
             "Dismiss Notifications",
         },
+    },
+}
+
+M.todo_comments = {
+    n = {
+        ["<leader>xt"] = { "<cmd>TodoTrouble <cr>", "Toggle Todo" },
+        ["<leader>xT"] = {
+            "<cmd>TodoTrouble keywords=TODO,FIX,FIXME <cr>",
+            "Toggle Todo/Fix/Fixme",
+        },
+    },
+}
+
+M.venv = {
+    n = {
+        ["<leader>cvs"] = { "<cmd> VenvSelect <cr>", "Select Python venv" },
+        ["<leader>cvc"] = { "<cmd> VenvSelectCached <cr>", "Select cached Python venv" },
     },
 }
 

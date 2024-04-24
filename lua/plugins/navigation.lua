@@ -39,13 +39,6 @@ return {
                 end,
             })
 
-            vim.api.nvim_create_autocmd("User", {
-                pattern = "MiniFilesActionRename",
-                callback = function(event)
-                    require("lazyvim.util").lsp.on_rename(event.data.from, event.data.to)
-                end,
-            })
-
             -- target window via split
             local map_split = function(buf_id, lhs, direction)
                 local rhs = function()
@@ -78,7 +71,11 @@ return {
         "nvim-telescope/telescope.nvim",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+            {
+                "nvim-telescope/telescope-fzf-native.nvim",
+                build = vim.fn.executable "make" == 1 and "make"
+                    or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+            },
             "nvim-telescope/telescope-file-browser.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
             "olimorris/persisted.nvim",
@@ -88,7 +85,6 @@ return {
         cmd = "Telescope",
         version = false,
         init = function()
-            require("project_nvim").setup()
             require("user.utils").load_keymap "telescope"
         end,
         opts = {

@@ -124,6 +124,25 @@ function M.colorscheme_selection(colorscheme)
     end
 end
 
+M.root_patterns = { ".git", ".clang-format", "pyproject.toml", "setup.py" }
+
+function M.get_clients(opts)
+    local ret = {} ---@type lsp.Client[]
+    if vim.lsp.get_clients then
+        ret = vim.lsp.get_clients(opts)
+    else
+        ---@diagnostic disable-next-line: deprecated
+        ret = vim.lsp.get_active_clients(opts)
+        if opts and opts.method then
+            ---@param client lsp.Client
+            ret = vim.tbl_filter(function(client)
+                return client.supports_method(opts.method, { bufnr = opts.bufnr })
+            end, ret)
+        end
+    end
+    return opts and opts.filter and vim.tbl_filter(opts.filter, ret) or ret
+end
+
 -- return the root directory based on:
 -- * lsp workspace folders
 -- * lsp root_dir
@@ -134,7 +153,7 @@ function M.get_root()
     path = path ~= "" and vim.loop.fs_realpath(path) or nil
     local roots = {}
     if path then
-        for _, client in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
+        for _, client in pairs(M.get_clients { bufnr = 0 }) do
             local workspace = client.config.workspace_folders
             local paths = workspace
                     and vim.tbl_map(function(ws)
@@ -203,6 +222,18 @@ function M.lsp_on_attach()
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
         M.load_keymap("lsp", { buffer = bufnr })
+        if client.supports_method "textDocument/inlayHint" then
+            local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+            if type(ih) == "function" then
+                ih(true)
+            elseif type(ih) == "table" and ih.enable then
+                ih.enable(true, { bufnr = bufnr })
+            end
+        end
+        if client.name == "ruff" then
+            -- Disable hover in favor of basedpyright
+            client.server_capabilities.hoverProvider = false
+        end
         if client.supports_method "textDocument/signatureHelp" then
             require("lsp_signature").on_attach({}, bufnr)
         end

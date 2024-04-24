@@ -50,17 +50,6 @@ return {
                 }
             end
 
-            local has_words_before = function()
-                if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-                    return false
-                end
-                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0
-                    and vim.api
-                            .nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]
-                            :match "^%s*$"
-                        == nil
-            end
             return {
                 window = {
                     completion = {
@@ -79,24 +68,17 @@ return {
                     ["<C-d>"] = cmp.mapping.scroll_docs(4),
                     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-e>"] = cmp.mapping.abort(),
-                    ["<C-l>"] = cmp.mapping.confirm {
+                    ["<CR>"] = cmp.mapping.confirm { select = true },
+                    ["<S-CR>"] = cmp.mapping.confirm {
                         behavior = cmp.ConfirmBehavior.Replace,
-                        select = false,
+                        select = true,
                     },
-                    ["<Tab>"] = vim.schedule_wrap(function(fallback)
-                        if cmp.visible() and has_words_before() then
-                            cmp.select_next_item { behavior = cmp.SelectBehavior }
-                        else
-                            fallback()
-                        end
-                    end),
-                    ["<S-Tab>"] = vim.schedule_wrap(function(fallback)
-                        if cmp.visible() and has_words_before() then
-                            cmp.select_prev_item { behavior = cmp.SelectBehavior }
-                        else
-                            fallback()
-                        end
-                    end),
+                    ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+                    ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+                    ["<C-CR>"] = function(fallback)
+                        cmp.abort()
+                        fallback()
+                    end,
                 },
                 sources = cmp.config.sources {
                     { name = "copilot", group_index = 2 },

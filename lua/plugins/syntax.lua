@@ -1,14 +1,49 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        version = false,
         build = ":TSUpdate",
         event = { "BufReadPost", "BufNewFile" },
         dependencies = {
             "windwp/nvim-ts-autotag",
-            "nvim-treesitter/nvim-treesitter-context",
+            {
+                "nvim-treesitter/nvim-treesitter-context",
+                opts = { mode = "cursor", max_lines = 4 },
+            },
             "windwp/nvim-autopairs",
             "JoosepAlviste/nvim-ts-context-commentstring",
+            {
+                "nvim-treesitter/nvim-treesitter-textobjects",
+                config = function()
+                    -- When in diff mode, we want to use the default
+                    -- vim text objects c & C instead of the treesitter ones.
+                    local move = require "nvim-treesitter.textobjects.move" ---@type table<string,fun(...)>
+                    local configs = require "nvim-treesitter.configs"
+
+                    for name, fn in pairs(move) do
+                        if name:find "goto" == 1 then
+                            move[name] = function(q, ...)
+                                if vim.wo.diff then
+                                    local config = configs.get_module("textobjects.move")[name] ---@type table<string,string>
+                                    for key, query in pairs(config or {}) do
+                                        if q == query and key:find "[%]%[][cC]" then
+                                            vim.cmd("normal! " .. key)
+
+                                            return
+                                        end
+                                    end
+                                end
+                                return fn(q, ...)
+                            end
+                        end
+                    end
+                end,
+            },
         },
+        init = function(plugin)
+            require("lazy.core.loader").add_to_rtp(plugin)
+            require "nvim-treesitter.query_predicates"
+        end,
         opts = function()
             local MAX_FILE_LINES = 3000
             local MAX_FILE_SIZE = 1048576 -- 1MB
@@ -17,7 +52,6 @@ return {
                 sync_install = false,
                 autotag = { enable = true },
                 indent = { enable = true },
-                context_commentstring = { enable = true, enable_autocmd = false },
                 ensure_installed = require("user.config").treesitter_packages,
                 highlight = {
                     enable = true,
@@ -35,17 +69,28 @@ return {
                     keymaps = {
                         init_selection = "<C-space>",
                         node_incremental = "<C-space>",
-                        scope_incremental = "<nop>",
+                        scope_incremental = false,
                         node_decremental = "<bs>",
+                    },
+                },
+                textobjects = {
+                    move = {
+                        enable = true,
+                        goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
+                        goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
+                        goto_previous_start = {
+                            ["[f"] = "@function.outer",
+                            ["[c"] = "@class.outer",
+                        },
+                        goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
                     },
                 },
             }
         end,
         config = function(_, opts)
-            local treesitter = require "ts_context_commentstring"
-            treesitter.setup(opts)
-
+            require("nvim-treesitter.configs").setup(opts)
             require("treesitter-context").setup()
+            require("ts_context_commentstring").setup { enable_autocmd = false }
 
             local autopairs = require "nvim-autopairs"
             local cmp_autopairs = require "nvim-autopairs.completion.cmp"
@@ -79,6 +124,28 @@ return {
                     ),
                     c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
                     t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },
+                    d = { "%f[%d]%d+" }, -- digits
+                    e = { -- Word with case
+                        {
+                            "%u[%l%d]+%f[^%l%d]",
+                            "%f[%S][%l%d]+%f[^%l%d]",
+                            "%f[%P][%l%d]+%f[^%l%d]",
+                            "^[%l%d]+%f[^%l%d]",
+                        },
+
+                        "^().*()$",
+                    },
+                    g = function() -- Whole buffer, similar to `gg` and 'G' motion
+                        local from = { line = 1, col = 1 }
+                        local to = {
+                            line = vim.fn.line "$",
+                            col = math.max(vim.fn.getline("$"):len(), 1),
+                        }
+
+                        return { from = from, to = to }
+                    end,
+                    u = ai.gen_spec.function_call(), -- u for "Usage"
+                    U = ai.gen_spec.function_call { name_pattern = "[%w_]" }, -- without dot in function name
                 },
             }
         end,
@@ -102,10 +169,15 @@ return {
                 a = "Argument",
                 b = "Balanced ), ], }",
                 c = "Class",
+                d = "Digit(s)",
+                e = "Word in CamelCase & snake_case",
                 f = "Function",
+                g = "Entire file",
                 o = "Block, conditional, loop",
                 q = "Quote `, \", '",
                 t = "Tag",
+                u = "Use/call function & method",
+                U = "Use/call without dot in name",
             }
             local a = vim.deepcopy(i)
             for k, v in pairs(a) do
@@ -129,13 +201,13 @@ return {
             search_method = "cover",
             highlight_duration = 500,
             mappings = {
-                add = "ys",
-                delete = "ds",
-                replace = "cs",
-                highlight = "",
-                find = "",
-                find_left = "",
-                update_n_lines = "",
+                add = "gsa", -- Add surrounding in Normal and Visual modes
+                delete = "gsd", -- Delete surrounding
+                find = "gsf", -- Find surrounding (to the right)
+                find_left = "gsF", -- Find surrounding (to the left)
+                highlight = "gsh", -- Highlight surrounding
+                replace = "gsr", -- Replace surrounding
+                update_n_lines = "gsn", -- Update `n_lines`
             },
         },
         config = function(_, opts)
@@ -149,7 +221,12 @@ return {
         dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
         config = function()
             require("mini.comment").setup {
-                hooks = { pre = require("ts_context_commentstring.internal").update_commentstring },
+                options = {
+                    custom_commentstring = function()
+                        return require("ts_context_commentstring").calculate_commentstring()
+                            or vim.bo.commentstring
+                    end,
+                },
             }
         end,
     },

@@ -31,6 +31,7 @@ return {
             local icons = require("user.config").icons
             local utils = require "user.utils"
 
+
             return {
                 options = {
                     theme = "auto",
@@ -220,8 +221,13 @@ return {
                 diagnostics = "nvim_lsp",
                 show_buffer_close_icons = false,
                 show_close_icon = false,
-                close_command = "Bdelete! %d",
                 color_icons = false,
+                close_command = function(n)
+                    require("mini.bufremove").delete(n, false)
+                end,
+                right_mouse_command = function(n)
+                    require("mini.bufremove").delete(n, false)
+                end,
                 always_show_bufferline = false,
             },
         },
@@ -233,6 +239,15 @@ return {
             }
             require("bufferline").setup(opts)
             require("user.utils").load_keymap "bufferline"
+
+            -- Fix bufferline when restoring a session
+            vim.api.nvim_create_autocmd("BufAdd", {
+                callback = function()
+                    vim.schedule(function()
+                        pcall(nvim_bufferline)
+                    end)
+                end,
+            })
         end,
     },
 
@@ -274,6 +289,18 @@ return {
         init = function()
             vim.notify = require "notify"
             require("user.utils").load_keymap "notify"
+        end,
+    },
+
+    {
+        "folke/todo-comments.nvim",
+        cmd = { "TodoTrouble", "TodoTelescope" },
+        event = "BufReadPre",
+        init = function()
+            require("user.utils").load_keymap "todo_comments"
+        end,
+        config = function()
+            require("todo-comments").setup()
         end,
     },
 }
