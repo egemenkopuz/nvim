@@ -56,8 +56,8 @@ M.mason_packages = {
     "shfmt",
     "mdformat",
     "eslint-lsp",
-    "mypy",
     "ansible-lint",
+    "prettier",
 }
 
 M.nulls_packages = {
@@ -72,9 +72,6 @@ M.nulls_packages = {
         "cmake_format",
     },
     diagnostics = {
-        -- "flake8",
-        -- "mypy",
-        -- { "pydocstyle", extra_args = { "--config=$ROOT/setup.cfg" } },
         "hadolint",
         "cmake_lint",
         "cppcheck",

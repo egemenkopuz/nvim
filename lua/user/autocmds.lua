@@ -76,3 +76,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end,
     desc = "Disable New Line Comment",
 })
+
+-- detect ansible filetype
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*.ansible.yml", "*.ansible.yaml" },
+    callback = function()
+        vim.bo.filetype = "yaml.ansible"
+    end,
+})
