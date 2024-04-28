@@ -31,15 +31,47 @@ return {
             local icons = require("user.config").icons
             local utils = require "user.utils"
 
+            local diff_color = {
+                added = { fg = "#78a5a3" },
+                modified = { fg = "#e1b16a" },
+                removed = { fg = "#ce5a57" },
+            }
+            local diagnostics_color = {
+                error = { fg = "#ce5a57" },
+                warn = { fg = "#e1b16a" },
+                info = { fg = "#78a5a3" },
+                hint = { fg = "#82a0aa" },
+            }
+            if require("user.config").transparent then
+                diff_color = {
+                    added = { fg = "#78a5a3", bg = "none" },
+                    modified = { fg = "#e1b16a", bg = "none" },
+                    removed = { fg = "#ce5a57", bg = "none" },
+                }
+                diagnostics_color = {
+                    error = { fg = "#ce5a57", bg = "none" },
+                    warn = { fg = "#e1b16a", bg = "none" },
+                    info = { fg = "#78a5a3", bg = "none" },
+                    hint = { fg = "#82a0aa", bg = "none" },
+                }
+            end
+
             return {
                 options = {
                     theme = "auto",
                     component_separators = { left = "", right = "" },
-                    section_separators = { left = " ", right = " " },
+                    section_separators = { left = "", right = "" },
                     globalstatus = true,
                     disabled_filetypes = { statusline = { "alpha", "packer", "lazy", "terminal" } },
                 },
-                extensions = { "toggleterm", "nvim-dap-ui", "lazy" },
+                extensions = {
+                    "toggleterm",
+                    "nvim-dap-ui",
+                    "lazy",
+                    "trouble",
+                    "overseer",
+                    "symbols-outline",
+                },
                 sections = {
                     lualine_a = { "mode" },
                     lualine_b = { "branch" },
@@ -52,11 +84,12 @@ return {
                                 modified = icons.diff.modified,
                                 removed = icons.diff.removed,
                             },
+                            diff_color = diff_color,
                         },
                         {
                             "filename",
+                            symbols = { modified = "[+]", readonly = "[-]", unnamed = "" },
                             path = 1,
-                            symbols = { readonly = "", unnamed = "" },
                         },
                     },
                     lualine_x = {
@@ -106,11 +139,21 @@ return {
                                 info = icons.diagnostics.info,
                                 hint = icons.diagnostics.hint,
                             },
+                            diagnostics_color = diagnostics_color,
                         },
                     },
                     lualine_z = { "location" },
                 },
             }
+        end,
+        config = function(_, opts)
+            require("lualine").setup(opts)
+            if require("user.config").transparent then
+                for _, section in ipairs { "b", "c", "x", "y" } do
+                    vim.cmd("highlight lualine_" .. section .. "_normal guibg=NONE")
+                    vim.cmd("highlight lualine_" .. section .. "_inactive guibg=NONE")
+                end
+            end
         end,
     },
 

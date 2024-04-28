@@ -84,3 +84,20 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
         vim.bo.filetype = "yaml.ansible"
     end,
 })
+
+-- hide statusline and tabline on alpha screen
+vim.api.nvim_create_autocmd("User", {
+    pattern = "AlphaReady",
+    command = "set showtabline=0 | set laststatus=0",
+})
+
+-- make some background transparent if enabled
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        if require("user.config").transparent then
+            for _, x in ipairs { "FloatBorder", "NormalFloat", "Normal" } do
+                vim.api.nvim_set_hl(0, x, { bg = "None" })
+            end
+        end
+    end,
+})

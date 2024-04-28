@@ -28,7 +28,6 @@ return {
                                     for key, query in pairs(config or {}) do
                                         if q == query and key:find "[%]%[][cC]" then
                                             vim.cmd("normal! " .. key)
-
                                             return
                                         end
                                     end
@@ -91,6 +90,9 @@ return {
             require("nvim-treesitter.configs").setup(opts)
             require("treesitter-context").setup()
             require("ts_context_commentstring").setup { enable_autocmd = false }
+
+            vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "none" })
+            vim.api.nvim_set_hl(0, "TreesitterContextLineNumberBottom", { underline = true })
 
             local autopairs = require "nvim-autopairs"
             local cmp_autopairs = require "nvim-autopairs.completion.cmp"

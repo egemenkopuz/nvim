@@ -6,13 +6,7 @@ return {
         init = function()
             require("user.utils").load_keymap "files"
         end,
-        opts = {
-            windows = {
-                preview = true,
-                width_focus = 30,
-                width_preview = 50,
-            },
-        },
+        opts = { windows = { preview = true, width_focus = 30, width_preview = 50 } },
         config = function(_, opts)
             require("mini.files").setup(opts)
 
@@ -34,7 +28,6 @@ return {
                 pattern = "MiniFilesBufferCreate",
                 callback = function(args)
                     local buf_id = args.data.buf_id
-                    -- Tweak left-hand side of mapping to your liking
                     vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
                 end,
             })
@@ -154,27 +147,32 @@ return {
             telescope.load_extension "persisted"
             telescope.load_extension "noice"
 
-            local tc1 = "#282727"
-            local tc2 = "#7FB4CA"
-            local tc3 = "#181616"
-            local tc4 = "#FF5D62"
+            if not require("user.config").transparent then
+                local tc1 = "#282727"
+                local tc2 = "#7FB4CA"
+                local tc3 = "#181616"
+                local tc4 = "#FF5D62"
 
-            local hl_group = {
-                TelescopeMatching = { fg = tc2 },
-                TelescopeSelection = { fg = tc2, bg = tc1 },
-                TelescopePromptTitle = { fg = tc3, bg = tc4, bold = true },
-                TelescopePromptPrefix = { fg = tc2 },
-                TelescopePromptCounter = { fg = tc2 },
-                TelescopePromptBorder = { fg = tc1 },
-                TelescopeResultsNormal = { bg = tc3 },
-                TelescopeResultsBorder = { fg = tc1 },
-                TelescopePreviewTitle = { fg = tc3, bg = tc2, bold = true },
-                TelescopePreviewNormal = { bg = tc3 },
-                TelescopePreviewBorder = { fg = tc1 },
-            }
-
-            for k, v in pairs(hl_group) do
-                vim.api.nvim_set_hl(0, k, v)
+                local hl_group = {
+                    TelescopeMatching = { fg = tc2 },
+                    TelescopeSelection = { fg = tc2, bg = tc1 },
+                    TelescopePromptTitle = { fg = tc3, bg = tc4, bold = true },
+                    TelescopePromptPrefix = { fg = tc2 },
+                    TelescopePromptCounter = { fg = tc2 },
+                    TelescopePromptBorder = { fg = tc1 },
+                    TelescopeResultsNormal = { bg = tc3 },
+                    TelescopeResultsBorder = { fg = tc1 },
+                    TelescopePreviewTitle = { fg = tc3, bg = tc2, bold = true },
+                    TelescopePreviewNormal = { bg = tc3 },
+                    TelescopePreviewBorder = { fg = tc1 },
+                }
+                for k, v in pairs(hl_group) do
+                    vim.api.nvim_set_hl(0, k, v)
+                end
+            else
+                for _, k in ipairs { "TelescopeBorder" } do
+                    vim.api.nvim_set_hl(0, k, { fg = "gray", bg = "none" })
+                end
             end
         end,
     },
