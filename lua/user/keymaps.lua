@@ -291,8 +291,8 @@ M.hop = {
 M.trouble = {
     -- stylua: ignore
     n = {
-        ["<leader>xd"] = { "<cmd> Trouble diagnostics_preview toggle filter.buf=0 <cr>", "Buffer diagnostics", },
-        ["<leader>xD"] = { "<cmd> Trouble diagnostics_preview toggle <cr>", "Workspace diagnostics", },
+        ["<leader>xd"] = { "<cmd> Trouble diagnostics toggle filter.buf=0 <cr>", "Buffer diagnostics", },
+        ["<leader>xD"] = { "<cmd> Trouble diagnostics toggle <cr>", "Workspace diagnostics", },
         ["<leader>xl"] = { "<cmd> Trouble loclist toggle <cr>", "Loclist" },
         ["<leader>xq"] = { "<cmd> Trouble quickfix toggle <cr>", "Quickfix" },
         ["<leader>xs"] = { "<cmd> Trouble symbols toggle win.position=right <cr>", "Symbols"},

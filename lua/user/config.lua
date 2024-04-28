@@ -1,6 +1,7 @@
 local M = { icons = {} }
 
 M.colorscheme = "kanagawa"
+M.transparent = true
 
 vim.g.python3_host_prog = "/usr/bin/python3"
 
@@ -58,6 +59,9 @@ M.mason_packages = {
     "eslint-lsp",
     "ansible-lint",
     "prettier",
+    "black",
+    "isort",
+    "cmakelint",
 }
 
 M.nulls_packages = {
