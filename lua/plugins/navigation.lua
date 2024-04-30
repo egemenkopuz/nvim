@@ -133,7 +133,7 @@ return {
             opts.extensions["ui-select"] = {
                 require("telescope.themes").get_dropdown {
                     layout_strategy = "cursor",
-                    winblend = 15,
+                    -- winblend = 15,
                     layout_config = { prompt_position = "top", width = 80, height = 12 },
                 },
             }

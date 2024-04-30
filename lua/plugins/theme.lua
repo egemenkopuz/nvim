@@ -10,7 +10,12 @@ return {
             background = { dark = "dragon", light = "lotus" },
             transparent = require("user.config").transparent,
             overrides = function(_)
-                local overrides = { IblIndent = { fg = "#2E3440" }, IblScope = { fg = "#4A5263" } }
+                local overrides = {
+                    IblIndent = { fg = "#2E3440" },
+                    IblScope = { fg = "#4A5263" },
+                    CursorLineNr = { fg = "#ce5a57" },
+                    CursorLine = { bg = "#2E3440" },
+                }
                 if not require("user.config").transparent then
                     return vim.tbl_extend("force", overrides, {
                         NoiceCmdLinePopupBorder = { fg = "#282727" },

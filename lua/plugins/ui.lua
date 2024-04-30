@@ -29,31 +29,27 @@ return {
         dependencies = { "arkav/lualine-lsp-progress" },
         opts = function()
             local icons = require("user.config").icons
+            local colors = require("user.config").colors
             local utils = require "user.utils"
 
             local diff_color = {
-                added = { fg = "#78a5a3" },
-                modified = { fg = "#e1b16a" },
-                removed = { fg = "#ce5a57" },
+                added = { fg = colors.diff.added },
+                modified = { fg = colors.diff.modified },
+                removed = { fg = colors.diff.removed },
             }
             local diagnostics_color = {
-                error = { fg = "#ce5a57" },
-                warn = { fg = "#e1b16a" },
-                info = { fg = "#78a5a3" },
-                hint = { fg = "#82a0aa" },
+                error = { fg = colors.diagnostics.error },
+                warn = { fg = colors.diagnostics.warn },
+                info = { fg = colors.diagnostics.info },
+                hint = { fg = colors.diagnostics.hint },
             }
             if require("user.config").transparent then
-                diff_color = {
-                    added = { fg = "#78a5a3", bg = "none" },
-                    modified = { fg = "#e1b16a", bg = "none" },
-                    removed = { fg = "#ce5a57", bg = "none" },
-                }
-                diagnostics_color = {
-                    error = { fg = "#ce5a57", bg = "none" },
-                    warn = { fg = "#e1b16a", bg = "none" },
-                    info = { fg = "#78a5a3", bg = "none" },
-                    hint = { fg = "#82a0aa", bg = "none" },
-                }
+                for _, color in pairs(diff_color) do
+                    color.bg = "none"
+                end
+                for _, color in pairs(diagnostics_color) do
+                    color.bg = "none"
+                end
             end
 
             return {

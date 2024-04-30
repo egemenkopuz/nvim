@@ -1,7 +1,12 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.opt.clipboard = "unnamedplus"
+if not vim.env.SSH_TTY then
+    -- only set clipboard if not in ssh, to make sure the OSC 52
+    -- integration works automatically. Requires Neovim >= 0.10.0
+    vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
+end
+
 if os.getenv "PLATFORM" ~= "docker" then
     require("user.utils").load_keymap "clipboard"
 end

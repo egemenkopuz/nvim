@@ -1,4 +1,4 @@
-local M = { icons = {} }
+local M = { icons = {}, colors = {} }
 
 M.colorscheme = "kanagawa"
 M.transparent = true
@@ -116,6 +116,21 @@ M.disabled_plugins = {
 
 -- Dashboard custom logo
 M.logo = nil
+
+-- Colors for diagnostics
+M.colors.diagnostics = {
+    info = "#78a5a3",
+    hint = "#82a0aa",
+    warn = "#e1b16a",
+    error = "#ce5a57",
+}
+
+-- Colors for diffs
+M.colors.diff = {
+    added = "#78a5a3",
+    modified = "#e1b16a",
+    removed = "#ce5a57",
+}
 
 -- Diagnostics icons
 M.icons.diagnostics = {
