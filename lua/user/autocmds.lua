@@ -85,6 +85,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     end,
 })
 
+-- detect ansible filetype if path includes ansible as a name in parent directory
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*/ansible/*.yml", "*/ansible/*.yaml" },
+    callback = function()
+        vim.bo.filetype = "yaml.ansible"
+    end,
+})
+
 -- hide statusline and tabline on alpha screen
 vim.api.nvim_create_autocmd("User", {
     pattern = "AlphaReady",
