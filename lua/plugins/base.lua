@@ -56,7 +56,12 @@ return {
         config = true,
     },
 
-    { "olimorris/persisted.nvim", lazy = true, config = true },
+    {
+        "olimorris/persisted.nvim",
+        cmd = { "SessionLoad", "SessionLoadLast" },
+        lazy = true,
+        config = true,
+    },
 
     {
         "ahmedkhalf/project.nvim",

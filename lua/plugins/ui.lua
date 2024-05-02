@@ -173,8 +173,8 @@ return {
                 dashboard.button("f o", "󱋡 " .. " Recent files", ":Telescope oldfiles <CR>"),
                 dashboard.button("s p", " " .. " Select project", ":Telescope projects <CR>"),
                 dashboard.button("s s", " " .. " Select session", ":Telescope persisted <CR>"),
-                dashboard.button("c c", " " .. " Nvim config", ":e $MYVIMRC | :cd %:p:h <CR>"),
-                dashboard.button("c f", " " .. " Global config", ":e $HOME/.config | :cd %:p:h <CR>"),
+                dashboard.button("c c", " " .. " Nvim config", ":e $MYVIMRC | :cd %:p:h | :SessionLoad<CR>"),
+                dashboard.button("c f", " " .. " Global config", ":e $HOME/.config | :cd %:p:h | :SessionLoad<CR>"),
                 dashboard.button("c p", " " .. " Plugins", ":Lazy<CR>"),
                 dashboard.button("q", " " .. " Quit", ":qa <CR>"),
             }
