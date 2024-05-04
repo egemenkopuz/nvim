@@ -25,7 +25,8 @@ return {
                 require("mini.files").refresh { content = { filter = new_filter } }
             end
 
-            local map_split = function(buf_id, lhs, direction)
+            local map_split = function(buf_id, lhs, direction, should_close)
+                local should_close = should_close or false
                 local rhs = function()
                     local new_target_window
                     vim.api.nvim_win_call(require("mini.files").get_target_window(), function()
@@ -33,6 +34,9 @@ return {
                         new_target_window = vim.api.nvim_get_current_win()
                     end)
                     require("mini.files").set_target_window(new_target_window)
+                    if should_close then
+                        require("mini.files").close()
+                    end
                 end
                 local desc = "Split " .. direction
                 vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
@@ -215,6 +219,8 @@ return {
                     vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
                     map_split(buf_id, "gx", "belowright horizontal")
                     map_split(buf_id, "gv", "belowright vertical")
+                    map_split(buf_id, "gX", "belowright horizontal", true)
+                    map_split(buf_id, "gV", "belowright vertical", true)
                     local cwd = vim.fn.expand "%:p:h"
                     if git_status_cache[cwd] then
                         update_mini_with_git(buf_id, git_status_cache[cwd].statusMap)
