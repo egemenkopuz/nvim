@@ -36,6 +36,9 @@ return {
                 ["<leader>q"] = { name = "+quit" },
                 ["<leader>tg"] = { name = "+git" },
                 ["<leader>x"] = { name = "+diagnostics/quickfix" },
+                ["<leader>n"] = { name = "+notes" },
+                ["<leader>ut"] = { name = "+terminal" },
+                ["<leader>cv"] = { name = "+venv" },
             }
         end,
     },

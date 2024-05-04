@@ -211,7 +211,6 @@ M.lsp = {
     n = {
         ["gD"] = { function() vim.lsp.buf.declaration() end, "Go to declaration", },
         ["K"] = { function() vim.lsp.buf.hover() end, "Open hover", },
-        ["<leader>ls"] = { function() vim.lsp.buf.signature_help() end, "Signature help", },
         ["<leader>ca"] = { function() vim.lsp.buf.code_action() end, "Code action", },
         ["<leader>cf"] = { function() vim.lsp.buf.format { async = true } end, "Format", },
         ["<leader>wa"] = { function() vim.lsp.buf.add_workspace_folder() end, "Add workspace folder", },
@@ -464,6 +463,27 @@ M.flash = {
     [{ "o", "x" }] = { ["R"] = { function() require("flash").treesitter_search() end, "Treesitter search" }, },
     c = { ["<c-s>"] = { function() require("flash").toggle() end, "Toggle Flash Search" }, },
     -- stylua: ignore end
+}
+
+M.gitlinker = {
+    n = {
+        ["<leader>gy"] = {
+            function()
+                require("gitlinker").get_buf_range_url("n", {})
+            end,
+            "Yank link with line ranges",
+            { silent = true },
+        },
+    },
+    v = {
+        ["<leader>gy"] = {
+            function()
+                require("gitlinker").get_buf_range_url("v", {})
+            end,
+            "Yank link with line ranges",
+            { silent = true },
+        },
+    },
 }
 
 return M

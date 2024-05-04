@@ -8,7 +8,7 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "b0o/schemastore.nvim",
             "p00f/clangd_extensions.nvim",
-            { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
+            "folke/neodev.nvim",
             {
                 "ray-x/lsp_signature.nvim",
                 opts = {

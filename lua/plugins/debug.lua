@@ -8,7 +8,7 @@ return {
                 require("user.utils").load_keymap "dapui"
             end,
             config = function(_, opts)
-                require("dapui").setup { opts }
+                require("dapui").setup(opts)
             end,
         },
         { "nvim-neotest/nvim-nio" },
@@ -52,6 +52,7 @@ return {
 
         dap.configurations.cpp = {
             {
+                name = "cpp",
                 type = "codelldb",
                 request = "launch",
                 program = function()

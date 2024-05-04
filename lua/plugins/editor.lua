@@ -30,6 +30,10 @@ return {
     {
         "dnlhc/glance.nvim",
         event = "BufReadPre",
+        opts = {
+            border = { enable = true, top_char = "―", bottom_char = "―" },
+            use_trouble_qf = true,
+        },
         config = function(_, opts)
             require("glance").setup(opts)
             require("user.utils").load_keymap "glance"
@@ -59,23 +63,6 @@ return {
                 require("user.utils").load_keymap("gitsigns", { buffer = bufnr })
             end,
         },
-    },
-
-    {
-        "sindrets/diffview.nvim",
-        enabled = false,
-        dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = {
-            "DiffviewOpen",
-            "DiffviewClose",
-            "DiffviewToggleFiles",
-            "DiffviewFocusFiles",
-            "DiffviewRefresh",
-            "DiffviewFileHistory",
-        },
-        config = function(_, opts)
-            require("diffview").setup(opts)
-        end,
     },
 
     {
@@ -153,11 +140,15 @@ return {
         },
     },
 
-    { "ruifm/gitlinker.nvim", event = "BufReadPre", config = true },
-
-    { "tpope/vim-repeat", event = "BufReadPost" },
-
-    { "andymass/vim-matchup", event = "BufReadPost" },
+    {
+        "ruifm/gitlinker.nvim",
+        event = "BufReadPre",
+        opts = { mappings = nil },
+        config = function(_, opts)
+            require("gitlinker").setup(opts)
+            require("user.utils").load_keymap "gitlinker"
+        end,
+    },
 
     {
         "echasnovski/mini.bufremove",

@@ -28,35 +28,16 @@ return {
         },
         opts = function()
             local cmp = require "cmp"
-            local cmp_window = require "cmp.utils.window"
-
-            cmp_window.info_ = cmp_window.info
-            cmp_window.info = function(self)
-                local info = self:info_()
-                info.scrollable = false
-                return info
-            end
-
-            local function border(hl_name)
-                return {
-                    { "┌", hl_name },
-                    { "─", hl_name },
-                    { "┐", hl_name },
-                    { "│", hl_name },
-                    { "┘", hl_name },
-                    { "─", hl_name },
-                    { "└", hl_name },
-                    { "│", hl_name },
-                }
-            end
-
             return {
                 window = {
-                    completion = {
-                        border = border "CmpBorder",
-                        winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+                    completion = cmp.config.window.bordered {
+                        scrollbar = false,
+                        border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
                     },
-                    documentation = { border = border "CmpDocBorder" },
+                    documentation = cmp.config.window.bordered {
+                        scrollbar = false,
+                        border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
+                    },
                 },
                 completion = { completeopt = "menu,menuone,noinsert" },
                 snippet = {
@@ -126,9 +107,7 @@ return {
             opts = {
                 suggestion = { enabled = false },
                 panel = { enabled = false },
-                filetypes = {
-                    ["*"] = true,
-                },
+                filetypes = { yaml = true, markdown = true },
             },
         },
         opts = { method = "getCompletionsCycling" },
