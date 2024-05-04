@@ -281,13 +281,6 @@ M.navigator = {
     },
 }
 
-M.hop = {
-    n = {
-        ["<leader>k"] = { "<cmd>HopWordBC<cr>", "Hop word up" },
-        ["<leader>j"] = { "<cmd>HopWordAC<cr>", "Hop word down" },
-    },
-}
-
 M.trouble = {
     -- stylua: ignore
     n = {
@@ -459,6 +452,18 @@ M.venv = {
         ["<leader>cvs"] = { "<cmd> VenvSelect <cr>", "Select Python venv" },
         ["<leader>cvc"] = { "<cmd> VenvSelectCached <cr>", "Select cached Python venv" },
     },
+}
+
+M.flash = {
+    -- stylua: ignore start
+    [{ "n", "x", "o" }] = {
+        ["s"] = { function() require("flash").jump() end, "Flash" },
+        ["S"] = { function() require("flash").treesitter() end, "Flash Treesitter" },
+    },
+    o = { ["r"] = { function() require("flash").remote() end, "Remote Flash" }, },
+    [{ "o", "x" }] = { ["R"] = { function() require("flash").treesitter_search() end, "Treesitter search" }, },
+    c = { ["<c-s>"] = { function() require("flash").toggle() end, "Toggle Flash Search" }, },
+    -- stylua: ignore end
 }
 
 return M

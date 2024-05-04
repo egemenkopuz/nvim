@@ -378,32 +378,14 @@ return {
         end,
     },
 
-    -- change with smoka7/hop.nvim
-    -- {
-    --     "egemenkopuz/hop.nvim",
-    --     event = "BufReadPre",
-    --     branch = "fix-some-bugs",
-    --     opts = { keys = "etovxqpdygfblzhckisuran" },
-    --     config = function(_, opts)
-    --         require("hop").setup(opts)
-    --         require("user.utils").load_keymap "hop"
-    --     end,
-    -- },
-
-    -- {
-    --     "ggandor/leap.nvim",
-    --     event = "BufReadPre",
-    --     dependencies = { { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } } },
-    --     config = function(_, opts)
-    --         local leap = require "leap"
-    --         for k, v in pairs(opts) do
-    --             leap.opts[k] = v
-    --         end
-    --         leap.add_default_mappings(true)
-    --         vim.keymap.del({ "x", "o" }, "x")
-    --         vim.keymap.del({ "x", "o" }, "X")
-    --     end,
-    -- },
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        opts = {},
+        init = function()
+            require("user.utils").load_keymap "flash"
+        end,
+    },
 
     {
         "echasnovski/mini.bracketed",
