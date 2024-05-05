@@ -2,6 +2,8 @@ local M = { icons = {}, colors = {} }
 
 M.colorscheme = "kanagawa"
 M.transparent = true
+M.lsp_highlight_cursor = false
+M.lsp_inlay_hints = true
 
 vim.g.python3_host_prog = "/usr/bin/python3"
 
@@ -187,6 +189,26 @@ M.icons.kinds = {
     Watch = "󰖉 ",
     Package = " ",
     Copilot = " ",
+}
+
+M.icons.clangd = {
+    role_icons = {
+        type = "",
+        declaration = "",
+        expression = "",
+        specifier = "",
+        statement = "",
+        ["template argument"] = "",
+    },
+    kind_icons = {
+        Compound = "",
+        Recovery = "",
+        TranslationUnit = "",
+        PackExpansion = "",
+        TemplateTypeParm = "",
+        TemplateTemplateParm = "",
+        TemplateParamObject = "",
+    },
 }
 
 -- stylua: ignore start

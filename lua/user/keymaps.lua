@@ -219,6 +219,17 @@ M.lsp = {
     },
 }
 
+M.lsp_inlay_hints = {
+    n = {
+        ["<leader>th"] = {
+            function()
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            end,
+            "Toggle inlay hints",
+        },
+    },
+}
+
 M.glance = {
     n = {
         ["gr"] = { "<cmd>Glance references<cr>", "References" },

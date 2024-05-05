@@ -119,69 +119,49 @@ return {
             local servers = opts.servers
 
             vim.diagnostic.config(opts.diagnostics)
-
             require("mason-lspconfig").setup { ensure_installed = vim.tbl_keys(servers) }
             require("mason-lspconfig").setup_handlers {
-                function(server)
-                    local server_opts = servers[server] or {}
+                function(server_name)
+                    local server = servers[server_name] or {}
 
-                    server_opts.flags = { debounce_text_changes = 150 }
-                    server_opts.on_attach = utils.lsp_on_attach()
-                    server_opts.capabilities = utils.lsp_capabilities()
+                    server.flags = { debounce_text_changes = 150 }
+                    server.on_attach = utils.lsp_on_attach()
+                    server.capabilities = utils.lsp_capabilities()
 
-                    if server == "lua_ls" then
+                    if server_name == "lua_ls" then
                         require("neodev").setup {}
                     end
 
-                    server_opts.before_init = function(_, config)
-                        if server == "pyright" then
+                    server.before_init = function(_, config)
+                        if server_name == "pyright" then
                             config.settings.python.pythonPath =
                                 utils.get_python_path(config.root_dir)
                         end
                     end
 
-                    if server == "jsonls" then
-                        server_opts.settings = {
+                    if server_name == "jsonls" then
+                        server.settings = {
                             json = {
                                 schemas = require("schemastore").json.schemas(),
                                 validate = { enable = true },
                             },
                         }
-                    elseif server == "yamlls" then
-                        server_opts.settings = {
+                    elseif server_name == "yamlls" then
+                        server.settings = {
                             yaml = {
                                 schemas = require("schemastore").json.schemas {
                                     select = { "docker-compose.yml" },
                                 },
                             },
                         }
-                    elseif server == "clangd" then
-                        server_opts.capabilities.offsetEncoding = "utf-16"
+                    elseif server_name == "clangd" then
+                        server.capabilities.offsetEncoding = "utf-16"
                         require("clangd_extensions").setup {
-                            -- server = server_opts,
-                            ast = {
-                                role_icons = {
-                                    type = "",
-                                    declaration = "",
-                                    expression = "",
-                                    specifier = "",
-                                    statement = "",
-                                    ["template argument"] = "",
-                                },
-                                kind_icons = {
-                                    Compound = "",
-                                    Recovery = "",
-                                    TranslationUnit = "",
-                                    PackExpansion = "",
-                                    TemplateTypeParm = "",
-                                    TemplateTemplateParm = "",
-                                    TemplateParamObject = "",
-                                },
-                            },
+                            ast = require("user.config").icons.clangd,
                         }
                     end
 
-                    lspconfig[server].setup(server_opts)
+                    lspconfig[server_name].setup(server)
                 end,
             }
         end,

@@ -200,6 +200,7 @@ function M.telescope(builtin, opts)
         require("telescope.builtin")[builtin](opts)
     end
 end
+
 function M.pick_window()
     local picked_window_id = require("window-picker").pick_window {
         include_current_win = true,
@@ -222,12 +223,35 @@ function M.lsp_on_attach()
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
         M.load_keymap("lsp", { buffer = bufnr })
-        if client.supports_method "textDocument/inlayHint" then
-            local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-            if type(ih) == "function" then
-                ih(true)
-            elseif type(ih) == "table" and ih.enable then
-                ih.enable(true, { bufnr = bufnr })
+        if require("user.config").lsp_highlight_cursor then
+            if client.server_capabilities.documentHighlightProvider then
+                local hl_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+                vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+                    buffer = bufnr,
+                    group = hl_augroup,
+                    callback = vim.lsp.buf.document_highlight,
+                })
+                vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+                    buffer = bufnr,
+                    group = hl_augroup,
+                    callback = vim.lsp.buf.clear_references,
+                })
+                vim.api.nvim_create_autocmd("LspDetach", {
+                    group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+                    callback = function(event_d)
+                        vim.lsp.buf.clear_references()
+                        vim.api.nvim_clear_autocmds {
+                            group = "lsp-highlight",
+                            buffer = event_d.buf,
+                        }
+                    end,
+                })
+            end
+        end
+        if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            M.load_keymap "lsp_inlay_hints"
+            if require("user.config").lsp_inlay_hints then
+                vim.lsp.inlay_hint.enable(true)
             end
         end
         if client.name == "ruff" then
