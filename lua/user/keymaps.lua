@@ -497,4 +497,25 @@ M.gitlinker = {
     },
 }
 
+M.visual_multi = {
+    n = {
+        ["<leader>aj"] = { "<Plug>(VM-Add-Cursor-Down)", "Put Cursor Down" },
+        ["<leader>ak"] = { "<Plug>(VM-Add-Cursor-Up)", "Put Cursor Up" },
+        ["<leader>aa"] = { "<Plug>(VM-Select-All)<Tab>", "Select All" },
+        ["<leader>ar"] = { "<Plug>(VM-Start-Regex-Search)", "Start Regex Search" },
+        ["<leader>ap"] = { "<Plug>(VM-Add-Cursor-At-Pos)", "Add Cursor At Pos" },
+        ["<leader>ao"] = { "<Plug>(VM-Toggle-Mappings)", "Toggle Mapping" },
+    },
+    v = {
+        ["<leader>av"] = {
+            function()
+                vim.cmd 'silent! execute "normal! \\<Plug>(VM-Visual-Cursors)"'
+                vim.cmd "sleep 200m"
+                vim.cmd 'silent! execute "normal! A"'
+            end,
+            "Visual Cursors",
+        },
+    },
+}
+
 return M

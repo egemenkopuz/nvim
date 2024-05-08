@@ -211,6 +211,19 @@ M.icons.clangd = {
     },
 }
 
+M.diagnostics = {
+    underline = true,
+    update_in_insert = false,
+    virtual_text = { spacing = 2, prefix = "●" },
+    severity_sort = true,
+    float = { border = "rounded" },
+    virtual_lines = false,
+}
+
+-- remap macro recording to qq
+vim.api.nvim_set_keymap("n", "q", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "qq", "q", { noremap = true, silent = true })
+
 -- stylua: ignore start
 vim.fn.sign_define( "DiagnosticSignError", { text = "", numhl = "DiagnosticError", linehl = "DiagnosticLineError" })
 vim.fn.sign_define( "DiagnosticSignWarn", { text = "", numhl = "DiagnosticWarn", linehl = "DiagnosticLineWarn" })
@@ -224,14 +237,5 @@ vim.api.nvim_set_hl(0, "DapBreakpoint", { bg = "#454545" })
 vim.api.nvim_set_hl(0, "DapLogPoint", { bg = "#31353f" })
 vim.api.nvim_set_hl(0, "DapStopped", { fg = "white", bg = "#B14238" })
 -- stylua: ignore end
-
-M.diagnostics = {
-    underline = true,
-    update_in_insert = false,
-    virtual_text = { spacing = 2, prefix = "●" },
-    severity_sort = true,
-    float = { border = "rounded" },
-    virtual_lines = false,
-}
 
 return M

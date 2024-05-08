@@ -211,4 +211,17 @@ return {
         opts = { snippet_engine = "luasnip" },
         config = true,
     },
+
+    {
+        "mg979/vim-visual-multi",
+        event = "BufReadPre",
+        init = function()
+            vim.g.VM_default_mappings = 0
+            vim.g.VM_maps = { ["Find Under"] = "" }
+            vim.g.VM_add_cursor_at_pos_no_mappings = 1
+            vim.g.VM_set_statusline = 0
+            vim.g.VM_silent_exit = 1
+            require("user.utils").load_keymap "visual_multi"
+        end,
+    },
 }

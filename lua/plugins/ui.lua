@@ -87,6 +87,25 @@ return {
                             symbols = { modified = "[+]", readonly = "[-]", unnamed = "" },
                             path = 1,
                         },
+                        {
+                            function()
+                                local recording_register = vim.fn.reg_recording()
+                                if recording_register == "" then
+                                    return ""
+                                else
+                                    return "recording @" .. recording_register
+                                end
+                            end,
+                        },
+                        {
+                            function()
+                                local result = vim.fn["VMInfos"]()
+                                if result.status == nil then
+                                    return ""
+                                end
+                                return "multi-cursor " .. result.ratio
+                            end,
+                        },
                     },
                     lualine_x = {
                         {
@@ -354,6 +373,7 @@ return {
         "folke/todo-comments.nvim",
         cmd = { "TodoTrouble", "TodoTelescope" },
         event = "BufReadPre",
+        opts = { signs = false },
         init = function()
             require("user.utils").load_keymap "todo_comments"
         end,
