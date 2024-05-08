@@ -200,9 +200,13 @@ M.rename = {
 }
 
 M.files = {
-    -- stylua: ignore
     n = {
-        ["<C-n>"] = { function () MiniFiles.open() end },
+        ["<C-n>"] = {
+            function()
+                MiniFiles.open(vim.api.nvim_buf_get_name(0))
+                MiniFiles.reveal_cwd()
+            end,
+        },
     },
 }
 
