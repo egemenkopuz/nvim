@@ -1,11 +1,11 @@
-name: Add PLUGINS.md
+name: Master workflow
 on:
   push:
-    paths:
-      - "plugin-lock.json"
+    branches:
+      - master
   pull_request:
-    paths:
-      - "plugin-lock.json"
+    branches:
+      - master
 jobs:
   add-plugins-md:
     runs-on: ubuntu-latest
@@ -30,3 +30,12 @@ jobs:
           git push origin ${{ github.head_ref || github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch update to dotfiles repo
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT }}
+          repository: egemenkopuz/dotfiles
+          event-type: update-submodule
