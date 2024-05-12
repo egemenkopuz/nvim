@@ -1,9 +1,15 @@
+# Neovim Configuration
+
+> Visit my [dotfiles](https://github.com/egemenkopuz/dotfiles) repository, to see my whole dotfiles
+
+You can find the list of plugins in [PLUGINS.md](PLUGINS.md)
+
 ## Install Instructions
 
-Clone the repository and install the plugins:
+Clone the repository:
 
 ```sh
-git clone git@github.com:egemenkopuz/nvim ~/.config/egemenkopuz/nvim
+git clone https://github.com/egemenkopuz/nvim.git ~/.config/egemenkopuz/nvim
 ```
 
 Open Neovim with this config:
