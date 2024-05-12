@@ -25,6 +25,10 @@ jobs:
         uses: ./.github/actions/update-plugins-md
       - name: Commit changes
         run: |
+          if git diff --exit-code; then
+            echo "No changes to commit"
+            exit 0
+          fi
           git add PLUGINS.md
           git commit -m "chore: update PLUGINS.md"
           git push origin ${{ github.head_ref || github.ref_name }}
