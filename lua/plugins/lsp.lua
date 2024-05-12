@@ -5,6 +5,7 @@ return {
         dependencies = {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "b0o/schemastore.nvim",
             "p00f/clangd_extensions.nvim",
@@ -119,50 +120,53 @@ return {
             local servers = opts.servers
 
             vim.diagnostic.config(opts.diagnostics)
-            require("mason-lspconfig").setup { ensure_installed = vim.tbl_keys(servers) }
-            require("mason-lspconfig").setup_handlers {
-                function(server_name)
-                    local server = servers[server_name] or {}
+            require("mason-tool-installer").setup { ensure_installed = vim.tbl_keys(servers) }
+            require("mason-lspconfig").setup {
+                ensure_installed = vim.tbl_keys(servers),
+                handlers = {
+                    function(server_name)
+                        local server = servers[server_name] or {}
 
-                    server.flags = { debounce_text_changes = 150 }
-                    server.on_attach = utils.lsp_on_attach()
-                    server.capabilities = utils.lsp_capabilities()
+                        server.flags = { debounce_text_changes = 150 }
+                        server.on_attach = utils.lsp_on_attach()
+                        server.capabilities = utils.lsp_capabilities()
 
-                    if server_name == "lua_ls" then
-                        require("neodev").setup {}
-                    end
-
-                    server.before_init = function(_, config)
-                        if server_name == "pyright" then
-                            config.settings.python.pythonPath =
-                                utils.get_python_path(config.root_dir)
+                        if server_name == "lua_ls" then
+                            require("neodev").setup {}
                         end
-                    end
 
-                    if server_name == "jsonls" then
-                        server.settings = {
-                            json = {
-                                schemas = require("schemastore").json.schemas(),
-                                validate = { enable = true },
-                            },
-                        }
-                    elseif server_name == "yamlls" then
-                        server.settings = {
-                            yaml = {
-                                schemas = require("schemastore").json.schemas {
-                                    select = { "docker-compose.yml" },
+                        server.before_init = function(_, config)
+                            if server_name == "pyright" then
+                                config.settings.python.pythonPath =
+                                    utils.get_python_path(config.root_dir)
+                            end
+                        end
+
+                        if server_name == "jsonls" then
+                            server.settings = {
+                                json = {
+                                    schemas = require("schemastore").json.schemas(),
+                                    validate = { enable = true },
                                 },
-                            },
-                        }
-                    elseif server_name == "clangd" then
-                        server.capabilities.offsetEncoding = "utf-16"
-                        require("clangd_extensions").setup {
-                            ast = require("user.config").icons.clangd,
-                        }
-                    end
+                            }
+                        elseif server_name == "yamlls" then
+                            server.settings = {
+                                yaml = {
+                                    schemas = require("schemastore").json.schemas {
+                                        select = { "docker-compose.yml" },
+                                    },
+                                },
+                            }
+                        elseif server_name == "clangd" then
+                            server.capabilities.offsetEncoding = "utf-16"
+                            require("clangd_extensions").setup {
+                                ast = require("user.config").icons.clangd,
+                            }
+                        end
 
-                    lspconfig[server_name].setup(server)
-                end,
+                        lspconfig[server_name].setup(server)
+                    end,
+                },
             }
         end,
     },

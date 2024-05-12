@@ -36,6 +36,8 @@ M.treesitter_packages = {
     "vim",
     "vimdoc",
     "yaml",
+    "terraform",
+    "hcl",
 }
 
 -- auto install mason packages
@@ -76,12 +78,14 @@ M.nulls_packages = {
         "shfmt",
         "mdformat",
         "cmake_format",
+        "terraform_fmt",
     },
     diagnostics = {
         "hadolint",
         "cmake_lint",
         "cppcheck",
         "ansiblelint",
+        "terraform_validate",
     },
     code_actions = {},
     hover = {},

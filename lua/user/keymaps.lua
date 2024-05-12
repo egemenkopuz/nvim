@@ -476,7 +476,7 @@ M.flash = {
     },
     o = { ["r"] = { function() require("flash").remote() end, "Remote Flash" }, },
     [{ "o", "x" }] = { ["R"] = { function() require("flash").treesitter_search() end, "Treesitter search" }, },
-    c = { ["<c-s>"] = { function() require("flash").toggle() end, "Toggle Flash Search" }, },
+    -- c = { ["<c-s>"] = { function() require("flash").toggle() end, "Toggle Flash Search" }, },
     -- stylua: ignore end
 }
 
@@ -519,6 +519,13 @@ M.visual_multi = {
             end,
             "Visual Cursors",
         },
+    },
+}
+
+M.diff = {
+    n = {
+        -- stylua: ignore
+        ["<leader>tgo"] = { function() require("mini.diff").toggle_overlay(0) end, "Toggle diff overlay", },
     },
 }
 
