@@ -1,0 +1,32 @@
+name: Add PLUGINS.md
+on:
+  push:
+    paths:
+      - "plugin-lock.json"
+  pull_request:
+    paths:
+      - "plugin-lock.json"
+jobs:
+  add-plugins-md:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Authorize Git
+        run: |
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config --global user.name "$GITHUB_ACTOR"
+      - name: Add PLUGINS.md
+        uses: ./.github/actions/add-plugins-md
+      - name: Commit changes
+        run: |
+          git add PLUGINS.md
+          git commit -m "chore: update PLUGINS.md"
+          git push origin ${{ github.head_ref || github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

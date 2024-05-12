@@ -1,0 +1,6 @@
+name: "Add PLUGINS.md"
+description: "Add a markdown file with the list of plugins in a neovim configuration."
+author: "Egemen Kopuz <egemen.kopuz.m@gmail.com>"
+runs:
+  using: "docker"
+  image: "Dockerfile"
