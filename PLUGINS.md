@@ -1,13 +1,13 @@
 # PLUGINS
 
-## Split and Window
-
-- [Navigator.nvim](https://github.com/numToStr/Navigator.nvim) - Smoothly navigate between Neovim splits and Tmux panes.
-
 ## Snippet
 
 - [LuaSnip](https://github.com/L3MON4D3/LuaSnip) - A snippet engine written in Lua.
 - [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) - Set of preconfigured snippets for different languages.
+
+## Split and Window
+
+- [Navigator.nvim](https://github.com/numToStr/Navigator.nvim) - Smoothly navigate between Neovim splits and Tmux panes.
 
 ## Startup
 
