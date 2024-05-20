@@ -63,12 +63,23 @@ return {
         "olimorris/persisted.nvim",
         cmd = { "SessionLoad", "SessionLoadLast" },
         lazy = true,
-        config = true,
+        opts = {
+            autoload = true,
+            should_autosave = function()
+                if vim.bo.filetype == "alpha" then
+                    return false
+                end
+                return true
+            end,
+        },
+        config = function(_, opts)
+            require("persisted").setup(opts)
+        end,
     },
 
     {
         "ahmedkhalf/project.nvim",
-        lazy = true,
+        lazy = false,
         opts = { manual_mode = true },
         config = function()
             require("project_nvim").setup()
