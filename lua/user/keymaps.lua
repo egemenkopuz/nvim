@@ -83,6 +83,8 @@ M.general = {
         ["<leader>tf"] = { function() utils.toggle_autoformat() end, "Toggle autoformat", },
         -- toggle color column
         ["<leader>tc"] = { function() utils.toggle_colorcolumn() end, "Toggle colorcolumn", },
+        -- toggle cursor lock
+        ["<leader>tl"] = { function() vim.opt.scrolloff = 999 - vim.o.scrolloff end, "Toggle cursorlock", },
     },
     v = {
         -- sorting
@@ -214,7 +216,6 @@ M.lsp = {
     -- stylua: ignore
     n = {
         ["gD"] = { function() vim.lsp.buf.declaration() end, "Go to declaration", },
-        ["K"] = { function() vim.lsp.buf.hover() end, "Open hover", },
         ["<leader>ca"] = { function() vim.lsp.buf.code_action() end, "Code action", },
         ["<leader>cf"] = { function() vim.lsp.buf.format { async = true } end, "Format", },
         ["<leader>wa"] = { function() vim.lsp.buf.add_workspace_folder() end, "Add workspace folder", },
@@ -252,7 +253,7 @@ M.gitsigns = {
         ["<leader>tgs"] = { "<cmd> Gitsigns toggle_signs <cr>", "Toggle git signs" },
         ["<leader>tgn"] = { "<cmd> Gitsigns toggle_numhl <cr>", "Toggle git numhl" },
         ["<leader>tgl"] = { "<cmd> Gitsigns toggle_linehl <cr>", "Toggle git linehl" },
-        ["<leader>tgw"] = { "<cmd> Gitsigns toggle_word_diff <cr>", "Toggle git diff" },
+        ["<leader>gD"] = { "<cmd> Gitsigns toggle_word_diff <cr>", "Diff inlay" },
         ["<leader>tgb"] = { "<cmd> Gitsigns toggle_current_line_blame <cr>", "Toggle git line blame" },
         ["<leader>gs"] = { "<cmd> Gitsigns stage_hunk <cr>", "Stage hunk" },
         ["<leader>gr"] = { "<cmd> Gitsigns reset_hunk <cr>", "Reset hunk" },
@@ -261,20 +262,20 @@ M.gitsigns = {
         ["<leader>gS"] = { "<cmd> Gitsigns stage_buffer <cr>", "Stage buffer" },
         ["<leader>gR"] = { "<cmd> Gitsigns reset_buffer <cr>", "Reset buffer" },
         ["<leader>gl"] = { function() require("gitsigns").blame_line { full = true } end, "Blame line", },
-        ["<leader>gd"] = { function() require("gitsigns").diffthis() end, "Diff this", },
-        ["<leader>gD"] = { function() require("gitsigns").diffthis("~") end, "Diff this (~)", },
-        ["[h"] = {
-            function()
-                if vim.wo.diff then return "[h" end vim.schedule(function() require("gitsigns").prev_hunk() end) return "<Ignore>"
-            end,
-            "Previous hunk", opts = { expr = true },
-        },
-        ["]h"] = {
-            function()
-                if vim.wo.diff then return "]h" end vim.schedule(function() require("gitsigns").next_hunk() end) return "<Ignore>"
-            end,
-            "Next hunk", opts = { expr = true },
-        },
+        -- ["<leader>gd"] = { function() require("gitsigns").diffthis() end, "Diff this", },
+        -- ["<leader>gD"] = { function() require("gitsigns").diffthis("~") end, "Diff this (~)", },
+        -- ["[h"] = {
+        --     function()
+        --         if vim.wo.diff then return "[h" end vim.schedule(function() require("gitsigns").prev_hunk() end) return "<Ignore>"
+        --     end,
+        --     "Previous hunk", opts = { expr = true },
+        -- },
+        -- ["]h"] = {
+        --     function()
+        --         if vim.wo.diff then return "]h" end vim.schedule(function() require("gitsigns").next_hunk() end) return "<Ignore>"
+        --     end,
+        --     "Next hunk", opts = { expr = true },
+        -- },
     },
 }
 
@@ -525,7 +526,7 @@ M.visual_multi = {
 M.diff = {
     n = {
         -- stylua: ignore
-        ["<leader>tgo"] = { function() require("mini.diff").toggle_overlay(0) end, "Toggle diff overlay", },
+        ["<leader>gd"] = { function() require("mini.diff").toggle_overlay(0) end, "Diff overlay", },
     },
 }
 

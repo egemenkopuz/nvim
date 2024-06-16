@@ -198,7 +198,10 @@ return {
     {
         "williamboman/mason.nvim",
         cmd = "Mason",
-        opts = { ensure_installed = require("user.config").mason_packages },
+        opts = {
+            ensure_installed = require("user.config").mason_packages,
+            ui = { border = "single" },
+        },
         config = function(_, opts)
             require("mason").setup(opts)
             local mr = require "mason-registry"
@@ -218,38 +221,14 @@ return {
             "nvim-telescope/telescope.nvim",
             "mfussenegger/nvim-dap-python",
         },
-        lazy = true,
-        cmd = { "VenvSelect", "VenvSelectCahced" },
+        branch = "regexp",
+        ft = "python",
+        cmd = { "VenvSelect" },
         init = function()
             require("user.utils").load_keymap "venv"
         end,
-        opts = function(_, opts)
-            opts.dap_enabled = true
-            return vim.tbl_deep_extend("force", opts, {
-                name = {
-                    "venv",
-                    ".venv",
-                    "env",
-                    ".env",
-                },
-            })
-        end,
         config = function(_, opts)
             require("venv-selector").setup(opts)
-            local augroup = vim.api.nvim_create_augroup("VenvSelectorRetrieve", { clear = true })
-            vim.api.nvim_create_autocmd({ "LspAttach" }, {
-                pattern = { "*.py" },
-                group = augroup,
-                callback = function(args)
-                    if
-                        vim.lsp.get_client_by_id(args["data"]["client_id"])["name"]
-                        == "basedpyright"
-                    then
-                        require("venv-selector").retrieve_from_cache()
-                        vim.api.nvim_del_augroup_by_id(augroup)
-                    end
-                end,
-            })
         end,
     },
 }

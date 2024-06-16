@@ -8,6 +8,7 @@ return {
             compile = true,
             colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
             background = { dark = "dragon", light = "lotus" },
+            dimInactive = true,
             transparent = require("user.config").transparent,
             overrides = function(_)
                 local overrides = {
@@ -18,7 +19,10 @@ return {
                 }
                 if not require("user.config").transparent then
                     return vim.tbl_extend("force", overrides, {
-                        NoiceCmdLinePopupBorder = { fg = "#282727" },
+                        NoiceCmdLinePopupBorder = { fg = "gray" },
+                        NoiceCmdLinePopupTitle = { fg = "#181616", bg = "gray", bold = true },
+                        NormalFloatBorder = { fg = "gray" },
+                        FloatBorder = { fg = "gray" },
                     })
                 end
                 return vim.tbl_extend("force", overrides, {

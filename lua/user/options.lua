@@ -47,4 +47,5 @@ vim.opt.undolevels = 10000
 vim.opt.timeoutlen = 400
 vim.opt.updatetime = 200
 vim.opt.splitkeep = "screen"
+vim.opt.scrolloff = 10
 vim.g.markdown_recommended_style = 0

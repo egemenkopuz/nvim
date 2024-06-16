@@ -119,7 +119,6 @@ return {
 
     {
         "folke/trouble.nvim",
-        branch = "dev",
         cmd = { "TroubleToggle", "Trouble" },
         opts = {
             focus = true,

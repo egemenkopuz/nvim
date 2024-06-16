@@ -5,6 +5,25 @@ return {
         lazy = false,
         init = function()
             require("user.utils").load_keymap "files"
+            vim.api.nvim_create_autocmd("BufWinEnter", {
+                nested = true,
+                callback = function(info)
+                    local path = info.file
+                    if path == "" then
+                        return
+                    end
+                    local stat = vim.uv.fs_stat(path)
+                    if stat and stat.type == "directory" then
+                        vim.api.nvim_del_autocmd(info.id)
+                        require "mini.files"
+                        vim.cmd.edit {
+                            bang = true,
+                            mods = { keepjumps = true },
+                        }
+                        return true
+                    end
+                end,
+            })
         end,
         opts = { windows = { preview = true, width_focus = 30, width_preview = 50 } },
         config = function(_, opts)
@@ -70,31 +89,16 @@ return {
             end
 
             local fetch_git_status = function(cwd, callback)
-                local stdout = (vim.uv or vim.loop).new_pipe(false)
-                local handle, pid = (vim.uv or vim.loop).spawn(
-                    "git",
-                    {
-                        args = { "status", "--ignored", "--porcelain" },
-                        cwd = cwd,
-                        stdio = { nil, stdout, nil },
-                    },
-                    vim.schedule_wrap(function(code, signal)
-                        if code == 0 then
-                            stdout:read_start(function(err, content)
-                                if content then
-                                    callback(content)
-                                    vim.g.content = content
-                                end
-                                stdout:close()
-                            end)
-                        else
-                            vim.notify(
-                                "Git command failed with exit code: " .. code,
-                                vim.log.levels.ERROR
-                            )
-                            stdout:close()
-                        end
-                    end)
+                local function on_exit(content)
+                    if content.code == 0 then
+                        callback(content.stdout)
+                        vim.g.content = content.stdout
+                    end
+                end
+                vim.system(
+                    { "git", "status", "--ignored", "--porcelain" },
+                    { text = true, cwd = cwd },
+                    on_exit
                 )
             end
 
@@ -329,12 +333,14 @@ return {
                     TelescopePromptTitle = { fg = tc3, bg = tc4, bold = true },
                     TelescopePromptPrefix = { fg = tc2 },
                     TelescopePromptCounter = { fg = tc2 },
-                    TelescopePromptBorder = { fg = tc1 },
-                    TelescopeResultsNormal = { bg = tc3 },
-                    TelescopeResultsBorder = { fg = tc1 },
+                    -- TelescopePromptBorder = { fg = tc1 },
+                    -- TelescopeResultsNormal = { bg = tc3 },
+                    TelescopeResultsTitle = { fg = tc3, bg = "lightgray", bold = true },
+                    -- TelescopeResultsBorder = { fg = tc1 },
                     TelescopePreviewTitle = { fg = tc3, bg = tc2, bold = true },
-                    TelescopePreviewNormal = { bg = tc3 },
-                    TelescopePreviewBorder = { fg = tc1 },
+                    -- TelescopePreviewNormal = { bg = tc3 },
+                    -- TelescopePreviewBorder = { fg = tc1 },
+                    TelescopeBorder = { fg = "gray", bg = "none" },
                 }
                 for k, v in pairs(hl_group) do
                     vim.api.nvim_set_hl(0, k, v)

@@ -1,7 +1,7 @@
 local M = { icons = {}, colors = {} }
 
 M.colorscheme = "kanagawa"
-M.transparent = true
+M.transparent = false
 M.lsp_highlight_cursor = false
 M.lsp_inlay_hints = true
 
@@ -42,30 +42,45 @@ M.treesitter_packages = {
 
 -- auto install mason packages
 M.mason_packages = {
+    -- bash
     "bash-language-server",
+    "shfmt",
+    -- lua
     "lua-language-server",
+    "stylua",
+    -- terraform
+    "terraform-ls",
+    "tflint",
+    "tfsec",
+    -- cmake
     "cmake-language-server",
     "cmakelang",
+    "cmakelint",
+    -- python
     "basedpyright",
     "ruff-lsp",
-    "clangd",
-    "dockerfile-language-server",
-    "marksman",
-    "json-lsp",
-    "yaml-language-server",
-    "hadolint",
-    "stylua",
-    "clang-format",
     "debugpy",
-    "codelldb",
-    "shfmt",
-    "mdformat",
-    "eslint-lsp",
-    "ansible-lint",
-    "prettier",
     "black",
     "isort",
-    "cmakelint",
+    -- cpp
+    "clangd",
+    "codelldb",
+    "clang-format",
+    -- docker
+    "dockerfile-language-server",
+    "hadolint",
+    -- md
+    "marksman",
+    "mdformat",
+    -- json
+    "json-lsp",
+    -- yaml
+    "yaml-language-server",
+    -- js/ts
+    "eslint-lsp",
+    -- ansible
+    "ansible-lint",
+    "prettier",
 }
 
 M.nulls_packages = {
@@ -86,6 +101,7 @@ M.nulls_packages = {
         "cppcheck",
         "ansiblelint",
         "terraform_validate",
+        "tfsec",
     },
     code_actions = {},
     hover = {},
@@ -117,7 +133,6 @@ M.disabled_plugins = {
     "optwin",
     "compiler",
     "bugreport",
-    "ftplugin",
 }
 
 -- Dashboard custom logo
