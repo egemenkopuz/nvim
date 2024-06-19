@@ -5,18 +5,22 @@ return {
         priority = 1000,
         lazy = false,
         opts = {
-            compile = true,
-            colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
+            compile = false,
+            colors = {
+                palette = { oldWhite = "#c5c9c5" },
+                theme = { all = { ui = { bg_gutter = "none" } } },
+            },
             background = { dark = "dragon", light = "lotus" },
             dimInactive = true,
             transparent = require("user.config").transparent,
-            overrides = function(_)
+            overrides = function(colors)
                 local overrides = {
                     IblIndent = { fg = "#2E3440" },
                     IblScope = { fg = "#4A5263" },
                     CursorLineNr = { fg = "#ce5a57" },
                     CursorLine = { bg = "#2E3440" },
                 }
+                colors.palette.oldWhite = colors.palette.fujiWhite
                 if not require("user.config").transparent then
                     return vim.tbl_extend("force", overrides, {
                         NoiceCmdLinePopupBorder = { fg = "gray" },
