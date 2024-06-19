@@ -76,12 +76,6 @@
 
 - [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) - Preview markdown on your modern browser with synchronised scrolling and flexible configuration.
 
-## Neovim Lua Development
-
-- [neodev.nvim](https://github.com/folke/neodev.nvim) - Dev setup for init.lua and plugin development with full signature help, docs and completion for the Neovim Lua API.
-- [nui.nvim](https://github.com/MunifTanjim/nui.nvim) - UI Component Library.
-- [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - Plenary: full; complete; entire; absolute; unqualified. All the Lua functions I don't want to write twice.
-
 ## Editing Support
 
 - [neogen](https://github.com/danymat/neogen) - A better annotation generator. Supports multiple languages and annotation conventions.
@@ -100,6 +94,11 @@
 
 - [noice.nvim](https://github.com/folke/noice.nvim) - Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
 - [nvim-notify](https://github.com/rcarriga/nvim-notify) - A fancy, configurable, notification manager.
+
+## Neovim Lua Development
+
+- [nui.nvim](https://github.com/MunifTanjim/nui.nvim) - UI Component Library.
+- [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - Plenary: full; complete; entire; absolute; unqualified. All the Lua functions I don't want to write twice.
 
 ## Color
 
@@ -164,6 +163,7 @@
 - mini&#46;move
 - mini&#46;splitjoin
 - mini&#46;surround
+- neodev&#46;nvim
 - nvim-dap-python
 - nvim-nio
 - nvim-window-picker
