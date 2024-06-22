@@ -42,6 +42,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "neotest-output-panel",
         "ClangdAST",
         "ClangdTypeHierarchy",
+        "gitsigns.blame",
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false

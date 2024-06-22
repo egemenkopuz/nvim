@@ -4,9 +4,10 @@ local merge_tb = vim.tbl_deep_extend
 local general_opts = { noremap = true, silent = true }
 
 local settings = {
-    diagnostics = true,
     autoformat = true,
     colorcolumn = true,
+    diagnostics = true,
+    diagnostic_lines = false,
 }
 
 -- util init
@@ -60,13 +61,29 @@ function M.toggle_diagnostics()
     end
 end
 
+function M.toggle_diagnostic_lines()
+    if not M.is_enabled "diagnostics" then
+        return
+    end
+    local def_diagnostics = require("user.config").diagnostics
+    M.toggle "diagnostic_lines"
+    if M.is_enabled "diagnostic_lines" then
+        def_diagnostics.virtual_lines = true
+        def_diagnostics.virtual_text = false
+        M.notify "Diagnostics lines enabled"
+    else
+        def_diagnostics.virtual_lines = false
+        def_diagnostics.virtual_text = true
+        M.notify "Diagnostics lines disabled"
+    end
+    vim.diagnostic.config(def_diagnostics)
+end
+
 function M.toggle_autoformat()
     M.toggle "autoformat"
     if M.is_enabled "autoformat" then
-        vim.diagnostic.show()
         M.notify "Autoformat enabled"
     else
-        vim.diagnostic.hide()
         M.notify "Autoformat disabled"
     end
 end

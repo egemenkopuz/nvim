@@ -65,9 +65,9 @@ M.general = {
         -- save file
         ["<C-s>"] = { "<cmd> w <cr>", "Save file" },
         -- toggle line numbers
-        ["<leader>tr"] = { "<cmd> set rnu! <cr>", "Toggle relative line numbers" },
+        ["<leader>tr"] = { "<cmd> set rnu! <cr>", "Relative line numbers" },
         -- toggle word wrap
-        ["<leader>tw"] = { "<cmd> set wrap! <cr>", "Toggle word wrap" },
+        ["<leader>tw"] = { "<cmd> set wrap! <cr>", "Word wrap" },
         -- centered page navigation
         -- ["<C-u>"] = { "<C-u>zz", "Jump half-page up" },
         -- ["<C-d>"] = { "<C-d>zz", "Jump half-page down" },
@@ -77,14 +77,17 @@ M.general = {
         -- better pasting
         ["[p"] = { ":pu!<cr>" },
         ["]p"] = { ":pu<cr>" },
-        -- toggle diagnostic
-        ["<leader>td"] = { function() utils.toggle_diagnostics() end, "Toggle diagnostics", },
+        -- toggle diagnostics
+        ["<leader>td"] = { function() utils.toggle_diagnostics() end, "Diagnostics", },
         -- toggle format on save
-        ["<leader>tf"] = { function() utils.toggle_autoformat() end, "Toggle autoformat", },
+        ["<leader>tf"] = { function() utils.toggle_autoformat() end, "Autoformat", },
         -- toggle color column
-        ["<leader>tc"] = { function() utils.toggle_colorcolumn() end, "Toggle colorcolumn", },
+        ["<leader>tc"] = { function() utils.toggle_colorcolumn() end, "Colorcolumn", },
         -- toggle cursor lock
-        ["<leader>tl"] = { function() vim.opt.scrolloff = 999 - vim.o.scrolloff end, "Toggle cursorlock", },
+        ["<leader>tl"] = { function() vim.opt.scrolloff = 999 - vim.o.scrolloff end, "Cursorlock", },
+        -- comment below/above
+        ["gco"] = { "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",  "Add Comment Below" },
+        ["gcO"] = { "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",  "Add Comment Above" },
     },
     v = {
         -- sorting
@@ -135,21 +138,20 @@ M.bufremove = {
 
 M.zenmode = {
     n = {
-        ["<leader>tz"] = { "<cmd> NoNeckPain <cr>", "Toggle zen mode" },
+        ["<leader>tz"] = { "<cmd> NoNeckPain <cr>", "Zen mode" },
     },
 }
 
 M.treesitter_context = {
     n = {
-        ["<leader>tt"] = { "<cmd> TSContextToggle <cr>", "Toggle treesitter context" },
+        ["<leader>tt"] = { "<cmd> TSContextToggle <cr>", "Treesitter context" },
     },
 }
 
 M.telescope = {
     -- stylua: ignore
     n = {
-        ["<leader>:"] = { "<cmd> Telescope command_history <cr>", "Command history" },
-        ["<leader>/"] = { utils.telescope "live_grep", "Live grep" },
+        ["<leader>f:"] = { "<cmd> Telescope command_history <cr>", "Command history" },
         ["<leader>ff"] = { utils.telescope "files", "Files (root)" },
         ["<leader>fF"] = { utils.telescope("files", { cwd = false }), "Files (cwd)" },
         ["<leader>fw"] = { utils.telescope "live_grep", "Live grep (root)" },
@@ -230,7 +232,7 @@ M.lsp_inlay_hints = {
             function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
             end,
-            "Toggle inlay hints",
+            "Inlay hints",
         },
     },
 }
@@ -250,32 +252,25 @@ M.gitsigns = {
     },
     -- stylua: ignore
     ["n"] = {
-        ["<leader>tgs"] = { "<cmd> Gitsigns toggle_signs <cr>", "Toggle git signs" },
-        ["<leader>tgn"] = { "<cmd> Gitsigns toggle_numhl <cr>", "Toggle git numhl" },
-        ["<leader>tgl"] = { "<cmd> Gitsigns toggle_linehl <cr>", "Toggle git linehl" },
-        ["<leader>gD"] = { "<cmd> Gitsigns toggle_word_diff <cr>", "Diff inlay" },
-        ["<leader>tgb"] = { "<cmd> Gitsigns toggle_current_line_blame <cr>", "Toggle git line blame" },
-        ["<leader>gs"] = { "<cmd> Gitsigns stage_hunk <cr>", "Stage hunk" },
-        ["<leader>gr"] = { "<cmd> Gitsigns reset_hunk <cr>", "Reset hunk" },
-        ["<leader>gu"] = { "<cmd> Gitsigns undo_stage_hunk <cr>", "Undo stage hunk" },
-        ["<leader>gp"] = { "<cmd> Gitsigns preview_hunk <cr>", "Preview hunk" },
-        ["<leader>gS"] = { "<cmd> Gitsigns stage_buffer <cr>", "Stage buffer" },
-        ["<leader>gR"] = { "<cmd> Gitsigns reset_buffer <cr>", "Reset buffer" },
+        ["[h"] = { function() require("gitsigns").nav_hunk("prev") end, "Prev hunk", },
+        ["]h"] = { function() require("gitsigns").nav_hunk("next") end, "Next hunk", },
+        ["[H"] = { function() require("gitsigns").nav_hunk("first") end, "First hunk", },
+        ["]H"] = { function() require("gitsigns").nav_hunk("last") end, "Last hunk", },
         ["<leader>gl"] = { function() require("gitsigns").blame_line { full = true } end, "Blame line", },
-        -- ["<leader>gd"] = { function() require("gitsigns").diffthis() end, "Diff this", },
-        -- ["<leader>gD"] = { function() require("gitsigns").diffthis("~") end, "Diff this (~)", },
-        -- ["[h"] = {
-        --     function()
-        --         if vim.wo.diff then return "[h" end vim.schedule(function() require("gitsigns").prev_hunk() end) return "<Ignore>"
-        --     end,
-        --     "Previous hunk", opts = { expr = true },
-        -- },
-        -- ["]h"] = {
-        --     function()
-        --         if vim.wo.diff then return "]h" end vim.schedule(function() require("gitsigns").next_hunk() end) return "<Ignore>"
-        --     end,
-        --     "Next hunk", opts = { expr = true },
-        -- },
+        ["<leader>gb"] = { function() require("gitsigns").blame() end, "Blame buffer" },
+        ["<leader>ghs"] = { "<cmd> Gitsigns stage_hunk <cr>", "Stage hunk" },
+        ["<leader>ghr"] = { "<cmd> Gitsigns reset_hunk <cr>", "Reset hunk" },
+        ["<leader>ghu"] = { "<cmd> Gitsigns undo_stage_hunk <cr>", "Undo stage hunk" },
+        ["<leader>ghp"] = { "<cmd> Gitsigns preview_hunk <cr>", "Preview hunk" },
+        ["<leader>ghP"] = { "<cmd> Gitsigns preview_hunk_inline <cr>", "Preview hunk inline" },
+        ["<leader>ghS"] = { "<cmd> Gitsigns stage_buffer <cr>", "Stage buffer" },
+        ["<leader>ghR"] = { "<cmd> Gitsigns reset_buffer <cr>", "Reset buffer" },
+        ["<leader>gtb"] = { "<cmd> Gitsigns toggle_current_line_blame <cr>", "Blame inlay" },
+        ["<leader>gts"] = { "<cmd> Gitsigns toggle_signs <cr>", "Signs" },
+        ["<leader>gtn"] = { "<cmd> Gitsigns toggle_numhl <cr>", "Numhl" },
+        ["<leader>gtl"] = { "<cmd> Gitsigns toggle_linehl <cr>", "Linehl" },
+        ["<leader>gtd"] = { "<cmd> Gitsigns toggle_word_diff <cr>", "Diff inlay" },
+        ["<leader>gd"] = { function() require("gitsigns").diffthis("~") end, "Diff overlay" },
     },
 }
 
@@ -320,12 +315,6 @@ M.toggleterm = {
     t = {
         ["<C-x>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "Close terminal", },
 
-    },
-}
-
-M.nvimtree = {
-    n = {
-        ["<C-n>"] = { "<cmd> NvimTreeToggle <cr>", "Toggle tree" },
     },
 }
 
@@ -389,6 +378,8 @@ M.window_picker = {
 M.bufferline = {
     -- stylua: ignore
     n = {
+        ["[b"] = { "<cmd>BufferLineCyclePrev<cr>", "Prev buffer" },
+        ["]b"] = { "<cmd>BufferLineCycleNext<cr>", "Next buffer" },
         ["<leader>b1"] = { "<cmd> BufferLineGoToBuffer 1 <cr>", "Go to buffer 1" },
         ["<leader>b2"] = { "<cmd> BufferLineGoToBuffer 2 <cr>", "Go to buffer 2" },
         ["<leader>b3"] = { "<cmd> BufferLineGoToBuffer 3 <cr>", "Go to buffer 3" },
@@ -398,8 +389,8 @@ M.bufferline = {
         ["<leader>b7"] = { "<cmd> BufferLineGoToBuffer 7 <cr>", "Go to buffer 7" },
         ["<leader>b8"] = { "<cmd> BufferLineGoToBuffer 8 <cr>", "Go to buffer 8" },
         ["<leader>b9"] = { "<cmd> BufferLineGoToBuffer 9 <cr>", "Go to buffer 9" },
-        ["<leader>bb"] = { "<cmd>e # <cr>", "Go to other buffer"},
         ["<leader>b0"] = { "<cmd> BufferLineGoToBuffer 10 <cr>", "Go to buffer 10" },
+        ["<leader>bb"] = { "<cmd>e # <cr>", "Go to other buffer"},
         ["<leader>b["] = { "<cmd> BufferLineMovePrev <cr>", "Move buffer left" },
         ["<leader>b]"] = { "<cmd> BufferLineMoveNext <cr>", "Move buffer right" },
         ["<leader>bw"] = { "<cmd> BufferLinePick <cr>", "Pick buffer" },
@@ -425,19 +416,24 @@ M.neogen = {
 
 M.undotree = {
     n = {
-        ["<leader>tu"] = { "<cmd> UndotreeToggle <cr>", "Toggle undotree" },
+        ["<leader>tu"] = { "<cmd> UndotreeToggle <cr>", "Undotree" },
     },
 }
 
 M.symbols = {
     n = {
-        ["<leader>ts"] = { "<cmd> Outline <cr>", "Toggle symbols outline" },
+        ["<leader>ts"] = { "<cmd> Outline <cr>", "Symbols outline" },
     },
 }
 
 M.lsp_lines = {
     n = {
-        ["<leader>tx"] = { "<cmd>lua require('lsp_lines').toggle() <cr>", "Toggle lsp lines" },
+        ["<leader>tx"] = {
+            function()
+                require("user.utils").toggle_diagnostic_lines()
+            end,
+            "Diagnostics lines",
+        },
     },
 }
 
@@ -465,7 +461,6 @@ M.todo_comments = {
 M.venv = {
     n = {
         ["<leader>cvs"] = { "<cmd> VenvSelect <cr>", "Select Python venv" },
-        ["<leader>cvc"] = { "<cmd> VenvSelectCached <cr>", "Select cached Python venv" },
     },
 }
 
@@ -520,13 +515,6 @@ M.visual_multi = {
             end,
             "Visual Cursors",
         },
-    },
-}
-
-M.diff = {
-    n = {
-        -- stylua: ignore
-        ["<leader>gd"] = { function() require("mini.diff").toggle_overlay(0) end, "Diff overlay", },
     },
 }
 
