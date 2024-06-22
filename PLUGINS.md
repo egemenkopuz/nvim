@@ -158,7 +158,6 @@
 - mini&#46;bracketed
 - mini&#46;bufremove
 - mini&#46;comment
-- mini&#46;diff
 - mini&#46;files
 - mini&#46;move
 - mini&#46;splitjoin
