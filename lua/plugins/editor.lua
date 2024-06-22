@@ -8,20 +8,6 @@ return {
     },
 
     {
-        "echasnovski/mini.diff",
-        event = "BufReadPre",
-        init = function()
-            require("user.utils").load_keymap "diff"
-        end,
-        opts = {
-            view = {
-                style = "sign",
-                signs = { add = "▎", change = "▎", delete = "" },
-            },
-        },
-    },
-
-    {
         "echasnovski/mini.splitjoin",
         event = "BufReadPre",
         version = false,
