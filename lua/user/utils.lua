@@ -214,7 +214,15 @@ function M.telescope(builtin, opts)
                 builtin = "find_files"
             end
         end
-        require("telescope.builtin")[builtin](opts)
+        if builtin == "live_grep_args" then
+            require("telescope").extensions.live_grep_args.live_grep_args(opts)
+        elseif builtin == "grep_word_under_cursor" then
+            require("telescope-live-grep-args.shortcuts").grep_word_under_cursor(opts)
+        elseif builtin == "grep_visual_selection" then
+            require("telescope-live-grep-args.shortcuts").grep_visual_selection(opts)
+        else
+            require("telescope.builtin")[builtin](opts)
+        end
     end
 end
 

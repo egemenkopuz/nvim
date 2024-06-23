@@ -89,11 +89,11 @@ M.general = {
         ["gco"] = { "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",  "Add Comment Below" },
         ["gcO"] = { "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",  "Add Comment Above" },
     },
-    v = {
-        -- sorting
-        ["<leader>s"] = { ":sort<cr>", "Sort ascending" },
-        ["<leader>S"] = { ":sort!<cr>", "Sort descending" },
-    },
+    -- v = {
+    --     -- sorting
+    --     ["<leader>s"] = { ":sort<cr>", "Sort ascending" },
+    --     ["<leader>S"] = { ":sort!<cr>", "Sort descending" },
+    -- },
 }
 
 M.clipboard = {
@@ -150,12 +150,16 @@ M.treesitter_context = {
 
 M.telescope = {
     -- stylua: ignore
+    v = {
+        ["<leader>sw"] = { utils.telescope "grep_visual_selection", "Word (root dir)" },
+        ["<leader>sW"] = { utils.telescope("grep_visual_selection", { cwd = false }), "Word (cwd)" },
+    },
     n = {
         ["<leader>f:"] = { "<cmd> Telescope command_history <cr>", "Command history" },
         ["<leader>ff"] = { utils.telescope "files", "Files (root)" },
         ["<leader>fF"] = { utils.telescope("files", { cwd = false }), "Files (cwd)" },
-        ["<leader>fw"] = { utils.telescope "live_grep", "Live grep (root)" },
-        ["<leader>fW"] = { utils.telescope("live_grep", { cwd = false }), "Live grep (cwd)" },
+        ["<leader>fw"] = { utils.telescope "live_grep_args", "Live grep (root)" },
+        ["<leader>fW"] = { utils.telescope("live_grep_args", { cwd = false }), "Live grep (cwd)" },
         ["<leader>fn"] = { "<cmd> Telescope file_browser path=%:p:h <cr>", "File browser (local)" },
         ["<leader>fN"] = { "<cmd> Telescope file_browser <cr>", "File browser (root)" },
         ["<leader>fb"] = { "<cmd> Telescope buffers <cr>", "Buffers" },
@@ -163,19 +167,22 @@ M.telescope = {
         ["<leader>gc"] = { "<cmd> Telescope git_commits <cr>", "Git commits" },
         ["<leader>gg"] = { "<cmd> Telescope git_status <cr>", "Git status" },
         ["<leader>xf"] = { "<cmd> Telescope diagnostics <cr>", "Diagnostics" },
-        ["<leader>sa"] = { "<cmd>Telescope autocommands <cr>", "Autocommands" },
+        ["<leader>sa"] = { "<cmd> Telescope autocommands <cr>", "Autocommands" },
         ["<leader>sc"] = { "<cmd> Telescope command_history <cr>", "Command history" },
         ["<leader>sC"] = { "<cmd> Telescope commands <cr>", "Commands" },
         ["<leader>sd"] = { "<cmd> Telescope diagnostics <cr>", "Diagnostics" },
-        ["<leader>sh"] = { "<cmd>Telescope help_tags<cr>", "Help Pages" },
-        ["<leader>sH"] = { "<cmd>Telescope highlights<cr>", "Search highlight groups" },
-        ["<leader>sk"] = { "<cmd>Telescope keymaps<cr>", "Key maps" },
-        ["<leader>sM"] = { "<cmd>Telescope man_pages<cr>", "Man pages" },
-        ["<leader>sm"] = { "<cmd>Telescope marks<cr>", "Jump to mark" },
-        ["<leader>so"] = { "<cmd>Telescope vim_options<cr>", "Options" },
-        ["<leader>sw"] = { utils.telescope "grep_string", "Word (root dir)" },
-        ["<leader>sW"] = { utils.telescope("grep_string", { cwd = false }), "Word (cwd)" },
-        ["<leader>xn"] = {"<cmd> Telescope notify <cr>", "Notifications"},
+        ["<leader>sh"] = { "<cmd> Telescope help_tags<cr>", "Help Pages" },
+        ["<leader>sH"] = { "<cmd> Telescope highlights<cr>", "Search highlight groups" },
+        ["<leader>sk"] = { "<cmd> Telescope keymaps<cr>", "Key maps" },
+        ["<leader>sM"] = { "<cmd> Telescope man_pages<cr>", "Man pages" },
+        ["<leader>sm"] = { "<cmd> Telescope marks<cr>", "Jump to mark" },
+        ["<leader>so"] = { "<cmd> Telescope vim_options<cr>", "Options" },
+        ["<leader>sw"] = { utils.telescope "grep_word_under_cursor", "Word (root dir)" },
+        ["<leader>sW"] = {
+            utils.telescope("grep_word_under_cursor", { cwd = false }),
+            "Word (cwd)",
+        },
+        ["<leader>xn"] = { "<cmd> Telescope notify <cr>", "Notifications" },
         ["<leader>ss"] = {
             utils.telescope("lsp_document_symbols", {
                 symbols = {

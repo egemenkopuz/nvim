@@ -68,6 +68,7 @@ return {
                     { name = "buffer" },
                     { name = "nvim_lua" },
                     { name = "path" },
+                    { name = "lazydev", group_index = 0 },
                 },
                 formatting = {
                     format = function(_, item)

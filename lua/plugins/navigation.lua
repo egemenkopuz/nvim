@@ -243,6 +243,7 @@ return {
                 build = vim.fn.executable "make" == 1 and "make"
                     or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
             },
+            "nvim-telescope/telescope-live-grep-args.nvim",
             "nvim-telescope/telescope-file-browser.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
             "olimorris/persisted.nvim",
@@ -303,19 +304,37 @@ return {
         },
         config = function(_, opts)
             local telescope = require "telescope"
+            local actions = require "telescope.actions"
+            local lga_actions = require "telescope-live-grep-args.actions"
 
             opts.extensions["ui-select"] = {
                 require("telescope.themes").get_dropdown {
                     layout_strategy = "cursor",
-                    -- winblend = 15,
                     layout_config = { prompt_position = "top", width = 80, height = 12 },
                 },
+            }
+            opts.extensions["live_grep_args"] = {
+                auto_quoting = true, -- enable/disable auto-quoting
+                -- define mappings, e.g.
+                mappings = { -- extend mappings
+                    i = {
+                        ["<C-k>"] = lga_actions.quote_prompt(),
+                        ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
+                        -- freeze the current list and start a fuzzy search in the frozen list
+                        ["<C-space>"] = actions.to_fuzzy_refine,
+                    },
+                },
+                -- ... also accepts theme settings, for example:
+                -- theme = "dropdown", -- use dropdown theme
+                -- theme = { }, -- use own theme spec
+                -- layout_config = { mirror=true }, -- mirror preview pane
             }
 
             telescope.setup(opts)
 
             telescope.load_extension "fzf"
             telescope.load_extension "file_browser"
+            telescope.load_extension "live_grep_args"
             telescope.load_extension "ui-select"
             telescope.load_extension "projects"
             telescope.load_extension "persisted"
