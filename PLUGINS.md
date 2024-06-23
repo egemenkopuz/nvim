@@ -169,6 +169,7 @@
 - schemastore&#46;nvim
 - telescope-file-browser&#46;nvim
 - telescope-fzf-native&#46;nvim
+- telescope-live-grep-args&#46;nvim
 - telescope-ui-select&#46;nvim
 - undotree
 - venv-selector&#46;nvim
