@@ -53,6 +53,7 @@ return {
                         new_target_window = vim.api.nvim_get_current_win()
                     end)
                     require("mini.files").set_target_window(new_target_window)
+                    require("mini.files").go_in()
                     if should_close then
                         require("mini.files").close()
                     end
