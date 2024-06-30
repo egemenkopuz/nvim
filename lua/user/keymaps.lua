@@ -385,8 +385,6 @@ M.window_picker = {
 M.bufferline = {
     -- stylua: ignore
     n = {
-        ["[b"] = { "<cmd>BufferLineCyclePrev<cr>", "Prev buffer" },
-        ["]b"] = { "<cmd>BufferLineCycleNext<cr>", "Next buffer" },
         ["<leader>b1"] = { "<cmd> BufferLineGoToBuffer 1 <cr>", "Go to buffer 1" },
         ["<leader>b2"] = { "<cmd> BufferLineGoToBuffer 2 <cr>", "Go to buffer 2" },
         ["<leader>b3"] = { "<cmd> BufferLineGoToBuffer 3 <cr>", "Go to buffer 3" },
@@ -407,6 +405,10 @@ M.bufferline = {
         ["<leader>bcl"] = { "<cmd> BufferLineCloseLeft <cr>", "Close all visible buffers to the left" },
         ["<leader>bp"] = { "<cmd> BufferLineTogglePin <cr>", "Pin buffer" },
         ["<leader>bcp"] = { "<cmd> BufferLineGroupClose ungrouped <cr>", "Close non-pinned buffers" },
+        ["[b"] = { "<cmd>BufferLineCyclePrev<cr>", "Prev buffer" },
+        ["]b"] = { "<cmd>BufferLineCycleNext<cr>", "Next buffer" },
+        ["[B"] = { "<cmd>lua require('bufferline').go_to(1, true)<cr>", "First buffer" },
+        ["]B"] = { "<cmd>lua require('bufferline').go_to(-1, true)<cr>", "Last buffer" },
     },
 }
 
