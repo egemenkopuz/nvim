@@ -94,6 +94,24 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     end,
 })
 
+-- detech terraform filetype
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*.tf" },
+    callback = function()
+        vim.bo.filetype = "terraform"
+    end,
+})
+
+-- save current and delete all prev buffers on session switch
+vim.api.nvim_create_autocmd({ "User" }, {
+    pattern = "PersistedTelescopeLoadPre",
+    group = vim.api.nvim_create_augroup("PersistedHooks", {}),
+    callback = function(session)
+        require("persisted").save { session = vim.g.persisted_loaded_session }
+        vim.api.nvim_input "<ESC>:%bd!<CR>"
+    end,
+})
+
 -- hide statusline and tabline on alpha screen
 vim.api.nvim_create_autocmd("User", {
     pattern = "AlphaReady",

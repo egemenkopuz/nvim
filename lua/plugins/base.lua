@@ -66,13 +66,24 @@ return {
         cmd = { "SessionLoad", "SessionLoadLast" },
         lazy = true,
         opts = {
-            autoload = true,
+            autoload = false,
             should_autosave = function()
-                if vim.bo.filetype == "alpha" then
-                    return false
+                for _, value in pairs { "alpha", "minifiles" } do
+                    if vim.bo.filetype == value then
+                        return false
+                    end
                 end
                 return true
             end,
+            telescope = {
+                reset_prompt = true,
+                mappings = {
+                    change_branch = "<c-b>",
+                    copy_session = "<c-c>",
+                    delete_session = "<c-d>",
+                },
+                icons = { branch = " ", dir = " ", selected = " " },
+            },
         },
         config = function(_, opts)
             require("persisted").setup(opts)
