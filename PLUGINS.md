@@ -12,6 +12,7 @@
 ## Startup
 
 - [alpha-nvim](https://github.com/goolord/alpha-nvim) - A fast and highly customizable greeter like [vim-startify](https://github.com/mhinz/vim-startify)/dashboard-nvim.
+- [dashboard-nvim](https://github.com/nvimdev/dashboard-nvim) - A minimalist dashboard, inspired by doom-emacs.
 
 ## Bars and Lines
 
@@ -84,7 +85,7 @@
 - [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context) - Shows floating hover with the current function/block context.
 - [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag) - Use treesitter to autoclose and autorename xml,html,jsx tag.
 - [nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) - Sets the `commentstring` option based on the cursor location in the file. The location is checked via treesitter queries.
-- [todo-comments.nvim](https://github.com/folke/todo-comments.nvim) - Highlight, list and search todo comments in your projects.
+- [zen-mode.nvim](https://github.com/folke/zen-mode.nvim) - Distraction-free coding.
 
 ## Scrolling
 
@@ -99,10 +100,6 @@
 
 - [nui.nvim](https://github.com/MunifTanjim/nui.nvim) - UI Component Library.
 - [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - Plenary: full; complete; entire; absolute; unqualified. All the Lua functions I don't want to write twice.
-
-## Color
-
-- [nvim-colorizer.lua](https://github.com/NvChad/nvim-colorizer.lua) - A high-performance color highlighter which has no external dependencies!.
 
 ## Debugging
 
@@ -155,10 +152,12 @@
 - mason-lspconfig&#46;nvim
 - mason-tool-installer&#46;nvim
 - mini&#46;ai
+- mini&#46;align
 - mini&#46;bracketed
 - mini&#46;bufremove
 - mini&#46;comment
 - mini&#46;files
+- mini&#46;hipatterns
 - mini&#46;move
 - mini&#46;splitjoin
 - mini&#46;surround
