@@ -18,6 +18,15 @@ return {
     },
 
     {
+        "echasnovski/mini.align",
+        event = "BufReadPre",
+        version = false,
+        config = function(_, opts)
+            require("mini.align").setup(opts)
+        end,
+    },
+
+    {
         "smjonas/inc-rename.nvim",
         dependencies = { "folke/noice.nvim" },
         event = "BufReadPre",
@@ -138,6 +147,7 @@ return {
 
     {
         "shortcuts/no-neck-pain.nvim",
+        enabled = false,
         cmd = { "NoNeckPain" },
         init = function()
             require("user.utils").load_keymap "zenmode"
@@ -146,6 +156,35 @@ return {
             width = 120,
             mappings = { toggle = false, widthUp = false, widthDown = false, scratchPad = false },
         },
+    },
+
+    {
+        "folke/zen-mode.nvim",
+        cmd = { "ZenMode" },
+        init = function()
+            require("user.utils").load_keymap "zenmode"
+        end,
+        config = function(_, _)
+            local opts = {
+                window = { width = 0.65 },
+                on_open = function(win)
+                    local view = require "zen-mode.view"
+                    local layout = view.layout(view.opts)
+                    vim.api.nvim_win_set_config(win, {
+                        width = layout.width,
+                        height = layout.height - 1,
+                    })
+                    vim.api.nvim_win_set_config(view.bg_win, {
+                        width = vim.o.columns,
+                        height = view.height() - 1,
+                        row = 1,
+                        col = layout.col,
+                        relative = "editor",
+                    })
+                end,
+            }
+            require("zen-mode").setup(opts)
+        end,
     },
 
     {

@@ -96,7 +96,11 @@ return {
 
             local autopairs = require "nvim-autopairs"
             local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-            autopairs.setup { disable_filetype = { "TelescopePrompt", "vim" } }
+            autopairs.setup {
+                disable_filetype = { "TelescopePrompt", "vim" },
+                check_ts = false,
+                map_cr = true,
+            }
             require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
             require("user.utils").load_keymap "treesitter_context"
@@ -241,6 +245,7 @@ return {
                 "netrw",
                 "tutor",
                 "alpha",
+                "dashboard",
                 "mason",
                 "lazy",
                 "log",

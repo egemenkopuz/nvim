@@ -114,7 +114,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
 
 -- hide statusline and tabline on alpha screen
 vim.api.nvim_create_autocmd("User", {
-    pattern = "AlphaReady",
+    pattern = { "AlphaReady", "DashboardLoaded" },
     command = "set showtabline=0 | set laststatus=0",
 })
 

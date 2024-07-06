@@ -58,7 +58,9 @@ return {
                     component_separators = { left = "", right = "" },
                     section_separators = { left = "", right = "" },
                     globalstatus = true,
-                    disabled_filetypes = { statusline = { "alpha", "packer", "lazy", "terminal" } },
+                    disabled_filetypes = {
+                        statusline = { "alpha", "packer", "lazy", "terminal", "dashboard" },
+                    },
                 },
                 extensions = {
                     "toggleterm",
@@ -120,6 +122,53 @@ return {
                         },
                         {
                             function()
+                                local active_clients = vim.lsp.get_clients { bufnr = 0 }
+
+                                table.sort(active_clients, function(a, b)
+                                    return a.name < b.name
+                                end)
+
+                                local index = 0
+                                local lsp_names = ""
+                                local copilot = nil
+                                local mapping = require("user.config").lsp_to_status_name
+                                for _, lsp_config in ipairs(active_clients) do
+                                    for _, lsp_name in
+                                        ipairs(require("user.config").lsp_to_status_exclude)
+                                    do
+                                        if lsp_config.name == lsp_name then
+                                            goto continue
+                                        end
+                                    end
+
+                                    if lsp_config.name == "copilot" then
+                                        copilot = mapping[lsp_config.name]
+                                        goto continue
+                                    end
+
+                                    -- stylua: ignore
+                                    local lsp_name = mapping[lsp_config.name] == nil and lsp_config.name or mapping[lsp_config.name]
+
+                                    index = index + 1
+                                    if index == 1 then
+                                        lsp_names = lsp_name
+                                    else
+                                        lsp_names = lsp_names .. " " .. lsp_name
+                                    end
+
+                                    ::continue::
+                                end
+
+                                if copilot ~= nil then
+                                    lsp_names = lsp_names .. " " .. copilot
+                                end
+
+                                return lsp_names
+                            end,
+                            color = { fg = "gray" },
+                        },
+                        {
+                            function()
                                 local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
                                 return " " .. shiftwidth
                             end,
@@ -174,6 +223,7 @@ return {
 
     {
         "goolord/alpha-nvim",
+        enabled = false,
         event = "VimEnter",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = function()
@@ -222,6 +272,64 @@ return {
                     pcall(vim.cmd.AlphaRedraw)
                 end,
             })
+        end,
+    },
+
+    {
+        "nvimdev/dashboard-nvim",
+        lazy = false,
+        opts = function()
+            local logo_table = require("user.config").logo
+            local logo = table.concat(logo_table, "\n")
+            logo = string.rep("\n", 4) .. logo .. "\n\n"
+
+            local opts = {
+                theme = "doom",
+                hide = { statusline = false },
+                config = {
+                    header = vim.split(logo, "\n"),
+                    -- stylua: ignore
+                    center = {
+                        { action = "ene | startinsert", desc = " New File", icon = " ", key = "fn", },
+                        { action = "Telescope find_files", desc = " Find File", icon = " ", key = "ff", },
+                        { action = "Telescope live_grep", desc = " Find Text", icon = " ", key = "fg", },
+                        { action = "Telescope oldfiles", desc = " Recent Files", icon = "󱋡 ", key = "fr", },
+                        { action = "Telescope persisted", desc = " Sessions", icon = " ", key = "ss", },
+                        { action = "Telescope projects", desc = " Projects", icon = " ", key = "sp", },
+                        { action = "e $MYVIMRC | cd %:p:h | SessionLoad", desc = " Nvim Config", icon = " ", key = "cc", },
+                        { action = "e $HOME/.config | cd %:p:h | SessionLoad", desc = " Global Config", icon = " ", key = "cf", },
+                        { action = "Lazy", desc = " Plugins", icon = " ", key = "cp", },
+                        { action = function() vim.api.nvim_input "<cmd>qa<cr>" end, desc = " Quit", icon = " ", key = "q", },
+                    },
+                },
+            }
+
+            for _, button in ipairs(opts.config.center) do
+                button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
+                button.key_format = "  %s"
+            end
+
+            vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "#999999" })
+            vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#F05454" })
+            vim.api.nvim_set_hl(0, "DashboardDesc", { fg = "#D4F5F5" })
+            vim.api.nvim_set_hl(0, "DashboardKey", { fg = "#F05454" })
+            vim.api.nvim_set_hl(0, "DashboardIcon", { fg = "#999999" })
+
+            -- open dashboard after closing lazy
+            if vim.o.filetype == "lazy" then
+                vim.api.nvim_create_autocmd("WinClosed", {
+                    pattern = tostring(vim.api.nvim_get_current_win()),
+                    once = true,
+                    callback = function()
+                        vim.schedule(function()
+                            vim.api.nvim_exec_autocmds("UIEnter", { group = "dashboard" })
+                        end)
+                    end,
+                })
+            end
+            vim.cmd [[highlight DashboardIcon       guifg=#999999]]
+
+            return opts
         end,
     },
 
@@ -334,12 +442,44 @@ return {
 
     {
         "NvChad/nvim-colorizer.lua",
+        enabled = false,
         event = "BufReadPre",
         opts = {
             user_default_options = { names = false },
-            buftypes = { "*", "!alpha", "!mason", "!lazy" },
+            buftypes = { "*", "!alpha", "!mason", "!lazy", "!dashboard" },
         },
         config = true,
+    },
+
+    {
+        "echasnovski/mini.hipatterns",
+        version = false,
+        event = "BufReadPre",
+        config = function()
+            local hipatterns = require "mini.hipatterns"
+
+            vim.api.nvim_set_hl(0, "MiniHipatternsFix", { fg = "#ffffff", bg = "#db4b4b" })
+            vim.api.nvim_set_hl(0, "MiniHipatternsHack", { fg = "#181616", bg = "#e0af68" })
+            vim.api.nvim_set_hl(0, "MiniHipatternsWarn", { fg = "#181616", bg = "#ffcc00" })
+            vim.api.nvim_set_hl(0, "MiniHipatternsTodo", { fg = "#181616", bg = "#80C4E9" })
+            vim.api.nvim_set_hl(0, "MiniHipatternsPerf", { fg = "#181616", bg = "#bb9af7" })
+            vim.api.nvim_set_hl(0, "MiniHipatternsNote", { fg = "#181616", bg = "#10b981" })
+
+            hipatterns.setup {
+                -- stylua: ignore
+                highlighters = {
+                    fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFix" },
+                    fix = { pattern = "%f[%w]()FIX()%f[%W]", group = "MiniHipatternsFix" },
+                    hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+                    warn = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
+                    warning = { pattern = "%f[%w]()WARNING()%f[%W]", group = "MiniHipatternsWarn", },
+                    todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+                    perf = { pattern = "%f[%w]()PERF()%f[%W]", group = "MiniHipatternsPerf" },
+                    note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+                    hex_color = hipatterns.gen_highlighter.hex_color(),
+                },
+            }
+        end,
     },
 
     {
@@ -375,6 +515,7 @@ return {
 
     {
         "folke/todo-comments.nvim",
+        enabled = false,
         cmd = { "TodoTrouble", "TodoTelescope" },
         event = "BufReadPre",
         opts = { signs = false },

@@ -110,7 +110,8 @@ return {
             local update_mini_with_git = function(buf_id, git_status_map)
                 vim.schedule(function()
                     local n_lines = vim.api.nvim_buf_line_count(buf_id)
-                    local cwd = vim.fn.getcwd() --  vim.fn.expand("%:p:h")
+                    -- local cwd = vim.fn.getcwd() --  vim.fn.expand("%:p:h")
+                    local cwd = vim.fn.expand "%:p:h"
                     local escapedcwd = escape_pattern(cwd)
                     if vim.fn.has "win32" == 1 then
                         escapedcwd = escapedcwd:gsub("\\", "/")

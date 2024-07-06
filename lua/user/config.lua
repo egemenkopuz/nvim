@@ -136,7 +136,20 @@ M.disabled_plugins = {
 }
 
 -- Dashboard custom logo
-M.logo = nil
+M.logo = {
+    "     _           _                      _             ",
+    "             ▕                                 ",
+    "  ▕ ███       ▕│█     ___   ___                 ",
+    "  ▕││███     ▕│███▕│         █   ██      ",
+    "  ▕││  ███   ▕│███▕│▕│ ▁ ▕│    ▕│██          ",
+    "  ▕││  ▕│███ ▕│███▕│▕│   ▕│    ▕│██  ◢◣  ◢  ",
+    "  ▕││  ▕│  ███│███▕│  ▁▁  ▁   ██   ▜█ ██  ",
+    "     ▕│    ████      ‾‾    ‾                 ",
+    "     ▕│                                        ",
+    "                 ‾                      ‾             ",
+    "                                                      ",
+    "                     Deus Est Machina                 ",
+}
 
 -- Colors for diagnostics
 M.colors.diagnostics = {
@@ -237,6 +250,14 @@ M.diagnostics = {
     severity_sort = true,
     float = { border = "rounded" },
     virtual_lines = false,
+}
+
+M.lsp_to_status_name = {
+    copilot = " ",
+}
+
+M.lsp_to_status_exclude = {
+    "null-ls",
 }
 
 -- remap macro recording to qq

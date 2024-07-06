@@ -22,6 +22,7 @@ return {
                 ["]"] = { name = "+next" },
                 ["["] = { name = "+prev" },
                 ["<leader>b"] = { name = "+buffer" },
+                ["<leader><tab>"] = { name = "+tab" },
                 ["<leader>bs"] = { name = "+sort" },
                 ["<leader>bc"] = { name = "+close" },
                 ["<leader>d"] = { name = "+debug" },
@@ -68,7 +69,7 @@ return {
         opts = {
             autoload = false,
             should_autosave = function()
-                for _, value in pairs { "alpha", "minifiles" } do
+                for _, value in pairs { "alpha", "minifiles", "dashboard" } do
                     if vim.bo.filetype == value then
                         return false
                     end

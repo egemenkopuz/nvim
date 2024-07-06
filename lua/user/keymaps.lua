@@ -58,10 +58,10 @@ M.general = {
         -- remove highlight
         ["<ESC>"] = { "<cmd> noh <cr>", "Remove highlight" },
         -- Resize with arrows
-        ["<C-Up>"] = { ":resize +2<cr>", "Resize window up" },
-        ["<C-Down>"] = { ":resize -2<cr>", "Resize window down" },
-        ["<C-Left>"] = { ":vertical resize +2<cr>", "Resize window left" },
-        ["<C-Right>"] = { ":vertical resize -2<cr>", "Resize window right" },
+        ["<C-Up>"] = { ":resize +4<cr>", "Resize window up" },
+        ["<C-Down>"] = { ":resize -4<cr>", "Resize window down" },
+        ["<C-Left>"] = { ":vertical resize +4<cr>", "Resize window left" },
+        ["<C-Right>"] = { ":vertical resize -4<cr>", "Resize window right" },
         -- save file
         ["<C-s>"] = { "<cmd> w <cr>", "Save file" },
         -- toggle line numbers
@@ -86,8 +86,15 @@ M.general = {
         -- toggle cursor lock
         ["<leader>tl"] = { function() vim.opt.scrolloff = 999 - vim.o.scrolloff end, "Cursorlock", },
         -- comment below/above
-        ["gco"] = { "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",  "Add Comment Below" },
-        ["gcO"] = { "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",  "Add Comment Above" },
+        ["gco"] = { "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",  "Add comment below" },
+        ["gcO"] = { "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",  "Add comment above" },
+        -- tab navigation
+        ["<leader><tab>q"] = {":tabclose<cr>", "Tab close"},
+        ["<leader><tab>c"] = {":tabnew<cr>", "Tab create"},
+        ["<leader><tab>["] = {":tabprevious<cr>", "Prev tab"},
+        ["<leader><tab>]"] = {":tabnext<cr>", "Next tab"},
+        ["<leader><tab>g"] = {":tabfirst<cr>", "First tab"},
+        ["<leader><tab>G"] = {":tablast<cr>", "Last tab"},
     },
     -- v = {
     --     -- sorting
@@ -138,7 +145,8 @@ M.bufremove = {
 
 M.zenmode = {
     n = {
-        ["<leader>tz"] = { "<cmd> NoNeckPain <cr>", "Zen mode" },
+        -- ["<leader>tz"] = { "<cmd> NoNeckPain <cr>", "Zen mode" },
+        ["<leader>tz"] = { "<cmd> ZenMode <cr>", "Zen mode" },
     },
 }
 
