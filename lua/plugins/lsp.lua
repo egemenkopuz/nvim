@@ -5,7 +5,6 @@ return {
         dependencies = {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "WhoIsSethDaniel/mason-tool-installer.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "b0o/schemastore.nvim",
             "p00f/clangd_extensions.nvim",
@@ -91,11 +90,24 @@ return {
                 ["basedpyright"] = {
                     settings = {
                         disableOrganizeImports = true,
-                        basedpyright = { analysis = { ignore = { "*" } } },
+                        basedpyright = {
+                            analysis = {
+                                -- ignore = { "*" },
+                                typeCheckingMode = "basic",
+                                inlayHints = {
+                                    callArgumentNames = "all",
+                                    functionReturnTypes = true,
+                                    pytestParameters = true,
+                                    variableTypes = true,
+                                },
+                            },
+                            linting = { enabled = false },
+                        },
                     },
                 },
                 ["ruff_lsp"] = {
-                    settings = { args = { "--ignore=F821", "--config=$ROOT/pyproject.toml" } },
+                    -- settings = { args = { "--ignore=F821", "--config=$ROOT/pyproject.toml" } },
+                    -- settings = { args = { "--ignore=F821" } },
                 },
                 ["cmake"] = {},
                 ["lua_ls"] = {
@@ -120,7 +132,6 @@ return {
             local servers = opts.servers
 
             vim.diagnostic.config(opts.diagnostics)
-            require("mason-tool-installer").setup { ensure_installed = vim.tbl_keys(servers) }
             require("mason-lspconfig").setup {
                 ensure_installed = vim.tbl_keys(servers),
                 handlers = {

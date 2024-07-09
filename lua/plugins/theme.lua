@@ -5,7 +5,7 @@ return {
         priority = 1000,
         lazy = false,
         opts = {
-            compile = false,
+            compile = true,
             colors = {
                 palette = { oldWhite = "#c5c9c5" },
                 theme = { all = { ui = { bg_gutter = "none" } } },
@@ -16,7 +16,7 @@ return {
             overrides = function(colors)
                 local overrides = {
                     IblIndent = { fg = "#2E3440" },
-                    IblScope = { fg = "#4A5263" },
+                    IblScope = { fg = "gray" },
                     CursorLineNr = { fg = "#ce5a57" },
                     CursorLine = { bg = "#2E3440" },
                 }
@@ -27,6 +27,7 @@ return {
                         NoiceCmdLinePopupTitle = { fg = "#181616", bg = "gray", bold = true },
                         NormalFloatBorder = { fg = "gray" },
                         FloatBorder = { fg = "gray" },
+                        MiniFilesTitleFocused = { fg = "#ce5a57", bold = true },
                     })
                 end
                 return vim.tbl_extend("force", overrides, {

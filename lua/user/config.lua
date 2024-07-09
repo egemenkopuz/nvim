@@ -252,12 +252,11 @@ M.diagnostics = {
     virtual_lines = false,
 }
 
-M.lsp_to_status_name = {
-    copilot = " ",
-}
+M.lsp_to_status_name = {}
 
 M.lsp_to_status_exclude = {
     "null-ls",
+    "copilot",
 }
 
 -- remap macro recording to qq

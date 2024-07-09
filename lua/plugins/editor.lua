@@ -146,19 +146,6 @@ return {
     },
 
     {
-        "shortcuts/no-neck-pain.nvim",
-        enabled = false,
-        cmd = { "NoNeckPain" },
-        init = function()
-            require("user.utils").load_keymap "zenmode"
-        end,
-        opts = {
-            width = 120,
-            mappings = { toggle = false, widthUp = false, widthDown = false, scratchPad = false },
-        },
-    },
-
-    {
         "folke/zen-mode.nvim",
         cmd = { "ZenMode" },
         init = function()

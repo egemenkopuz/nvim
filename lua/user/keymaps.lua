@@ -145,7 +145,6 @@ M.bufremove = {
 
 M.zenmode = {
     n = {
-        -- ["<leader>tz"] = { "<cmd> NoNeckPain <cr>", "Zen mode" },
         ["<leader>tz"] = { "<cmd> ZenMode <cr>", "Zen mode" },
     },
 }

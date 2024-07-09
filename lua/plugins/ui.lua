@@ -26,7 +26,10 @@ return {
     {
         "nvim-lualine/lualine.nvim",
         event = "BufReadPre",
-        dependencies = { "arkav/lualine-lsp-progress" },
+        dependencies = {
+            { "arkav/lualine-lsp-progress" },
+            { "AndreM222/copilot-lualine" },
+        },
         opts = function()
             local icons = require("user.config").icons
             local colors = require("user.config").colors
@@ -121,6 +124,13 @@ return {
                             },
                         },
                         {
+                            "copilot",
+                            symbols = {
+                                status = { icons = { unknown = " " } },
+                                spinners = require("copilot-lualine.spinners").dots,
+                            },
+                        },
+                        {
                             function()
                                 local active_clients = vim.lsp.get_clients { bufnr = 0 }
 
@@ -130,7 +140,6 @@ return {
 
                                 local index = 0
                                 local lsp_names = ""
-                                local copilot = nil
                                 local mapping = require("user.config").lsp_to_status_name
                                 for _, lsp_config in ipairs(active_clients) do
                                     for _, lsp_name in
@@ -139,11 +148,6 @@ return {
                                         if lsp_config.name == lsp_name then
                                             goto continue
                                         end
-                                    end
-
-                                    if lsp_config.name == "copilot" then
-                                        copilot = mapping[lsp_config.name]
-                                        goto continue
                                     end
 
                                     -- stylua: ignore
@@ -157,10 +161,6 @@ return {
                                     end
 
                                     ::continue::
-                                end
-
-                                if copilot ~= nil then
-                                    lsp_names = lsp_names .. " " .. copilot
                                 end
 
                                 return lsp_names
@@ -327,7 +327,6 @@ return {
                     end,
                 })
             end
-            vim.cmd [[highlight DashboardIcon       guifg=#999999]]
 
             return opts
         end,
@@ -494,7 +493,7 @@ return {
     {
         "rcarriga/nvim-notify",
         opts = {
-            timeout = 3000,
+            timeout = 1000,
             max_height = function()
                 return math.floor(vim.o.lines * 0.75)
             end,
@@ -505,7 +504,7 @@ return {
                 vim.api.nvim_win_set_config(win, { zindex = 100 })
             end,
             render = "compact",
-            stages = "fade",
+            stages = "static",
         },
         init = function()
             vim.notify = require "notify"
