@@ -80,7 +80,6 @@
 ## Editing Support
 
 - [neogen](https://github.com/danymat/neogen) - A better annotation generator. Supports multiple languages and annotation conventions.
-- [no-neck-pain.nvim](https://github.com/shortcuts/no-neck-pain.nvim) - Center the currently focused buffer to the middle of your terminal.
 - [nvim-autopairs](https://github.com/windwp/nvim-autopairs) - A minimalist autopairs written by Lua.
 - [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context) - Shows floating hover with the current function/block context.
 - [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag) - Use treesitter to autoclose and autorename xml,html,jsx tag.
@@ -116,10 +115,6 @@
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Neovim Treesitter configurations and abstraction layer.
 - [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) - Create your own textobjects using tree-sitter queries.
 
-## Icon
-
-- [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) - A Lua fork of [vim-devicons](https://github.com/ryanoasis/vim-devicons).
-
 ## Session
 
 - [persisted.nvim](https://github.com/olimorris/persisted.nvim) - Simple session management with git branching, autosave/autoload and Telescope support.
@@ -148,9 +143,9 @@
 - cmp-path
 - cmp_luasnip
 - copilot-cmp
+- copilot-lualine
 - lualine-lsp-progress
 - mason-lspconfig&#46;nvim
-- mason-tool-installer&#46;nvim
 - mini&#46;ai
 - mini&#46;align
 - mini&#46;bracketed
@@ -158,6 +153,7 @@
 - mini&#46;comment
 - mini&#46;files
 - mini&#46;hipatterns
+- mini&#46;icons
 - mini&#46;move
 - mini&#46;splitjoin
 - mini&#46;surround
@@ -166,7 +162,6 @@
 - nvim-nio
 - nvim-window-picker
 - schemastore&#46;nvim
-- telescope-file-browser&#46;nvim
 - telescope-fzf-native&#46;nvim
 - telescope-live-grep-args&#46;nvim
 - telescope-ui-select&#46;nvim
