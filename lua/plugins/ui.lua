@@ -432,7 +432,7 @@ return {
                 callback = function()
                     vim.schedule(function()
                         pcall(nvim_bufferline)
-                        require("user.utils").load_keymap "bufferline"
+                        -- require("user.utils").load_keymap "bufferline"
                     end)
                 end,
             })

@@ -420,7 +420,7 @@ return {
         event = "BufReadPre",
         version = false,
         opts = {
-            buffer = { suffix = "b", options = {} },
+            buffer = { suffix = "", options = {} },
             comment = { suffix = "c", options = {} },
             conflict = { suffix = "x", options = {} },
             diagnostic = { suffix = "d", options = {} },

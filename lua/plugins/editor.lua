@@ -214,6 +214,7 @@ return {
         "mbbill/undotree",
         cmd = "UndotreeToggle",
         init = function(_, _)
+            vim.g.undotree_SetFocusWhenToggle = 1
             require("user.utils").load_keymap "undotree"
         end,
     },
