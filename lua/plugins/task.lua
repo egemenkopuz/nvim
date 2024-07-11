@@ -1,6 +1,7 @@
 return {
     {
         "stevearc/overseer.nvim",
+        enabled = false,
         ft = { "cmake", "cpp", "python" },
         opts = {},
         config = function()
@@ -37,6 +38,7 @@ return {
 
     {
         "kawre/leetcode.nvim",
+        enabled = false,
         build = ":TSUpdate html",
         lazy = "leetcode.nvim" ~= vim.fn.argv()[1],
         dependencies = {

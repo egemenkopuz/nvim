@@ -432,7 +432,6 @@ return {
                 callback = function()
                     vim.schedule(function()
                         pcall(nvim_bufferline)
-                        -- require("user.utils").load_keymap "bufferline"
                     end)
                 end,
             })
@@ -509,20 +508,6 @@ return {
         init = function()
             vim.notify = require "notify"
             require("user.utils").load_keymap "notify"
-        end,
-    },
-
-    {
-        "folke/todo-comments.nvim",
-        enabled = false,
-        cmd = { "TodoTrouble", "TodoTelescope" },
-        event = "BufReadPre",
-        opts = { signs = false },
-        init = function()
-            require("user.utils").load_keymap "todo_comments"
-        end,
-        config = function()
-            require("todo-comments").setup()
         end,
     },
 }

@@ -46,22 +46,6 @@ return {
         end,
     },
 
-    -- {
-    --     "nvim-tree/nvim-web-devicons",
-    --     opts = {
-    --         color_icons = false,
-    --         override_by_extension = { ["txt"] = { icon = "", name = "Txt" } },
-    --         override_by_filename = {
-    --             ["dockerfile"] = { icon = "", name = "Dockerfile" },
-    --             ["Dockerfile"] = { icon = "", name = "Dockerfile" },
-    --             [".dockerignore"] = { icon = "", name = "Dockerfile" },
-    --             ["docker-compose.yaml"] = { icon = "", name = "Dockerfile" },
-    --             ["docker-compose.yml"] = { icon = "", name = "Dockercompose" },
-    --         },
-    --     },
-    --     config = true,
-    -- },
-
     {
         "echasnovski/mini.icons",
         version = false,
