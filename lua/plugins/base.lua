@@ -9,8 +9,6 @@ return {
         "folke/which-key.nvim",
         opts = {
             icons = { rules = false },
-            hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
-            triggers_blacklist = { i = { "j", "k" }, v = { "j", "k" } },
             disable = { bt = {}, ft = { "TelescopePrompt" } },
         },
         config = function(_, opts)
