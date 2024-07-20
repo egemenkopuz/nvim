@@ -1,5 +1,9 @@
 # PLUGINS
 
+## AI
+
+- [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) - A chat interface for GitHub Copilot that allows you to directly ask and receive answers to coding-related questions.
+
 ## Snippet
 
 - [LuaSnip](https://github.com/L3MON4D3/LuaSnip) - A snippet engine written in Lua.
