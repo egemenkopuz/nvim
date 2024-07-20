@@ -37,7 +37,8 @@ return {
                 { "<leader>n", group = "+notes" },
                 { "<leader>ut", group = "+terminal" },
                 { "<leader>cv", group = "+venv" },
-                { "<leader>a", group = "+multicursor" },
+                { "<leader>m", group = "+multicursor" },
+                { "<leader>a", group = "+ai" },
                 { "<leader>gh", group = "+hunk" },
                 { "<leader>gt", group = "+toggle" },
             }

@@ -497,21 +497,61 @@ M.gitlinker = {
 
 M.visual_multi = {
     n = {
-        ["<leader>aj"] = { "<Plug>(VM-Add-Cursor-Down)", "Put Cursor Down" },
-        ["<leader>ak"] = { "<Plug>(VM-Add-Cursor-Up)", "Put Cursor Up" },
-        ["<leader>aa"] = { "<Plug>(VM-Select-All)<Tab>", "Select All" },
-        ["<leader>ar"] = { "<Plug>(VM-Start-Regex-Search)", "Start Regex Search" },
-        ["<leader>ap"] = { "<Plug>(VM-Add-Cursor-At-Pos)", "Add Cursor At Pos" },
-        ["<leader>ao"] = { "<Plug>(VM-Toggle-Mappings)", "Toggle Mapping" },
+        ["<leader>mj"] = { "<Plug>(VM-Add-Cursor-Down)", "Put Cursor Down" },
+        ["<leader>mk"] = { "<Plug>(VM-Add-Cursor-Up)", "Put Cursor Up" },
+        ["<leader>ma"] = { "<Plug>(VM-Select-All)<Tab>", "Select All" },
+        ["<leader>mr"] = { "<Plug>(VM-Start-Regex-Search)", "Start Regex Search" },
+        ["<leader>mp"] = { "<Plug>(VM-Add-Cursor-At-Pos)", "Add Cursor At Pos" },
+        ["<leader>mo"] = { "<Plug>(VM-Toggle-Mappings)", "Toggle Mapping" },
     },
     v = {
-        ["<leader>av"] = {
+        ["<leader>mv"] = {
             function()
                 vim.cmd 'silent! execute "normal! \\<Plug>(VM-Visual-Cursors)"'
                 vim.cmd "sleep 200m"
                 vim.cmd 'silent! execute "normal! A"'
             end,
             "Visual Cursors",
+        },
+    },
+}
+
+M.copilot_chat = {
+    [{ "n", "v" }] = {
+        ["<leader>at"] = {
+            function()
+                return require("CopilotChat").toggle()
+            end,
+            "Toggle (CopilotChat)",
+        },
+        ["<leader>ax"] = {
+            function()
+                return require("CopilotChat").reset()
+            end,
+            "Clear (CopilotChat)",
+        },
+        ["<leader>ac"] = {
+            function()
+                local input = vim.fn.input "Quick Chat: "
+                if input ~= "" then
+                    require("CopilotChat").ask(input)
+                end
+            end,
+            "Quick Chat (CopilotChat)",
+        },
+        ["<leader>ah"] = {
+            function()
+                local actions = require "CopilotChat.actions"
+                require("CopilotChat.integrations.telescope").pick(actions.help_actions())
+            end,
+            "Diagnostic Help (CopilotChat)",
+        },
+        ["<leader>ap"] = {
+            function()
+                local actions = require "CopilotChat.actions"
+                require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+            end,
+            "Prompt Actions (CopilotChat)",
         },
     },
 }
