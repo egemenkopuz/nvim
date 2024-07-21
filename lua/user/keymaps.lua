@@ -201,6 +201,11 @@ M.rename = {
 
 M.files = {
     n = {
+        ["<C-g>"] = {
+            function()
+                require("mini.files").open()
+            end,
+        },
         ["<C-n>"] = {
             function()
                 MiniFiles.open(vim.api.nvim_buf_get_name(0))
