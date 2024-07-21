@@ -202,11 +202,41 @@ return {
 
     {
         "windwp/nvim-spectre",
+        enabled = false,
         build = false,
         cmd = "Spectre",
         opts = { open_cmd = "noswapfile vnew" },
         init = function()
             require("user.utils").load_keymap "spectre"
+        end,
+    },
+
+    {
+        "MagicDuck/grug-far.nvim",
+        cmd = "GrugFar",
+        init = function()
+            require("user.utils").load_keymap "grugfar"
+        end,
+        opts = {
+            keymaps = {
+                replace = { n = "<leader>Gr" },
+                qflist = { n = "<leader>Gq" },
+                syncLocations = { n = "<leader>Gs" },
+                syncLine = { n = "<leader>Gl" },
+                close = { n = "<leader>Gq" },
+                historyOpen = { n = "<leader>Gh" },
+                historyAdd = { n = "<leader>Ga" },
+                refresh = { n = "<leader>Gf" },
+                openLocation = { n = "<leader>Go" },
+                gotoLocation = { n = "<enter>" },
+                pickHistoryEntry = { n = "<enter>" },
+                abort = { n = "<leader>Gb" },
+                help = { n = "g?" },
+                toggleShowRgCommand = { n = "<leader>Gt" },
+            },
+        },
+        config = function(_, opts)
+            require("grug-far").setup(opts)
         end,
     },
 

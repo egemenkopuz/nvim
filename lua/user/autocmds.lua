@@ -43,6 +43,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "ClangdAST",
         "ClangdTypeHierarchy",
         "gitsigns.blame",
+        "grug-far",
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false
