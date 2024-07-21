@@ -60,6 +60,11 @@
 
 - [global-note.nvim](https://github.com/backdround/global-note.nvim) - One global note in a floating window.
 
+## Search
+
+- [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) - Buffer-based live search and replace with full power of `rg` flags. Grug like!
+- [nvim-spectre](https://github.com/nvim-pack/nvim-spectre) - Search and replace panel.
+
 ## Formatting
 
 - [guess-indent.nvim](https://github.com/NMAC427/guess-indent.nvim) - Automatic indentation style detection.
@@ -109,10 +114,6 @@
 - [nvim-dap](https://github.com/mfussenegger/nvim-dap) - Debug Adapter Protocol client implementation.
 - [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui) - A UI for nvim-dap.
 - [nvim-dap-virtual-text](https://github.com/theHamsta/nvim-dap-virtual-text) - Virtual text support for nvim-dap.
-
-## Search
-
-- [nvim-spectre](https://github.com/nvim-pack/nvim-spectre) - Search and replace panel.
 
 ## Syntax
 
