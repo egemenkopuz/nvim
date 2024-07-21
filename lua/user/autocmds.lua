@@ -89,7 +89,12 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 -- detect ansible filetype if path includes ansible as a name in parent directory
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = { "*/ansible/*.yml", "*/ansible/*.yaml" },
+    pattern = {
+        "*/ansible/*.yml",
+        "*/ansible/*.yaml",
+        "roles/*/tasks/*.yml",
+        "roles/*/tasks/*.yaml",
+    },
     callback = function()
         vim.bo.filetype = "yaml.ansible"
     end,
