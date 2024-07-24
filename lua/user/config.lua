@@ -277,4 +277,7 @@ vim.api.nvim_set_hl(0, "DapLogPoint", { bg = "#31353f" })
 vim.api.nvim_set_hl(0, "DapStopped", { fg = "white", bg = "#B14238" })
 -- stylua: ignore end
 
+-- add command TrimWSLPaste to trim ^M after pasting
+vim.cmd [[command! -nargs=0 TrimWSLPaste :%s/\r//g]]
+
 return M
