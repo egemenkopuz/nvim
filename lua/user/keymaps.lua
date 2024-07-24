@@ -219,7 +219,7 @@ M.lsp = {
     -- stylua: ignore
     n = {
         ["gD"] = { function() vim.lsp.buf.declaration() end, "Go to declaration", },
-        ["<leader>ca"] = { function() vim.lsp.buf.code_action() end, "Code action", },
+        -- ["<leader>ca"] = { function() vim.lsp.buf.code_action() end, "Code action", },
         ["<leader>cf"] = { function() vim.lsp.buf.format { async = true } end, "Format", },
         ["<leader>wa"] = { function() vim.lsp.buf.add_workspace_folder() end, "Add workspace folder", },
         ["<leader>wr"] = { function() vim.lsp.buf.remove_workspace_folder() end, "Remove workspace folder", },
@@ -575,6 +575,17 @@ M.copilot_chat = {
                 require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
             end,
             "Prompt Actions (CopilotChat)",
+        },
+    },
+}
+
+M.tiny_code_action = {
+    n = {
+        ["<leader>ca"] = {
+            function()
+                require("tiny-code-action").code_action()
+            end,
+            "Code Action",
         },
     },
 }
