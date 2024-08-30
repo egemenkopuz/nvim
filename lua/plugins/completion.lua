@@ -108,7 +108,6 @@ return {
             opts = {
                 suggestion = { enabled = false },
                 panel = { enabled = false },
-                filetypes = { yaml = true, markdown = true },
             },
         },
         opts = { method = "getCompletionsCycling" },
