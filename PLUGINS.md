@@ -37,7 +37,7 @@
 
 ## Motion
 
-- [flash.nvim](https://github.com/folke/flash.nvim) - Navigate your code with search labels, enhanced character motions and Treesitter integration.
+- [flash.nvim](https://github.com/folke/flash.nvim) - Navigate your code with search labels, enhanced character motions and Tree-sitter integration.
 
 ## Git
 
@@ -64,12 +64,10 @@
 ## Search
 
 - [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) - Buffer-based live search and replace with full power of `rg` flags. Grug like!
-- [nvim-spectre](https://github.com/nvim-pack/nvim-spectre) - Search and replace panel.
 
 ## Formatting
 
-- [guess-indent.nvim](https://github.com/NMAC427/guess-indent.nvim) - Automatic indentation style detection.
-- [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) - IndentLine replacement in Lua with more features and treesitter support.
+- [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) - IndentLine replacement in Lua with more features and Tree-sitter support.
 
 ## Colorscheme
 
@@ -77,7 +75,7 @@
 
 ## Plugin Manager
 
-- [lazy.nvim](https://github.com/folke/lazy.nvim) - A modern plugin manager, featuring a graphical interface, async execution, a lockfile and more 💤.
+- [lazy.nvim](https://github.com/folke/lazy.nvim) - A modern plugin manager, featuring a graphical interface, async execution, a lockfile and more.
 
 ## Game
 
@@ -86,14 +84,16 @@
 ## Programming Languages Support
 
 - [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) - Preview markdown on your modern browser with synchronised scrolling and flexible configuration.
+- [markview.nvim](https://github.com/OXY2DEV/markview.nvim) - An experimental markdown previewer.
 
 ## Editing Support
 
 - [neogen](https://github.com/danymat/neogen) - A better annotation generator. Supports multiple languages and annotation conventions.
 - [nvim-autopairs](https://github.com/windwp/nvim-autopairs) - A minimalist autopairs written by Lua.
 - [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context) - Shows floating hover with the current function/block context.
-- [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag) - Use treesitter to autoclose and autorename xml,html,jsx tag.
-- [nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) - Sets the `commentstring` option based on the cursor location in the file. The location is checked via treesitter queries.
+- [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag) - Use Tree-sitter to autoclose and autorename XML, HTML, JSX tag.
+- [nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) - Sets the `commentstring` option based on the cursor location in the file. The location is checked via Tree-sitter queries.
+- [yanky.nvim](https://github.com/gbprod/yanky.nvim) - Improved Yank and Put functionalities.
 - [zen-mode.nvim](https://github.com/folke/zen-mode.nvim) - Distraction-free coding.
 
 ## Scrolling
@@ -104,6 +104,7 @@
 
 - [noice.nvim](https://github.com/folke/noice.nvim) - Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
 - [nvim-notify](https://github.com/rcarriga/nvim-notify) - A fancy, configurable, notification manager.
+- [nvim-ufo](https://github.com/kevinhwang91/nvim-ufo) - Ultra fold with modern looking and performance boosting.
 
 ## Neovim Lua Development
 
@@ -118,12 +119,12 @@
 
 ## Syntax
 
-- [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Neovim Treesitter configurations and abstraction layer.
-- [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) - Create your own textobjects using tree-sitter queries.
+- [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Neovim Tree-sitter configurations and abstraction layer.
+- [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) - Create your own textobjects using Tree-sitter queries.
 
 ## Session
 
-- [persisted.nvim](https://github.com/olimorris/persisted.nvim) - Simple session management with git branching, autosave/autoload and Telescope support.
+- [persisted.nvim](https://github.com/olimorris/persisted.nvim) - Simple session management with Git branching, autosave/autoload and Telescope support.
 
 ## Project
 
@@ -160,6 +161,7 @@
 - mini&#46;files
 - mini&#46;hipatterns
 - mini&#46;icons
+- mini&#46;map
 - mini&#46;move
 - mini&#46;splitjoin
 - mini&#46;surround
