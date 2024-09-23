@@ -280,8 +280,13 @@ return {
         lazy = false,
         opts = function()
             local logo_table = require("user.config").logo
-            local logo = table.concat(logo_table, "\n")
-            logo = string.rep("\n", 4) .. logo .. "\n\n"
+            local logo
+            if logo_table ~= "" then
+                logo = table.concat(logo_table, "\n")
+                logo = string.rep("\n", 4) .. logo .. "\n\n"
+            else
+                logo = string.rep("\n", 8)
+            end
 
             local opts = {
                 theme = "doom",
@@ -309,11 +314,11 @@ return {
                 button.key_format = "  %s"
             end
 
-            vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "#999999" })
-            vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#F05454" })
-            vim.api.nvim_set_hl(0, "DashboardDesc", { fg = "#D4F5F5" })
-            vim.api.nvim_set_hl(0, "DashboardKey", { fg = "#F05454" })
-            vim.api.nvim_set_hl(0, "DashboardIcon", { fg = "#999999" })
+            vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "#524C42" })
+            vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#B43F3F" })
+            vim.api.nvim_set_hl(0, "DashboardDesc", { fg = "#F8EDED" })
+            vim.api.nvim_set_hl(0, "DashboardKey", { fg = "#B43F3F" })
+            vim.api.nvim_set_hl(0, "DashboardIcon", { fg = "#524C42" })
 
             -- open dashboard after closing lazy
             if vim.o.filetype == "lazy" then
