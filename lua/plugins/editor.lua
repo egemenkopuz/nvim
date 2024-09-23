@@ -108,7 +108,8 @@ return {
             local lazygit = Terminal:new {
                 cmd = "lazygit",
                 hidden = true,
-                count = 2,
+                count = 20,
+                float_opts = { width = vim.o.columns, height = vim.o.lines },
                 on_close = function()
                     vim.cmd [[ "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>" ]]
                 end,
@@ -153,7 +154,7 @@ return {
         end,
         config = function(_, _)
             local opts = {
-                window = { width = 0.65 },
+                window = { width = 0.75 },
                 on_open = function(win)
                     local view = require "zen-mode.view"
                     local layout = view.layout(view.opts)
@@ -201,40 +202,12 @@ return {
     },
 
     {
-        "windwp/nvim-spectre",
-        enabled = false,
-        build = false,
-        cmd = "Spectre",
-        opts = { open_cmd = "noswapfile vnew" },
-        init = function()
-            require("user.utils").load_keymap "spectre"
-        end,
-    },
-
-    {
         "MagicDuck/grug-far.nvim",
         cmd = "GrugFar",
         init = function()
             require("user.utils").load_keymap "grugfar"
         end,
-        opts = {
-            keymaps = {
-                replace = { n = "<leader>Gr" },
-                qflist = { n = "<leader>Gq" },
-                syncLocations = { n = "<leader>Gs" },
-                syncLine = { n = "<leader>Gl" },
-                close = { n = "<leader>Gq" },
-                historyOpen = { n = "<leader>Gh" },
-                historyAdd = { n = "<leader>Ga" },
-                refresh = { n = "<leader>Gf" },
-                openLocation = { n = "<leader>Go" },
-                gotoLocation = { n = "<enter>" },
-                pickHistoryEntry = { n = "<enter>" },
-                abort = { n = "<leader>Gb" },
-                help = { n = "g?" },
-                toggleShowRgCommand = { n = "<leader>Gt" },
-            },
-        },
+        opts = {},
         config = function(_, opts)
             require("grug-far").setup(opts)
         end,
@@ -278,6 +251,50 @@ return {
     },
 
     {
+        "kevinhwang91/nvim-ufo",
+        enabled = false,
+        dependencies = "kevinhwang91/promise-async",
+        lazy = false,
+        init = function()
+            require("user.utils").load_keymap "ufo"
+        end,
+        opts = {
+            provider_selector = function(bufnr, filetype, buftype)
+                return { "treesitter", "indent" }
+            end,
+            enable_get_fold_virt_text = true,
+            fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate, ctx)
+                local filling = " ⋯ "
+                local targetWidth = width
+                local curWidth = 0
+                table.insert(virtText, { filling, "Folded" })
+                local endVirtText = ctx.get_fold_virt_text(endLnum)
+                for i, chunk in ipairs(endVirtText) do
+                    local chunkText = chunk[1]
+                    local hlGroup = chunk[2]
+                    if i == 1 then
+                        chunkText = chunkText:gsub("^%s+", "")
+                    end
+                    local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                    if targetWidth > curWidth + chunkWidth then
+                        table.insert(virtText, { chunkText, hlGroup })
+                    else
+                        chunkText = truncate(chunkText, targetWidth - curWidth)
+                        table.insert(virtText, { chunkText, hlGroup })
+                        chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                        break
+                    end
+                    curWidth = curWidth + chunkWidth
+                end
+                return virtText
+            end,
+        },
+        config = function(_, opts)
+            require("ufo").setup(opts)
+        end,
+    },
+
+    {
         "mg979/vim-visual-multi",
         event = "BufReadPre",
         init = function()
@@ -288,5 +305,39 @@ return {
             vim.g.VM_silent_exit = 1
             require("user.utils").load_keymap "visual_multi"
         end,
+    },
+    {
+        "gbprod/yanky.nvim",
+        event = "BufReadPre",
+        opts = { highlight = { timer = 150 } },
+        keys = {
+            {
+                "<leader>sp",
+                function()
+                    require("telescope").extensions.yank_history.yank_history {}
+                end,
+                mode = { "n", "x" },
+                desc = "Yank History",
+            },
+            -- stylua: ignore start
+            { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank Text" },
+            { "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put Text After Cursor" },
+            { "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put Text Before Cursor" },
+            -- { "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" }, desc = "Put Text After Selection", },
+            -- { "gP", "<Plug>(YankyGPutBefore)", mode = { "n", "x" }, desc = "Put Text Before Selection", },
+            { "[y", "<Plug>(YankyCycleForward)", desc = "Cycle Forward Through Yank History" },
+            { "]y", "<Plug>(YankyCycleBackward)", desc = "Cycle Backward Through Yank History" },
+            { "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put Indented After Cursor (Linewise)", },
+            { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put Indented Before Cursor (Linewise)", },
+            { "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put Indented After Cursor (Linewise)", },
+            { "[P", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put Indented Before Cursor (Linewise)", },
+            { ">p", "<Plug>(YankyPutIndentAfterShiftRight)", desc = "Put and Indent Right" },
+            { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Put and Indent Left" },
+            { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put Before and Indent Right", },
+            { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Put Before and Indent Left" },
+            { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Put After Applying a Filter" },
+            { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put Before Applying a Filter" },
+            -- stylua: ignore end
+        },
     },
 }

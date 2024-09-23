@@ -38,6 +38,8 @@ M.treesitter_packages = {
     "yaml",
     "terraform",
     "hcl",
+    "rst",
+    "ninja",
 }
 
 -- auto install mason packages
@@ -71,7 +73,6 @@ M.mason_packages = {
     "hadolint",
     -- md
     "marksman",
-    "mdformat",
     -- json
     "json-lsp",
     -- yaml
@@ -91,9 +92,9 @@ M.nulls_packages = {
         "stylua",
         "clang_format",
         "shfmt",
-        "mdformat",
         "cmake_format",
         "terraform_fmt",
+        "terragrunt_fmt",
     },
     diagnostics = {
         "hadolint",
@@ -102,6 +103,7 @@ M.nulls_packages = {
         "ansiblelint",
         "terraform_validate",
         "tfsec",
+        "trivy",
     },
     code_actions = {},
     hover = {},

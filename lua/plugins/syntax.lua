@@ -12,32 +12,6 @@ return {
             },
             "windwp/nvim-autopairs",
             "JoosepAlviste/nvim-ts-context-commentstring",
-            {
-                "nvim-treesitter/nvim-treesitter-textobjects",
-                config = function()
-                    -- When in diff mode, we want to use the default
-                    -- vim text objects c & C instead of the treesitter ones.
-                    local move = require "nvim-treesitter.textobjects.move" ---@type table<string,fun(...)>
-                    local configs = require "nvim-treesitter.configs"
-
-                    for name, fn in pairs(move) do
-                        if name:find "goto" == 1 then
-                            move[name] = function(q, ...)
-                                if vim.wo.diff then
-                                    local config = configs.get_module("textobjects.move")[name] ---@type table<string,string>
-                                    for key, query in pairs(config or {}) do
-                                        if q == query and key:find "[%]%[][cC]" then
-                                            vim.cmd("normal! " .. key)
-                                            return
-                                        end
-                                    end
-                                end
-                                return fn(q, ...)
-                            end
-                        end
-                    end
-                end,
-            },
         },
         init = function(plugin)
             require("lazy.core.loader").add_to_rtp(plugin)
@@ -102,7 +76,6 @@ return {
                 map_cr = true,
             }
             require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
             require("user.utils").load_keymap "treesitter_context"
         end,
     },
@@ -241,30 +214,30 @@ return {
         end,
     },
 
-    {
-        "nmac427/guess-indent.nvim",
-        event = "BufReadPre",
-        opts = {
-            filetype_exclude = {
-                "netrw",
-                "tutor",
-                "alpha",
-                "dashboard",
-                "mason",
-                "lazy",
-                "log",
-                "gitcommmit",
-                "TelescopePrompt",
-                "neo-tree",
-                "neo-tree-popup",
-                "notify",
-                "no-neck-pain",
-                "Outline",
-                "undotree",
-            },
-        },
-        config = function(_, opts)
-            require("guess-indent").setup(opts)
-        end,
-    },
+    -- {
+    --     "nmac427/guess-indent.nvim",
+    --     event = "BufReadPre",
+    --     opts = {
+    --         filetype_exclude = {
+    --             "netrw",
+    --             "tutor",
+    --             "alpha",
+    --             "dashboard",
+    --             "mason",
+    --             "lazy",
+    --             "log",
+    --             "gitcommmit",
+    --             "TelescopePrompt",
+    --             "neo-tree",
+    --             "neo-tree-popup",
+    --             "notify",
+    --             "no-neck-pain",
+    --             "Outline",
+    --             "undotree",
+    --         },
+    --     },
+    --     config = function(_, opts)
+    --         require("guess-indent").setup(opts)
+    --     end,
+    -- },
 }

@@ -62,12 +62,12 @@ return {
                     end,
                 },
                 sources = cmp.config.sources {
+                    { name = "buffer" },
                     { name = "copilot", group_index = 2 },
                     { name = "nvim_lsp" },
-                    { name = "luasnip" },
-                    { name = "buffer" },
-                    { name = "nvim_lua" },
                     { name = "path" },
+                    { name = "luasnip" },
+                    { name = "nvim_lua" },
                     { name = "lazydev", group_index = 0 },
                 },
                 formatting = {
@@ -108,6 +108,7 @@ return {
             opts = {
                 suggestion = { enabled = false },
                 panel = { enabled = false },
+                filetypes = { markdown = true },
             },
         },
         opts = { method = "getCompletionsCycling" },

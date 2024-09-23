@@ -75,8 +75,8 @@ M.general = {
         ["n"] = { "nzzzv", "Next searched" },
         ["N"] = { "Nzzzv", "Previous searched" },
         -- better pasting
-        ["[p"] = { ":pu!<cr>" },
-        ["]p"] = { ":pu<cr>" },
+        -- ["[p"] = { ":pu!<cr>" },
+        -- ["]p"] = { ":pu<cr>" },
         -- toggle diagnostics
         ["<leader>td"] = { function() utils.toggle_diagnostics() end, "Diagnostics", },
         -- toggle format on save
@@ -247,6 +247,17 @@ M.glance = {
     },
 }
 
+M.map = {
+    n = {
+        ["<leader>tm"] = {
+            function()
+                MiniMap.toggle()
+            end,
+            "Map",
+        },
+    },
+}
+
 M.gitsigns = {
     [{ "o", "x" }] = {
         ["ih"] = { ":<C-U> Gitsigns select_hunk <cr>", "Select hunk", { silent = true } },
@@ -259,13 +270,13 @@ M.gitsigns = {
         ["]H"] = { function() require("gitsigns").nav_hunk("last") end, "Last hunk", },
         ["<leader>gl"] = { function() require("gitsigns").blame_line { full = true } end, "Blame line", },
         ["<leader>gb"] = { function() require("gitsigns").blame() end, "Blame buffer" },
-        ["<leader>ghs"] = { "<cmd> Gitsigns stage_hunk <cr>", "Stage hunk" },
-        ["<leader>ghr"] = { "<cmd> Gitsigns reset_hunk <cr>", "Reset hunk" },
-        ["<leader>ghu"] = { "<cmd> Gitsigns undo_stage_hunk <cr>", "Undo stage hunk" },
-        ["<leader>ghp"] = { "<cmd> Gitsigns preview_hunk <cr>", "Preview hunk" },
-        ["<leader>ghP"] = { "<cmd> Gitsigns preview_hunk_inline <cr>", "Preview hunk inline" },
-        ["<leader>ghS"] = { "<cmd> Gitsigns stage_buffer <cr>", "Stage buffer" },
-        ["<leader>ghR"] = { "<cmd> Gitsigns reset_buffer <cr>", "Reset buffer" },
+        ["<leader>gs"] = { "<cmd> Gitsigns stage_hunk <cr>", "Stage hunk" },
+        ["<leader>gr"] = { "<cmd> Gitsigns reset_hunk <cr>", "Reset hunk" },
+        ["<leader>gu"] = { "<cmd> Gitsigns undo_stage_hunk <cr>", "Undo stage hunk" },
+        ["<leader>gp"] = { "<cmd> Gitsigns preview_hunk <cr>", "Preview hunk" },
+        ["<leader>gP"] = { "<cmd> Gitsigns preview_hunk_inline <cr>", "Preview hunk inline" },
+        ["<leader>gS"] = { "<cmd> Gitsigns stage_buffer <cr>", "Stage buffer" },
+        ["<leader>gR"] = { "<cmd> Gitsigns reset_buffer <cr>", "Reset buffer" },
         ["<leader>gtb"] = { "<cmd> Gitsigns toggle_current_line_blame <cr>", "Blame inlay" },
         ["<leader>gts"] = { "<cmd> Gitsigns toggle_signs <cr>", "Signs" },
         ["<leader>gtn"] = { "<cmd> Gitsigns toggle_numhl <cr>", "Numhl" },
@@ -370,18 +381,35 @@ M.spectre = {
 
 M.grugfar = {
     [{ "n", "v" }] = {
-        ["<leader>cR"] = {
+        ["<leader>cs"] = {
             function()
                 local is_visual = vim.fn.mode():lower():find "v"
-                if is_visual then -- needed to make visual selection work
-                    vim.cmd [[normal! v]]
-                end
-                local grug = require "grug-far";
-                (is_visual and grug.with_visual_selection or grug.grug_far) {
-                    prefills = { filesFilter = "*." .. vim.fn.expand "%:e" },
+                local v = {
+                    transient = true,
+                    prefills = { paths = vim.fn.expand "%" },
                 }
+                if is_visual then
+                    require("grug-far").with_visual_selection(v)
+                else
+                    require("grug-far").open(v)
+                end
             end,
             "Search and replace",
+        },
+        ["<leader>cS"] = {
+            function()
+                local is_visual = vim.fn.mode():lower():find "v"
+                local v = {
+                    transient = true,
+                    prefills = { filesFilter = "*" },
+                }
+                if is_visual then
+                    require("grug-far").with_visual_selection(v)
+                else
+                    require("grug-far").open(v)
+                end
+            end,
+            "Search and replace (Project)",
         },
     },
 }
@@ -481,7 +509,7 @@ M.todo_comments = {
 
 M.venv = {
     n = {
-        ["<leader>cvs"] = { "<cmd> VenvSelect <cr>", "Select Python venv" },
+        ["<leader>cv"] = { "<cmd> VenvSelect <cr>", "Select Python venv" },
     },
 }
 
@@ -586,6 +614,41 @@ M.tiny_code_action = {
                 require("tiny-code-action").code_action()
             end,
             "Code Action",
+        },
+    },
+}
+
+M.ufo = {
+    n = {
+        -- ["zr"] = {
+        --     function()
+        --         require("ufo").openFoldsExceptKinds()
+        --     end,
+        --     "Open fold except kinds",
+        -- },
+        -- ["zm"] = {
+        --     function()
+        --         require("ufo").closeFoldsWith()
+        --     end,
+        --     "Close fold except kinds",
+        -- },
+        ["zR"] = {
+            function()
+                require("ufo").openAllFolds()
+            end,
+            "Open all folds",
+        },
+        ["zM"] = {
+            function()
+                require("ufo").closeAllFolds()
+            end,
+            "Close all folds",
+        },
+        ["zp"] = {
+            function()
+                require("ufo.preview"):peekFoldedLinesUnderCursor()
+            end,
+            "Preview fold",
         },
     },
 }

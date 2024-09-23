@@ -190,6 +190,22 @@ return {
                 git_status_cache = {}
             end
 
+            local files_grug_far_replace = function(path)
+                local cur_entry_path = MiniFiles.get_fs_entry().path
+                local prefills = { filesFilter = "*", paths = vim.fs.dirname(cur_entry_path) }
+                local grug_far = require "grug-far"
+                if not grug_far.has_instance "explorer" then
+                    grug_far.open {
+                        instanceName = "explorer",
+                        prefills = prefills,
+                        staticTitle = "Find and Replace from Explorer",
+                    }
+                else
+                    grug_far.open_instance "explorer"
+                    grug_far.update_instance_prefills("explorer", prefills, false)
+                end
+            end
+
             vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniFilesExplorerOpen",
                 callback = function()
@@ -207,8 +223,10 @@ return {
             vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniFilesBufferCreate",
                 callback = function(args)
+                    -- stylua: ignore start
                     local buf_id = args.data.buf_id
                     vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
+                    vim.keymap.set("n", "gs", files_grug_far_replace, { buffer = args.data.buf_id, desc = "Search in directory" })
                     map_split(buf_id, "gx", "belowright horizontal")
                     map_split(buf_id, "gv", "belowright vertical")
                     map_split(buf_id, "gX", "belowright horizontal", true)
@@ -217,6 +235,7 @@ return {
                     if git_status_cache[cwd] then
                         update_mini_with_git(buf_id, git_status_cache[cwd].statusMap)
                     end
+                    -- stylua: ignore end
                 end,
             })
         end,
@@ -232,7 +251,6 @@ return {
                     or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
             },
             "nvim-telescope/telescope-live-grep-args.nvim",
-            -- "nvim-telescope/telescope-file-browser.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
             "olimorris/persisted.nvim",
             "ahmedkhalf/project.nvim",
@@ -359,12 +377,13 @@ return {
     {
         "s1n7ax/nvim-window-picker",
         event = "BufReadPost",
-        version = "v1.*",
+        version = "2.*",
         config = function()
             require("window-picker").setup {
                 autoselect_one = true,
                 include_current = false,
-                other_win_hl_color = "#7E9CD8",
+                other_win_hl_color = "#00008B",
+                picker_config = { statusline_winbar_picker = { use_winbar = "smart" } },
                 filter_rules = {
                     bo = {
                         filetype = {
@@ -373,6 +392,7 @@ return {
                             "notify",
                             "no-neck-pain",
                             "Outline",
+                            "undotree",
                         },
                         buftype = { "terminal", "quickfix" },
                     },
@@ -418,9 +438,9 @@ return {
             oldfile = { suffix = "o", options = {} },
             quickfix = { suffix = "q", options = {} },
             treesitter = { suffix = "t", options = {} },
-            undo = { suffix = "u", options = {} },
+            undo = { suffix = "", options = {} },
             window = { suffix = "w", options = {} },
-            yank = { suffix = "y", options = {} },
+            yank = { suffix = "", options = {} },
         },
         config = function(_, opts)
             require("mini.bracketed").setup(opts)

@@ -377,9 +377,8 @@ return {
             local opts = {
                 relculright = true,
                 segments = {
+                    -- { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
                     -- { sign = { namespace = { "diagnostic" } } },
-                    -- { text = { "%=", get_lnum, " " } },
-                    -- { text = { "%C" }, click = "v:lua.ScFa" },
                     { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
                     { sign = { namespace = { "gitsigns" }, maxwidth = 1, colwidth = 1 } },
                 },
@@ -389,17 +388,52 @@ return {
     },
 
     {
+        "echasnovski/mini.map",
+        version = false,
+        lazy = false,
+        event = "BufReadPre",
+        init = function()
+            require("user.utils").load_keymap "map"
+        end,
+        opts = function()
+            map = require "mini.map"
+            return {
+                integrations = {
+                    map.gen_integration.builtin_search(),
+                    map.gen_integration.gitsigns(),
+                    map.gen_integration.diagnostic(),
+                },
+                symbols = {
+                    encode = map.gen_encode_symbols.dot "4x2",
+                    scroll_line = "┃",
+                    scroll_view = "│",
+                },
+            }
+        end,
+        config = function(_, opts)
+            require("mini.map").setup(opts)
+        end,
+    },
+
+    {
         "akinsho/bufferline.nvim",
         event = "BufReadPre",
         opts = {
             options = {
                 numbers = function(opts)
-                    return string.format("%s·%s", opts.raise(opts.id), opts.lower(opts.ordinal))
+                    return opts.raise(opts.ordinal)
                 end,
                 offsets = {
                     {
-                        filetype = "neo-tree",
-                        text = "",
+                        filetype = "undotree",
+                        text = "Undo History",
+                        padding = 0,
+                        text_align = "center",
+                        highlight = "Offset",
+                    },
+                    {
+                        filetype = "Outline",
+                        text = "LSP Symbols",
                         padding = 0,
                         text_align = "center",
                         highlight = "Offset",
@@ -450,6 +484,11 @@ return {
     },
 
     {
+        "OXY2DEV/markview.nvim",
+        ft = "markdown",
+    },
+
+    {
         "echasnovski/mini.hipatterns",
         version = false,
         event = "BufReadPre",
@@ -474,7 +513,17 @@ return {
                     todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
                     perf = { pattern = "%f[%w]()PERF()%f[%W]", group = "MiniHipatternsPerf" },
                     note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
-                    hex_color = hipatterns.gen_highlighter.hex_color(),
+                    hex_color = hipatterns.gen_highlighter.hex_color({ priority = 2000 }),
+                    shorthand = {
+                        pattern = "()#%x%x%x()%f[^%x%w]",
+                        group = function(_, _, data)
+                            local match = data.full_match
+                            local r, g, b = match:sub(2, 2), match:sub(3, 3), match:sub(4, 4)
+                            local hex_color = "#" .. r .. r .. g .. g .. b .. b
+                            return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
+                        end,
+                        extmark_opts = { priority = 2000 },
+                    },
                 },
             }
         end,
