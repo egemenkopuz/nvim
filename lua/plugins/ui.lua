@@ -222,60 +222,6 @@ return {
     },
 
     {
-        "goolord/alpha-nvim",
-        enabled = false,
-        event = "VimEnter",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = function()
-            local config = require "user.config"
-            local dashboard = require "alpha.themes.dashboard"
-            local fn = vim.fn
-
-            if config.logo then
-                dashboard.section.header.val = config.logo
-            end
-            -- stylua: ignore
-            dashboard.section.buttons.val = {
-                dashboard.button("f n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-                dashboard.button("f f", " " .. " Find file", ":Telescope find_files <CR>"),
-                dashboard.button("f t", " " .. " Find text", ":Telescope live_grep <CR>"),
-                dashboard.button("f o", "󱋡 " .. " Recent files", ":Telescope oldfiles <CR>"),
-                dashboard.button("s p", " " .. " Select project", ":Telescope projects <CR>"),
-                dashboard.button("s s", " " .. " Select session", ":Telescope persisted <CR>"),
-                dashboard.button("c c", " " .. " Nvim config", ":e $MYVIMRC | :cd %:p:h | :SessionLoad<CR>"),
-                dashboard.button("c f", " " .. " Global config", ":e $HOME/.config | :cd %:p:h | :SessionLoad<CR>"),
-                dashboard.button("c p", " " .. " Plugins", ":Lazy<CR>"),
-                dashboard.button("q", " " .. " Quit", ":qa <CR>"),
-            }
-
-            dashboard.section.footer.opts.hl = "Type"
-            dashboard.section.header.opts.hl = "AlphaHeader"
-            dashboard.section.buttons.opts.hl = "AlphaButtons"
-            dashboard.opts.layout[1].val = fn.max { 2, fn.floor(fn.winheight(0) * 0.1) }
-
-            return dashboard
-        end,
-        config = function(_, dashboard)
-            require("alpha").setup(dashboard.opts)
-
-            vim.api.nvim_create_autocmd("User", {
-                pattern = "LazyVimStarted",
-                -- stylua: ignore
-                callback = function()
-                    local date = os.date "%d/%m/%Y "
-                    local time = os.date "%H:%M:%S"
-                    local v = vim.version()
-                    local version = "v" .. v.major .. "." .. v.minor .. "." .. v.patch
-                    local stats = require("lazy").stats()
-                    local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-                    dashboard.section.footer.val = "[" .. date .. time .. "][" .. stats.count .. " plugins " .. ms .. "ms][" .. version .. "]"
-                    pcall(vim.cmd.AlphaRedraw)
-                end,
-            })
-        end,
-    },
-
-    {
         "nvimdev/dashboard-nvim",
         lazy = false,
         opts = function()
@@ -366,6 +312,7 @@ return {
                     "notify",
                     "toggleterm",
                     "lazyterm",
+                    "copilot-chat",
                 },
             },
         },

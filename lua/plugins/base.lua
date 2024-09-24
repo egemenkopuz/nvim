@@ -34,7 +34,6 @@ return {
                 { "<leader>u", group = "+ui" },
                 { "<leqder>q", group = "+quit" },
                 { "<leader>x", group = "+diagnostics/quickfix" },
-                { "<leader>n", group = "+notes" },
                 { "<leader>ut", group = "+terminal" },
                 { "<leader>cv", group = "+venv" },
                 { "<leader>m", group = "+multicursor" },
