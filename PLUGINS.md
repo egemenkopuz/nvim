@@ -57,10 +57,6 @@
 - [tiny-code-action.nvim](https://github.com/rachartier/tiny-code-action.nvim) - Provides a simple way to run and visualize code actions with Telescope.
 - [trouble.nvim](https://github.com/folke/trouble.nvim) - A pretty diagnostics list to help you solve all the trouble your code is causing.
 
-## Note Taking
-
-- [global-note.nvim](https://github.com/backdround/global-note.nvim) - One global note in a floating window.
-
 ## Search
 
 - [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) - Buffer-based live search and replace with full power of `rg` flags. Grug like!
