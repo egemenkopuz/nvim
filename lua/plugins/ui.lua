@@ -24,200 +24,122 @@ return {
     },
 
     {
-        "nvim-lualine/lualine.nvim",
-        event = "BufReadPre",
+        "rebelot/heirline.nvim",
         dependencies = {
-            { "arkav/lualine-lsp-progress" },
-            { "AndreM222/copilot-lualine" },
+            {
+                "linrongbin16/lsp-progress.nvim",
+                opts = {
+                    max_size = 80,
+                    series_format = function(title, message, percentage, done)
+                        local builder = {}
+                        local has_title = false
+                        local has_message = false
+                        if type(title) == "string" and string.len(title) > 0 then
+                            table.insert(builder, title)
+                            has_title = true
+                        end
+                        if type(message) == "string" and string.len(message) > 0 then
+                            table.insert(builder, message)
+                            has_message = true
+                        end
+                        if percentage and (has_title or has_message) then
+                            table.insert(builder, string.format("(%.0f%%)", percentage))
+                        end
+                        return table.concat(builder, " ")
+                    end,
+                    client_format = function(client_name, spinner, series_messages)
+                        if #series_messages == 0 then
+                            return nil
+                        end
+                        return {
+                            name = client_name,
+                            spinner = spinner,
+                            body = table.concat(series_messages, ", "),
+                        }
+                    end,
+                    format = function(client_messages)
+                        local bufnr = vim.api.nvim_get_current_buf()
+                        local lsp_clients = vim.lsp.get_clients { bufnr = bufnr }
+
+                        local builder = {}
+                        if #client_messages == 0 then
+                            for _, cli in ipairs(lsp_clients) do
+                                if
+                                    type(cli) == "table"
+                                    and type(cli.name) == "string"
+                                    and string.len(cli.name) > 0
+                                then
+                                    if cli.name ~= "null-ls" and cli.name ~= "copilot" then
+                                        table.insert(builder, cli.name)
+                                    end
+                                end
+                            end
+                        else
+                            local messages_map = {}
+                            for _, climsg in ipairs(client_messages) do
+                                messages_map[climsg.name] = climsg.body
+                            end
+                            table.sort(lsp_clients, function(a, b)
+                                return a.name < b.name
+                            end)
+                            for _, cli in ipairs(lsp_clients) do
+                                if
+                                    type(cli) == "table"
+                                    and type(cli.name) == "string"
+                                    and string.len(cli.name) > 0
+                                then
+                                    if messages_map[cli.name] then
+                                        table.insert(builder, messages_map[cli.name])
+                                    end
+                                end
+                            end
+                        end
+                        if #builder > 0 then
+                            return table.concat(builder, " ")
+                        end
+                        return ""
+                    end,
+                },
+                config = function(_, opts)
+                    require("lsp-progress").setup(opts)
+                end,
+            },
         },
+        event = "BufReadPre",
         opts = function()
-            local icons = require("user.config").icons
-            local colors = require("user.config").colors
-            local utils = require "user.utils"
+            local gm = require "plugins.modules.heirline.git"
+            local dm = require "plugins.modules.heirline.diagnostics"
+            local fm = require "plugins.modules.heirline.file"
+            local lm = require "plugins.modules.heirline.lang"
+            local others = require "plugins.modules.heirline.others"
 
-            local diff_color = {
-                added = { fg = colors.diff.added },
-                modified = { fg = colors.diff.modified },
-                removed = { fg = colors.diff.removed },
-            }
-            local diagnostics_color = {
-                error = { fg = colors.diagnostics.error },
-                warn = { fg = colors.diagnostics.warn },
-                info = { fg = colors.diagnostics.info },
-                hint = { fg = colors.diagnostics.hint },
-            }
-            if require("user.config").transparent then
-                for _, color in pairs(diff_color) do
-                    color.bg = "none"
-                end
-                for _, color in pairs(diagnostics_color) do
-                    color.bg = "none"
-                end
+            local config = require "user.config"
+            local custom_colors = config.colors.custom
+
+            local bg_color = custom_colors.sl_bg
+            if config.transparent then
+                bg_color = "None"
             end
-
-            return {
-                options = {
-                    theme = "auto",
-                    component_separators = { left = "", right = "" },
-                    section_separators = { left = "", right = "" },
-                    globalstatus = true,
-                    disabled_filetypes = {
-                        statusline = { "alpha", "packer", "lazy", "terminal", "dashboard" },
-                    },
-                },
-                extensions = {
-                    "toggleterm",
-                    "nvim-dap-ui",
-                    "lazy",
-                    "trouble",
-                    "overseer",
-                    "symbols-outline",
-                },
-                sections = {
-                    lualine_a = { "mode" },
-                    lualine_b = { "branch" },
-                    lualine_c = {
-                        "git_prompt_string",
-                        {
-                            "diff",
-                            symbols = {
-                                added = icons.diff.added,
-                                modified = icons.diff.modified,
-                                removed = icons.diff.removed,
-                            },
-                            diff_color = diff_color,
-                        },
-                        {
-                            "filename",
-                            symbols = { modified = "[+]", readonly = "[-]", unnamed = "" },
-                            path = 1,
-                        },
-                        {
-                            function()
-                                local recording_register = vim.fn.reg_recording()
-                                if recording_register == "" then
-                                    return ""
-                                else
-                                    return "recording @" .. recording_register
-                                end
-                            end,
-                        },
-                        {
-                            function()
-                                local result = vim.fn["VMInfos"]()
-                                if result.status == nil then
-                                    return ""
-                                end
-                                return "multi-cursor " .. result.ratio
-                            end,
-                        },
-                    },
-                    lualine_x = {
-                        {
-                            "lsp_progress",
-                            display_components = { { "title", "percentage", "message" } },
-                            colors = {
-                                percentage = "#505A6C",
-                                title = "#505A6C",
-                                message = "#505A6C",
-                                use = true,
-                            },
-                        },
-                        {
-                            "copilot",
-                            symbols = {
-                                status = { icons = { unknown = " " } },
-                                spinners = require("copilot-lualine.spinners").dots,
-                            },
-                        },
-                        {
-                            function()
-                                local active_clients = vim.lsp.get_clients { bufnr = 0 }
-
-                                table.sort(active_clients, function(a, b)
-                                    return a.name < b.name
-                                end)
-
-                                local index = 0
-                                local lsp_names = ""
-                                local mapping = require("user.config").lsp_to_status_name
-                                for _, lsp_config in ipairs(active_clients) do
-                                    for _, lsp_name in
-                                        ipairs(require("user.config").lsp_to_status_exclude)
-                                    do
-                                        if lsp_config.name == lsp_name then
-                                            goto continue
-                                        end
-                                    end
-
-                                    -- stylua: ignore
-                                    local lsp_name = mapping[lsp_config.name] == nil and lsp_config.name or mapping[lsp_config.name]
-
-                                    index = index + 1
-                                    if index == 1 then
-                                        lsp_names = lsp_name
-                                    else
-                                        lsp_names = lsp_names .. " " .. lsp_name
-                                    end
-
-                                    ::continue::
-                                end
-
-                                return lsp_names
-                            end,
-                            color = { fg = "gray" },
-                        },
-                        {
-                            function()
-                                local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
-                                return " " .. shiftwidth
-                            end,
-                            padding = 1,
-                        },
-                        {
-                            "filetype",
-                            colored = false,
-                            icon_only = false,
-                            icon = { align = "right" },
-                        },
-                        {
-                            function()
-                                local venv = os.getenv "CONDA_DEFAULT_ENV"
-                                    or os.getenv "VIRTUAL_ENV"
-                                if venv then
-                                    return string.format("(%s)", utils.env_cleanup(venv))
-                                end
-                                return ""
-                            end,
-                            cond = function()
-                                return vim.bo.filetype == "python"
-                            end,
-                        },
-                    },
-                    lualine_y = {
-                        {
-                            "diagnostics",
-                            symbols = {
-                                error = icons.diagnostics.error,
-                                warn = icons.diagnostics.warn,
-                                info = icons.diagnostics.info,
-                                hint = icons.diagnostics.hint,
-                            },
-                            diagnostics_color = diagnostics_color,
-                        },
-                    },
-                    lualine_z = { "location" },
-                },
+            local statuslines = {
+                hl = { bg = bg_color },
+                others.mode(),
+                gm.git_branch(),
+                fm.filename(),
+                gm.git_diff(),
+                others.macro(),
+                others.fill(),
+                lm.lsp_progress(),
+                others.search_count(),
+                dm.diagnostics(),
+                others.copilot(),
+                lm.python_env(),
+                fm.filetype(),
             }
+            return { statusline = statuslines }
         end,
         config = function(_, opts)
-            require("lualine").setup(opts)
-            if require("user.config").transparent then
-                for _, section in ipairs { "b", "c", "x", "y" } do
-                    vim.cmd("highlight lualine_" .. section .. "_normal guibg=NONE")
-                    vim.cmd("highlight lualine_" .. section .. "_inactive guibg=NONE")
-                end
-            end
+            vim.opt.laststatus = 3
+            require("heirline").setup(opts)
         end,
     },
 
@@ -342,13 +264,12 @@ return {
     {
         "echasnovski/mini.map",
         version = false,
-        lazy = false,
         event = "BufReadPre",
         init = function()
             require("user.utils").load_keymap "map"
         end,
         opts = function()
-            map = require "mini.map"
+            local map = require "mini.map"
             return {
                 integrations = {
                     map.gen_integration.builtin_search(),
@@ -360,6 +281,7 @@ return {
                     scroll_line = "┃",
                     scroll_view = "│",
                 },
+                window = { zindex = 9990 },
             }
         end,
         config = function(_, opts)
@@ -422,17 +344,6 @@ return {
                 end,
             })
         end,
-    },
-
-    {
-        "NvChad/nvim-colorizer.lua",
-        enabled = false,
-        event = "BufReadPre",
-        opts = {
-            user_default_options = { names = false },
-            buftypes = { "*", "!alpha", "!mason", "!lazy", "!dashboard" },
-        },
-        config = true,
     },
 
     {

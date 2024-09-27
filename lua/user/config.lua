@@ -40,6 +40,7 @@ M.treesitter_packages = {
     "hcl",
     "rst",
     "ninja",
+    "rust",
 }
 
 -- auto install mason packages
@@ -64,10 +65,13 @@ M.mason_packages = {
     "debugpy",
     "black",
     "isort",
+    -- Rust
+    "rust-analyzer",
     -- cpp
     "clangd",
-    "codelldb",
     "clang-format",
+    -- debug
+    "codelldb",
     -- docker
     "dockerfile-language-server",
     "hadolint",
@@ -145,22 +149,8 @@ M.logo = {
     "   ██║╚██╗██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
     "   ██║ ╚████║  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
     "   ╚═╝  ╚═══╝   ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
-    "            Deus Est Machina         ",
+    "            Deus Est Machina           ",
 }
--- M.logo = {
---     "     _           _                      _             ",
---     "             ▕                                 ",
---     "  ▕ ███       ▕│█     ___   ___                 ",
---     "  ▕││███     ▕│███▕│         █   ██      ",
---     "  ▕││  ███   ▕│███▕│▕│ ▁ ▕│    ▕│██          ",
---     "  ▕││  ▕│███ ▕│███▕│▕│   ▕│    ▕│██  ◢◣  ◢  ",
---     "  ▕││  ▕│  ███│███▕│  ▁▁  ▁   ██   ▜█ ██  ",
---     "     ▕│    ████      ‾‾    ‾                 ",
---     "     ▕│                                        ",
---     "                 ‾                      ‾             ",
---     "                                                      ",
---     "                     Deus Est Machina                 ",
--- }
 
 -- Colors for diagnostics
 M.colors.diagnostics = {
@@ -179,9 +169,9 @@ M.colors.diff = {
 
 -- Diagnostics icons
 M.icons.diagnostics = {
-    error = " ",
-    warn = " ",
-    info = " ",
+    error = " ",
+    warn = " ",
+    info = " ",
     hint = " ",
 }
 
@@ -190,6 +180,37 @@ M.icons.diff = {
     added = "+",
     modified = "~",
     removed = "-",
+}
+
+M.colors.branch_type = {
+    default = "#E2DFD0",
+    int = "#8DA9C4",
+    dev = "#AD49E1",
+    nightly = "#AD49E1",
+    feat = "#90EE90",
+    fix = "#ce5a57",
+    release = "#e1b16a",
+}
+
+M.colors.custom = {
+    light_red = "#ce5a57",
+    light_green = "#90EE90",
+    light_orange = "#e1b16a",
+    light_cyan = "#82a0aa",
+    light_purple = "#c792ea",
+    light_gray = "#a0a1a7",
+    sl_copilot = "#B7B7B7",
+    sl_bg = "#181818",
+    sl_filename = "#a0a1a7",
+    sl_parent_path = "#545862",
+    sl_lsp_progress = "#545862",
+    sl_python_env = "#c4b28a",
+}
+
+M.icons.custom = {
+    branch = "",
+    copilot = "",
+    macro_recording = " ",
 }
 
 -- Syntax icons

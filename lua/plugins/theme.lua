@@ -6,7 +6,10 @@ return {
         lazy = false,
         opts = {
             compile = true,
-            colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
+            colors = {
+                palette = { oldWhite = "#c5c9c5" },
+                theme = { all = { ui = { bg_gutter = "none" } } },
+            },
             background = { dark = "dragon", light = "lotus" },
             dimInactive = true,
             transparent = require("user.config").transparent,

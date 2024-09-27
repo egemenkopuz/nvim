@@ -252,6 +252,7 @@ return {
             },
             "nvim-telescope/telescope-live-grep-args.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
+            "ANGkeith/telescope-terraform-doc.nvim",
             "olimorris/persisted.nvim",
             "ahmedkhalf/project.nvim",
             "folke/noice.nvim",
@@ -334,12 +335,12 @@ return {
             telescope.setup(opts)
 
             telescope.load_extension "fzf"
-            -- telescope.load_extension "file_browser"
             telescope.load_extension "live_grep_args"
             telescope.load_extension "ui-select"
             telescope.load_extension "projects"
             telescope.load_extension "persisted"
             telescope.load_extension "noice"
+            telescope.load_extension "terraform_doc"
 
             if not require("user.config").transparent then
                 local tc1 = "#282727"
@@ -379,10 +380,24 @@ return {
         version = "2.*",
         config = function()
             require("window-picker").setup {
+                hint = "floating-big-letter",
                 autoselect_one = true,
                 include_current = false,
                 other_win_hl_color = "#00008B",
                 picker_config = { statusline_winbar_picker = { use_winbar = "smart" } },
+                filter_func = function(windows, rules)
+                    local function predicate(wid)
+                        local cfg = vim.api.nvim_win_get_config(wid)
+                        if not cfg.focusable then
+                            return false
+                        end
+                        return true
+                    end
+                    local filtered = vim.tbl_filter(predicate, windows)
+                    local dfilter = require("window-picker.filters.default-window-filter"):new()
+                    dfilter:set_config(rules)
+                    return dfilter:filter_windows(filtered)
+                end,
                 filter_rules = {
                     bo = {
                         filetype = {
@@ -392,6 +407,7 @@ return {
                             "no-neck-pain",
                             "Outline",
                             "undotree",
+                            "diff",
                         },
                         buftype = { "terminal", "quickfix" },
                     },

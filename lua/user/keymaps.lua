@@ -189,6 +189,7 @@ M.telescope = {
         ["<leader>sW"] = { utils.telescope("grep_word_under_cursor", { cwd = false }), "Word (cwd)" },
         ["<leader>xn"] = { "<cmd> Telescope notify <cr>", "Notifications" },
         ["<leader>ss"] = { utils.telescope("lsp_document_symbols", { symbols = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Struct", "Trait", "Field", "Property", }, }), "LSP symbols" },
+        ["<leader>st"] = { "<cmd> Telescope terraform_doc full_name=hashicorp/aws<cr>", "Terraform AWS docs" },
     },
 }
 
