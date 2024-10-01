@@ -1,12 +1,10 @@
 local M = {}
-local notify = require("user.utils").notify
 
 local conditions = require "heirline.conditions"
 local utils = require "plugins.modules.heirline.utils"
 
 local config = require "user.config"
 local custom_colors = config.colors.custom
-local custom_icons = config.icons.custom
 
 -- caching
 local cache_python_env = ""

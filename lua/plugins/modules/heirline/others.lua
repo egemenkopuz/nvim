@@ -160,7 +160,7 @@ function M.copilot()
             if vim.tbl_isempty(self.client.requests) then
                 return utils.stylize(self.idle_icon, { padding = { left = 1, right = 1 } })
             end
-            local spinners = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
+            local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
             local ms = vim.loop.hrtime() / 1000000
             local frame = math.floor(ms / 120) % #spinners
             return utils.stylize(spinners[frame + 1], { padding = { left = 1, right = 1 } })

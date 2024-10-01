@@ -381,10 +381,9 @@ return {
         config = function()
             require("window-picker").setup {
                 hint = "floating-big-letter",
-                autoselect_one = true,
+                autoselect_one = false,
                 include_current = false,
-                other_win_hl_color = "#00008B",
-                picker_config = { statusline_winbar_picker = { use_winbar = "smart" } },
+                floating_big_letter = { font = "ansi-shadow" },
                 filter_func = function(windows, rules)
                     local function predicate(wid)
                         local cfg = vim.api.nvim_win_get_config(wid)
@@ -408,6 +407,7 @@ return {
                             "Outline",
                             "undotree",
                             "diff",
+                            "Glance",
                         },
                         buftype = { "terminal", "quickfix" },
                     },

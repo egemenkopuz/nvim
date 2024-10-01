@@ -25,6 +25,7 @@ return {
 
     {
         "rebelot/heirline.nvim",
+        event = "BufReadPre",
         dependencies = {
             {
                 "linrongbin16/lsp-progress.nvim",
@@ -105,14 +106,12 @@ return {
                 end,
             },
         },
-        event = "BufReadPre",
         opts = function()
             local gm = require "plugins.modules.heirline.git"
             local dm = require "plugins.modules.heirline.diagnostics"
             local fm = require "plugins.modules.heirline.file"
             local lm = require "plugins.modules.heirline.lang"
             local others = require "plugins.modules.heirline.others"
-
             local config = require "user.config"
             local custom_colors = config.colors.custom
 
@@ -120,7 +119,7 @@ return {
             if config.transparent then
                 bg_color = "None"
             end
-            local statuslines = {
+            local statusline = {
                 hl = { bg = bg_color },
                 others.mode(),
                 gm.git_branch(),
@@ -135,7 +134,7 @@ return {
                 lm.python_env(),
                 fm.filetype(),
             }
-            return { statusline = statuslines }
+            return { statusline = statusline }
         end,
         config = function(_, opts)
             vim.opt.laststatus = 3
@@ -211,16 +210,7 @@ return {
         main = "ibl",
         opts = {
             indent = { char = "│" },
-            scope = {
-                enabled = true,
-                show_start = false,
-                show_end = false,
-                include = {
-                    node_type = {
-                        ["*"] = { "*" },
-                    },
-                },
-            },
+            scope = { enabled = true, show_start = false, show_end = false },
             exclude = {
                 filetypes = {
                     "help",
@@ -245,6 +235,7 @@ return {
 
     {
         "luukvbaal/statuscol.nvim",
+        enabled = true,
         event = "BufReadPre",
         config = function(_, _)
             local builtin = require "statuscol.builtin"
@@ -403,6 +394,7 @@ return {
 
     {
         "rcarriga/nvim-notify",
+        lazy = false,
         opts = {
             timeout = 1000,
             max_height = function()

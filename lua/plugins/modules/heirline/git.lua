@@ -126,7 +126,6 @@ function M.git_branch()
                 if #splits > 1 then
                     self.branch_type = splits[1]
                     self.branch_name = vim.fn.join({ unpack(splits, 2) }, "/")
-                    self.branch_name_color = self.default_color
                     if string.find(self.branch_type, "feat") then
                         self.branch_type_color = self.feat_color
                     elseif string.find(self.branch_type, "dev") then

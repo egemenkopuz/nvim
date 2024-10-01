@@ -1,19 +1,10 @@
 return {
     {
-        "stevearc/overseer.nvim",
-        enabled = false,
-        ft = { "cmake", "cpp", "python" },
-        opts = {},
-        config = function()
-            require("overseer").setup()
-        end,
-    },
-
-    {
         "CopilotC-Nvim/CopilotChat.nvim",
         branch = "canary",
         cmd = "CopilotChat",
         opts = function()
+            local config = require "user.config"
             local user = vim.env.USER or "User"
             user = user:sub(1, 1):upper() .. user:sub(2)
             -- stylua: ignore
@@ -35,14 +26,14 @@ return {
                 auto_insert_mode = false,
                 auto_follow_cursor = false,
                 show_help = true,
-                question_header = "  " .. user .. " ",
-                answer_header = "  Copilot ",
-                error_header = "  Error ",
+                question_header = config.icons.custom.user .. " " .. user .. " ",
+                answer_header = config.icons.custom.copilot .. " Copilot ",
+                error_header = config.icons.diagnostics.error .. " Error ",
                 window = {
                     layout = "float",
                     relative = "cursor",
                     width = 1,
-                    height = 0.4,
+                    height = 0.45,
                     row = 1,
                     zindex = 999,
                 },
@@ -91,6 +82,7 @@ return {
 
     {
         "Civitasv/cmake-tools.nvim",
+        enabled = false,
         depends = { "nvim-lua/plenary.nvim", "stevearc/overseer.nvim" },
         ft = { "cmake", "cpp" },
         opts = {

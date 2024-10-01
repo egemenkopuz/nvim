@@ -26,7 +26,21 @@ return {
                 opts = {
                     delay = 200,
                     providers = { "lsp", "treesitter", "regex" },
-                    filetypes_denylist = { "neo-tree", "dirvish", "fugitive", "lazy", "mason" },
+                    filetypes_denylist = {
+                        "neo-tree",
+                        "notify",
+                        "dirvish",
+                        "fugitive",
+                        "lazy",
+                        "mason",
+                        "Outline",
+                        "no-neck-pain",
+                        "undotree",
+                        "diff",
+                        "Glance",
+                        "trouble",
+                        "copilot-chat",
+                    },
                 },
                 config = function(_, opts)
                     require("illuminate").configure(opts)

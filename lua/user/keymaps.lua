@@ -89,6 +89,7 @@ M.general = {
         ["gco"] = { "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",  "Add comment below" },
         ["gcO"] = { "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",  "Add comment above" },
         -- tab navigation
+        ["<leader><tab><tab>"] = {":tabnext<cr>", "Tab next"},
         ["<leader><tab>q"] = {":tabclose<cr>", "Tab close"},
         ["<leader><tab>c"] = {":tabnew<cr>", "Tab create"},
         ["<leader><tab>["] = {":tabprevious<cr>", "Prev tab"},
@@ -283,7 +284,7 @@ M.gitsigns = {
         ["<leader>gtn"] = { "<cmd> Gitsigns toggle_numhl <cr>", "Numhl" },
         ["<leader>gtl"] = { "<cmd> Gitsigns toggle_linehl <cr>", "Linehl" },
         ["<leader>gtd"] = { "<cmd> Gitsigns toggle_word_diff <cr>", "Diff inlay" },
-        ["<leader>gd"] = { function() require("gitsigns").diffthis("~") end, "Diff overlay" },
+        -- ["<leader>gd"] = { function() require("gitsigns").diffthis("~") end, "Diff overlay" },
     },
 }
 
@@ -416,10 +417,44 @@ M.grugfar = {
 }
 
 M.window_picker = {
-    -- stylua: ignore
     n = {
-        ["<leader>uw"] = { function() utils.pick_window() end, "Pick window" },
-        ["<leader>us"] = { function() utils.swap_window() end, "Swap window" },
+        ["<leader>uw"] = {
+            function()
+                utils.pick_window()
+            end,
+            "Pick window",
+        },
+        ["<leader>us"] = {
+            function()
+                utils.swap_window()
+            end,
+            "Swap window",
+        },
+        ["<leader>uq"] = {
+            function()
+                local win = require("window-picker").pick_window()
+                if not win or not vim.api.nvim_win_is_valid(win) then
+                    return
+                end
+                local buf = vim.api.nvim_win_get_buf(win)
+                local modified = vim.api.nvim_buf_get_option(buf, "modified")
+                local bd = require("mini.bufremove").delete
+                if modified then
+                    local choice = vim.fn.confirm(
+                        ("Save changes to %q?"):format(vim.fn.bufname(buf)),
+                        "&Yes\n&No\n&Cancel"
+                    )
+                    if choice == 1 then -- Yes
+                        bd(buf)
+                        vim.api.nvim_win_close(win, true)
+                    end
+                else
+                    bd(buf)
+                    vim.api.nvim_win_close(win, true)
+                end
+            end,
+            "Close buffer & window",
+        },
     },
 }
 
@@ -616,6 +651,13 @@ M.tiny_code_action = {
             end,
             "Code Action",
         },
+    },
+}
+
+M.diffview = {
+    n = {
+        ["<leader>gd"] = { "<cmd>DiffviewOpen<cr>", "Diffview" },
+        -- ["<leader>gD"] = { "<cmd>DiffviewClose<cr>", "Diffview Close" },
     },
 }
 

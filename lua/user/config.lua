@@ -211,6 +211,7 @@ M.icons.custom = {
     branch = "",
     copilot = "",
     macro_recording = " ",
+    user = "",
 }
 
 -- Syntax icons

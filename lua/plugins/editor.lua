@@ -40,10 +40,31 @@ return {
     {
         "dnlhc/glance.nvim",
         event = "BufReadPre",
-        opts = {
-            border = { enable = true, top_char = "―", bottom_char = "―" },
-            use_trouble_qf = true,
-        },
+        opts = function()
+            local actions = require("glance").actions
+            local window_picker_jump = function()
+                local win = require("window-picker").pick_window()
+                if not win or not vim.api.nvim_win_is_valid(win) then
+                    return
+                end
+                actions.jump {
+                    cmd = function()
+                        vim.api.nvim_set_current_win(win)
+                    end,
+                }
+            end
+
+            return {
+                use_trouble_qf = true,
+                mappings = {
+                    list = {
+                        ["x"] = actions.jump_split,
+                        ["w"] = window_picker_jump,
+                        ["s"] = "",
+                    },
+                },
+            }
+        end,
         config = function(_, opts)
             require("glance").setup(opts)
             require("user.utils").load_keymap "glance"
@@ -306,6 +327,7 @@ return {
             require("user.utils").load_keymap "visual_multi"
         end,
     },
+
     {
         "gbprod/yanky.nvim",
         event = "BufReadPre",
@@ -339,5 +361,28 @@ return {
             { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put Before Applying a Filter" },
             -- stylua: ignore end
         },
+    },
+
+    {
+        "sindrets/diffview.nvim",
+        cmd = { "DiffviewOpen", "DiffviewClose" },
+        init = function()
+            require("user.utils").load_keymap "diffview"
+        end,
+        config = function()
+            require("diffview").setup()
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "DiffviewFiles" },
+                callback = function(event)
+                    vim.bo[event.buf].buflisted = false
+                    vim.keymap.set(
+                        "n",
+                        "q",
+                        "<cmd>DiffviewClose<cr>",
+                        { buffer = event.buf, silent = true }
+                    )
+                end,
+            })
+        end,
     },
 }
