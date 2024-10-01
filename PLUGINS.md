@@ -23,7 +23,6 @@
 ## Code Runner
 
 - [cmake-tools.nvim](https://github.com/Civitasv/cmake-tools.nvim) - CMake integration.
-- [overseer.nvim](https://github.com/stevearc/overseer.nvim) - A task runner and job management plugin.
 
 ## Completion
 
@@ -34,14 +33,15 @@
 
 - [dashboard-nvim](https://github.com/nvimdev/dashboard-nvim) - A minimalist dashboard, inspired by doom-emacs.
 
+## Git
+
+- [diffview.nvim](https://github.com/sindrets/diffview.nvim) - Single tabpage interface for easily cycling through diffs for all modified files for any Git rev.
+- [gitlinker.nvim](https://github.com/linrongbin16/gitlinker.nvim) - Maintained fork of "ruifm's gitlinker", refactored with bug fixes, ssh aliases, blame support and other improvements.
+- [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) - Git integration: signs, hunk actions, blame, etc.
+
 ## Motion
 
 - [flash.nvim](https://github.com/folke/flash.nvim) - Navigate your code with search labels, enhanced character motions and Tree-sitter integration.
-
-## Git
-
-- [gitlinker.nvim](https://github.com/linrongbin16/gitlinker.nvim) - Maintained fork of "ruifm's gitlinker", refactored with bug fixes, ssh aliases, blame support and other improvements.
-- [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) - Git integration: signs, hunk actions, blame, etc.
 
 ## LSP
 
