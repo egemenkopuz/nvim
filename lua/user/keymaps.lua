@@ -191,6 +191,7 @@ M.telescope = {
         ["<leader>xn"] = { "<cmd> Telescope notify <cr>", "Notifications" },
         ["<leader>ss"] = { utils.telescope("lsp_document_symbols", { symbols = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Struct", "Trait", "Field", "Property", }, }), "LSP symbols" },
         ["<leader>st"] = { "<cmd> Telescope terraform_doc full_name=hashicorp/aws<cr>", "Terraform AWS docs" },
+        ["<leader><leader>"] = { function () require("telescope").extensions.smart_open.smart_open() end, "Quick navigate" }
     },
 }
 

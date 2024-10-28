@@ -29,10 +29,13 @@ return {
                 local should_close = should_close or false
                 local rhs = function()
                     local new_target_window
-                    vim.api.nvim_win_call(require("mini.files").get_explorer_state().target_window, function()
-                        vim.cmd("belowright " .. direction .. " split")
-                        new_target_window = vim.api.nvim_get_current_win()
-                    end)
+                    vim.api.nvim_win_call(
+                        require("mini.files").get_explorer_state().target_window,
+                        function()
+                            vim.cmd("belowright " .. direction .. " split")
+                            new_target_window = vim.api.nvim_get_current_win()
+                        end
+                    )
                     require("mini.files").set_target_window(new_target_window)
                     require("mini.files").go_in {}
                     if should_close then
@@ -248,6 +251,14 @@ return {
                 build = vim.fn.executable "make" == 1 and "make"
                     or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
             },
+            {
+                "danielfalk/smart-open.nvim",
+                branch = "0.2.x",
+                config = function()
+                    require("telescope").load_extension "smart_open"
+                end,
+                dependencies = { "kkharji/sqlite.lua" },
+            },
             "nvim-telescope/telescope-live-grep-args.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
             "ANGkeith/telescope-terraform-doc.nvim",
@@ -303,6 +314,9 @@ return {
                     override_generic_sorter = true,
                     override_file_sorter = true,
                     case_mode = "smart_case",
+                },
+                extensions = {
+                    smart_open = { match_algorithm = "fzf" },
                 },
             },
         },
