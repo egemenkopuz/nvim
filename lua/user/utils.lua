@@ -10,6 +10,8 @@ local settings = {
     diagnostic_lines = false,
 }
 
+local diag_def_virtual_text = require("user.config").diagnostics.virtual_text
+
 -- util init
 if vim.api.nvim_get_option_value("colorcolumn", {}) == "" then
     settings.colorcolumn = false
@@ -54,9 +56,11 @@ function M.toggle_diagnostics()
     M.toggle "diagnostics"
     if M.is_enabled "diagnostics" then
         vim.diagnostic.show()
+        require("tiny-inline-diagnostic").enable()
         M.notify "Diagnostics enabled"
     else
         vim.diagnostic.hide()
+        require("tiny-inline-diagnostic").disable()
         M.notify "Diagnostics disabled"
     end
 end
@@ -70,10 +74,12 @@ function M.toggle_diagnostic_lines()
     if M.is_enabled "diagnostic_lines" then
         def_diagnostics.virtual_lines = true
         def_diagnostics.virtual_text = false
+        require("tiny-inline-diagnostic").disable()
         M.notify "Diagnostics lines enabled"
     else
         def_diagnostics.virtual_lines = false
-        def_diagnostics.virtual_text = true
+        def_diagnostics.virtual_text = diag_def_virtual_text
+        require("tiny-inline-diagnostic").enable()
         M.notify "Diagnostics lines disabled"
     end
     vim.diagnostic.config(def_diagnostics)

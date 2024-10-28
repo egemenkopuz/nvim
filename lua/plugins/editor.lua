@@ -385,4 +385,25 @@ return {
             })
         end,
     },
+
+    {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "LspAttach",
+        opts = function()
+            return {
+                signs = {
+                    left = " ",
+                    right = "",
+                    diag = "■",
+                    arrow = "    ",
+                    up_arrow = "    ",
+                    vertical = " │",
+                    vertical_end = " └",
+                },
+            }
+        end,
+        config = function(_, opts)
+            require("tiny-inline-diagnostic").setup(opts)
+        end,
+    },
 }
