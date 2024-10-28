@@ -106,6 +106,7 @@
 
 - [nui.nvim](https://github.com/MunifTanjim/nui.nvim) - UI Component Library.
 - [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - Plenary: full; complete; entire; absolute; unqualified. All the Lua functions I don't want to write twice.
+- [sqlite.lua](https://github.com/kkharji/sqlite.lua) - SQLite/LuaJIT binding for Lua and Neovim.
 
 ## Debugging
 
@@ -164,6 +165,7 @@
 - nvim-nio
 - nvim-window-picker
 - schemastore&#46;nvim
+- smart-open&#46;nvim
 - telescope-fzf-native&#46;nvim
 - telescope-live-grep-args&#46;nvim
 - telescope-terraform-doc&#46;nvim
