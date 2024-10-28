@@ -65,6 +65,7 @@ return {
                 ["marksman"] = {},
                 ["eslint"] = {},
                 ["ansiblels"] = {},
+                ["rust_analyzer"] = {},
                 ["clangd"] = {
                     cmd = {
                         "clangd",
