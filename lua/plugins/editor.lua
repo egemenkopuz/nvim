@@ -388,7 +388,7 @@ return {
 
     {
         "rachartier/tiny-inline-diagnostic.nvim",
-        event = "LspAttach",
+        event = "VeryLazy",
         opts = function()
             return {
                 signs = {
@@ -399,6 +399,11 @@ return {
                     up_arrow = "    ",
                     vertical = " │",
                     vertical_end = " └",
+                },
+                options = {
+                    multiple_diag_under_cursor = true,
+                    multilines = true,
+                    show_all_diags_on_cursorline = true,
                 },
             }
         end,

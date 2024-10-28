@@ -279,13 +279,14 @@ M.icons.clangd = {
 M.diagnostics = {
     underline = true,
     update_in_insert = false,
-    virtual_text = {
-        spacing = 2,
-        prefix = "■",
-        format = function()
-            return ""
-        end,
-    },
+    -- virtual_text = {
+    --     spacing = 2,
+    --     prefix = "■",
+    --     format = function()
+    --         return ""
+    --     end,
+    -- },
+    virtual_text = false,
     severity_sort = true,
     float = { border = "rounded" },
     virtual_lines = false,
