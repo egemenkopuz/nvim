@@ -210,7 +210,7 @@ M.files = {
         },
         ["<C-n>"] = {
             function()
-                MiniFiles.open(vim.api.nvim_buf_get_name(0))
+                MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
                 MiniFiles.reveal_cwd()
             end,
         },

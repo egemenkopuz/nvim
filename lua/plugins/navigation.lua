@@ -29,7 +29,7 @@ return {
                 local should_close = should_close or false
                 local rhs = function()
                     local new_target_window
-                    vim.api.nvim_win_call(require("mini.files").get_target_window(), function()
+                    vim.api.nvim_win_call(require("mini.files").get_explorer_state().target_window, function()
                         vim.cmd("belowright " .. direction .. " split")
                         new_target_window = vim.api.nvim_get_current_win()
                     end)
@@ -91,8 +91,8 @@ return {
             local update_mini_with_git = function(buf_id, git_status_map)
                 vim.schedule(function()
                     local nlines = vim.api.nvim_buf_line_count(buf_id)
-                    local git_root = vim.trim(vim.fn.system "git rev-parse --show-toplevel")
-                    local escapedcwd = escape_pattern(git_root)
+                    local cwd = vim.fs.root(buf_id, ".git")
+                    local escapedcwd = escape_pattern(cwd)
                     if vim.fn.has "win32" == 1 then
                         escapedcwd = escapedcwd:gsub("\\", "/")
                     end
@@ -120,13 +120,6 @@ return {
                         end
                     end
                 end)
-            end
-
-            local is_valid_git_repo = function()
-                if vim.fn.isdirectory ".git" == 0 then
-                    return false
-                end
-                return true
             end
 
             local parse_git_status = function(content)
@@ -163,8 +156,7 @@ return {
             end
 
             local update_git_status = function(buf_id)
-                if vim.fn.system "git rev-parse --show-toplevel 2> /dev/null" == "" then
-                    vim.notify "Not a valid git repo"
+                if not vim.fs.root(vim.uv.cwd(), ".git") then
                     return
                 end
                 local cwd = vim.fn.expand "%:p:h"
@@ -221,6 +213,16 @@ return {
                 end,
             })
             vim.api.nvim_create_autocmd("User", {
+                pattern = "MiniFilesBufferUpdate",
+                callback = function(sii)
+                    local bufnr = sii.data.buf_id
+                    local cwd = vim.fn.expand "%:p:h"
+                    if git_status_cache[cwd] then
+                        update_mini_with_git(bufnr, git_status_cache[cwd].statusMap)
+                    end
+                end,
+            })
+            vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniFilesBufferCreate",
                 callback = function(args)
                     -- stylua: ignore start
@@ -231,10 +233,6 @@ return {
                     map_split(buf_id, "gv", "belowright vertical")
                     map_split(buf_id, "gX", "belowright horizontal", true)
                     map_split(buf_id, "gV", "belowright vertical", true)
-                    local cwd = vim.fn.expand "%:p:h"
-                    if git_status_cache[cwd] then
-                        update_mini_with_git(buf_id, git_status_cache[cwd].statusMap)
-                    end
                     -- stylua: ignore end
                 end,
             })
