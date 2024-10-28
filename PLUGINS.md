@@ -80,7 +80,7 @@
 ## Programming Languages Support
 
 - [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) - Preview markdown on your modern browser with synchronised scrolling and flexible configuration.
-- [markview.nvim](https://github.com/OXY2DEV/markview.nvim) - An experimental markdown previewer.
+- [markview.nvim](https://github.com/OXY2DEV/markview.nvim) - Highly customisable markdown(latex & inline html) previewer.
 
 ## Editing Support
 
