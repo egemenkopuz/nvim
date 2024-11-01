@@ -658,7 +658,8 @@ M.tiny_code_action = {
 M.diffview = {
     n = {
         ["<leader>gd"] = { "<cmd>DiffviewOpen<cr>", "Diffview" },
-        -- ["<leader>gD"] = { "<cmd>DiffviewClose<cr>", "Diffview Close" },
+        ["<leader>gh"] = { "<cmd>DiffviewFileHistory %<cr>", "Diffview File History" },
+        ["<leader>gH"] = { "<cmd>DiffviewFileHistory<cr>", "Diffview Repo History" },
     },
 }
 
