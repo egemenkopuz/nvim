@@ -276,6 +276,12 @@ M.icons.clangd = {
     },
 }
 
+M.borders = {
+    none = { "", "", "", "", "", "", "", "" },
+    invs = { " ", " ", " ", " ", " ", " ", " ", " " },
+    thin = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+}
+
 M.diagnostics = {
     underline = true,
     update_in_insert = false,
@@ -288,7 +294,27 @@ M.diagnostics = {
     -- },
     virtual_text = false,
     severity_sort = true,
-    float = { border = "rounded" },
+    float = {
+        border = M.borders.thin,
+        header = " ",
+        source = "if_many",
+        severity_sort = true,
+        title = { { " Diagnostics ", "FloatTitle" } },
+        prefix = function(diag)
+            local sym = M.icons.diagnostics.error
+            if diag.severity == vim.diagnostic.severity.INFO then
+                sym = M.icons.diagnostics.info
+            elseif diag.severity == vim.diagnostic.severity.WARN then
+                sym = M.icons.diagnostics.warn
+            elseif diag.severity == vim.diagnostic.severity.HINT then
+                sym = M.icons.diagnostics.hint
+            end
+            local prefix = string.format(" %s ", sym)
+            local severity = vim.diagnostic.severity[diag.severity]
+            local diag_hl_name = severity:sub(1, 1) .. severity:sub(2):lower()
+            return prefix, "Diagnostic" .. diag_hl_name:gsub("^%l", string.upper)
+        end,
+    },
     virtual_lines = false,
 }
 
