@@ -62,13 +62,13 @@ return {
                     end,
                 },
                 sources = cmp.config.sources {
-                    { name = "buffer" },
-                    { name = "copilot", group_index = 2 },
-                    { name = "nvim_lsp" },
-                    { name = "path" },
-                    { name = "luasnip" },
-                    { name = "nvim_lua" },
-                    { name = "lazydev", group_index = 0 },
+                    { name = "copilot", group_index = 0 },
+                    { name = "nvim_lsp", max_item_count = 20, group_index = 0 },
+                    { name = "buffer", max_item_count = 20, group_index = 0 },
+                    { name = "nvim_lua", max_item_count = 20, group_index = 0 },
+                    { name = "luasnip", group_index = 1 },
+                    { name = "path", group_index = 1 },
+                    { name = "lazydev", group_index = 1 },
                 },
                 formatting = {
                     format = function(_, item)
