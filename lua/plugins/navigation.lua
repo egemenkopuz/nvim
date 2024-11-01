@@ -6,7 +6,7 @@ return {
         init = function()
             require("user.utils").load_keymap "files"
         end,
-        opts = { windows = { preview = true, width_focus = 50, width_preview = 50 } },
+        opts = { windows = { preview = true, width_focus = 50, width_preview = 75 } },
         config = function(_, opts)
             local minifiles = require "mini.files"
             minifiles.setup(opts)
