@@ -65,7 +65,13 @@ return {
                 ["marksman"] = {},
                 ["eslint"] = {},
                 ["ansiblels"] = {},
-                ["rust_analyzer"] = {},
+                ["rust_analyzer"] = {
+                    cargo = { allFeatures = true },
+                    diagnostics = {
+                        enable = true,
+                        experimental = { enable = true },
+                    },
+                },
                 ["clangd"] = {
                     cmd = {
                         "clangd",
