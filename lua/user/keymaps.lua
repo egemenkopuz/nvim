@@ -610,13 +610,13 @@ M.copilot_chat = {
             function()
                 return require("CopilotChat").toggle()
             end,
-            "Toggle (CopilotChat)",
+            "Toggle Chat",
         },
         ["<leader>ax"] = {
             function()
                 return require("CopilotChat").reset()
             end,
-            "Clear (CopilotChat)",
+            "Clear Chat",
         },
         ["<leader>ac"] = {
             function()
@@ -625,21 +625,33 @@ M.copilot_chat = {
                     require("CopilotChat").ask(input)
                 end
             end,
-            "Quick Chat (CopilotChat)",
+            "Quick Chat",
+        },
+        ["<leader>ab"] = {
+            function()
+                local input = vim.fn.input "Quick Chat: "
+                if input ~= "" then
+                    require("CopilotChat").ask(
+                        input,
+                        { selection = require("CopilotChat.select").buffer }
+                    )
+                end
+            end,
+            "Quick Buffer Chat",
         },
         ["<leader>ah"] = {
             function()
                 local actions = require "CopilotChat.actions"
                 require("CopilotChat.integrations.telescope").pick(actions.help_actions())
             end,
-            "Diagnostic Help (CopilotChat)",
+            "Diagnostic Help",
         },
         ["<leader>ap"] = {
             function()
                 local actions = require "CopilotChat.actions"
                 require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
             end,
-            "Prompt Actions (CopilotChat)",
+            "Prompt Chat Actions",
         },
     },
 }
