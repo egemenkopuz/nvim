@@ -217,12 +217,26 @@ return {
             })
             vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniFilesBufferUpdate",
-                callback = function(sii)
-                    local bufnr = sii.data.buf_id
+                callback = function(args)
+                    local bufnr = args.data.buf_id
                     local cwd = vim.fn.expand "%:p:h"
                     if git_status_cache[cwd] then
                         update_mini_with_git(bufnr, git_status_cache[cwd].statusMap)
                     end
+                end,
+            })
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "MiniFilesWindowUpdate",
+                callback = function(args)
+                    local config = vim.api.nvim_win_get_config(args.data.win_id)
+                    config.height = math.max(15, config.height)
+                    if config.title[#config.title][1] ~= " " then
+                        table.insert(config.title, { " ", "NormalFloat" })
+                    end
+                    if config.title[1][1] ~= " " then
+                        table.insert(config.title, 1, { " ", "NormalFloat" })
+                    end
+                    vim.api.nvim_win_set_config(args.data.win_id, config)
                 end,
             })
             vim.api.nvim_create_autocmd("User", {
