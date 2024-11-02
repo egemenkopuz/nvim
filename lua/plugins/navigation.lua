@@ -6,7 +6,63 @@ return {
         init = function()
             require("user.utils").load_keymap "files"
         end,
-        opts = { windows = { preview = true, width_focus = 50, width_preview = 75 } },
+        opts = {
+            mappings = {
+                show_help = "?",
+                go_in_plus = "<cr>",
+                go_out_plus = "<tab>",
+            },
+            options = { permanent_delete = false },
+            windows = { preview = true, width_focus = 50, width_preview = 75 },
+            content = {
+                filter = function(entry)
+                    return entry.fs_type ~= "file" or entry.name ~= ".DS_Store"
+                end,
+                sort = function(entries)
+                    local function compare_alphanumerically(e1, e2)
+                        -- Put directories first.
+                        if e1.is_dir and not e2.is_dir then
+                            return true
+                        end
+                        if not e1.is_dir and e2.is_dir then
+                            return false
+                        end
+                        -- Order numerically based on digits if the text before them is equal.
+                        if
+                            e1.pre_digits == e2.pre_digits
+                            and e1.digits ~= nil
+                            and e2.digits ~= nil
+                        then
+                            return e1.digits < e2.digits
+                        end
+                        -- Otherwise order alphabetically ignoring case.
+                        return e1.lower_name < e2.lower_name
+                    end
+
+                    local sorted = vim.tbl_map(function(entry)
+                        local pre_digits, digits = entry.name:match "^(%D*)(%d+)"
+                        if digits ~= nil then
+                            digits = tonumber(digits)
+                        end
+
+                        return {
+                            fs_type = entry.fs_type,
+                            name = entry.name,
+                            path = entry.path,
+                            lower_name = entry.name:lower(),
+                            is_dir = entry.fs_type == "directory",
+                            pre_digits = pre_digits,
+                            digits = digits,
+                        }
+                    end, entries)
+                    table.sort(sorted, compare_alphanumerically)
+                    -- Keep only the necessary fields.
+                    return vim.tbl_map(function(x)
+                        return { name = x.name, fs_type = x.fs_type, path = x.path }
+                    end, sorted)
+                end,
+            },
+        },
         config = function(_, opts)
             local minifiles = require "mini.files"
             minifiles.setup(opts)
@@ -43,6 +99,25 @@ return {
                     end
                 end
                 local desc = "Split " .. direction
+                vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
+            end
+
+            local map_from_window_picker = function(buf_id, lhs, should_close)
+                local should_close = should_close or false
+                local rhs = function()
+                    local new_target_window = require("window-picker").pick_window()
+                    if
+                        not new_target_window or not vim.api.nvim_win_is_valid(new_target_window)
+                    then
+                        return
+                    end
+                    require("mini.files").set_target_window(new_target_window)
+                    require("mini.files").go_in {}
+                    if should_close then
+                        require("mini.files").close()
+                    end
+                end
+                local desc = "Pick window"
                 vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
             end
 
@@ -208,7 +283,12 @@ return {
                     update_git_status(bufnr)
                 end,
             })
-
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "MiniFilesWindowOpen",
+                callback = function(args)
+                    vim.api.nvim_win_set_config(args.data.win_id, { border = "rounded" })
+                end,
+            })
             vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniFilesExplorerClose",
                 callback = function()
@@ -250,6 +330,8 @@ return {
                     map_split(buf_id, "gv", "belowright vertical")
                     map_split(buf_id, "gX", "belowright horizontal", true)
                     map_split(buf_id, "gV", "belowright vertical", true)
+                    map_from_window_picker(buf_id, "gw")
+                    map_from_window_picker(buf_id, "gW", true)
                     -- stylua: ignore end
                 end,
             })

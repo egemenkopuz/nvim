@@ -710,4 +710,22 @@ M.ufo = {
     },
 }
 
+M.neotest = {
+    n = {
+        -- stylua: ignore start
+        ["<leader>nn"] = { function() require("neotest").run.run() end, "Test nearest" },
+        ["<leader>nS"] = { function() require("neotest").run.stop() end, "Test stop" },
+        ["<leader>nl"] = { function() require("neotest").run.run_last() end, "Test last" },
+        ["<leader>nf"] = { function() require("neotest").run.run(vim.fn.expand "%") end, "Test file" },
+        ["<leader>nF"] = { function() require("neotest").run.run(vim.uv.cwd()) end, "Test all files" },
+        ["<leader>nd"] = { function() require("neotest").run.run { strategy = "dap" } end, "Test debug nearest" },
+        ["<leader>nD"] = { function() require("neotest").run.run { vim.fn.expand "%",  strategy = "dap" } end, "Test debug file" },
+        ["<leader>ns"] = { function() require("neotest").summary.toggle() end, "Show summary" },
+        ["<leader>no"] = { function() require("neotest").output.open({ enter = true, auto_close = true }) end, "Show output" },
+        ["<leader>nO"] = { function() require("neotest").output_panel.toggle() end, "Show output panel" },
+        ["<leader>nw"] = { function() require("neotest").watch.toggle(vim.fn.expand("%")) end, "Toggle watch" },
+        -- stylua: ignore end
+    },
+}
+
 return M

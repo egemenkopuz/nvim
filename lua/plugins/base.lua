@@ -41,6 +41,7 @@ return {
                 { "<leader>gh", group = "+hunk" },
                 { "<leader>gt", group = "+toggle" },
                 { "<leader>G", group = "+grug" },
+                { "<leader>n", group = "+tests" },
             }
         end,
     },
