@@ -108,6 +108,10 @@
 
 - [neoscroll.nvim](https://github.com/karb94/neoscroll.nvim) - Smooth scrolling.
 
+## Test
+
+- [neotest](https://github.com/nvim-neotest/neotest) - An extensible framework for interacting with tests within Neovim.
+
 ## Utility
 
 - [noice.nvim](https://github.com/folke/noice.nvim) - Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
@@ -147,6 +151,7 @@
 
 ## Not Categorized
 
+- FixCursorHold&#46;nvim
 - clangd_extensions&#46;nvim
 - cmp-buffer
 - cmp-nvim-lsp
@@ -166,6 +171,8 @@
 - mini&#46;move
 - mini&#46;splitjoin
 - mini&#46;surround
+- neotest-python
+- neotest-rust
 - nvim-dap-python
 - nvim-nio
 - nvim-window-picker
