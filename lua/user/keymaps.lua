@@ -223,7 +223,16 @@ M.lsp = {
     n = {
         ["gD"] = { function() vim.lsp.buf.declaration() end, "Go to declaration", },
         -- ["<leader>ca"] = { function() vim.lsp.buf.code_action() end, "Code action", },
-        ["<leader>cf"] = { function() vim.lsp.buf.format { async = true } end, "Format", },
+        ["<leader>cf"] = {
+            function()
+                if vim.bo.filetype == "rust" then
+                    vim.cmd "RustFmt"
+                else
+                    vim.lsp.buf.format { async = true }
+                end
+            end,
+            "Format",
+        },
         ["<leader>wa"] = { function() vim.lsp.buf.add_workspace_folder() end, "Add workspace folder", },
         ["<leader>wr"] = { function() vim.lsp.buf.remove_workspace_folder() end, "Remove workspace folder", },
         ["<leader>wl"] = { function() utils.notify(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "Workspace list", },
