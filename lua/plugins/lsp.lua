@@ -8,7 +8,15 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "b0o/schemastore.nvim",
             "p00f/clangd_extensions.nvim",
-            "folke/neodev.nvim",
+            {
+                "folke/lazydev.nvim",
+                ft = "lua",
+                opts = {
+                    library = {
+                        { path = "luvit-meta/library", words = { "vim%.uv" } },
+                    },
+                },
+            },
             {
                 "ray-x/lsp_signature.nvim",
                 opts = {
@@ -162,10 +170,6 @@ return {
                         server.flags = { debounce_text_changes = 150 }
                         server.on_attach = utils.lsp_on_attach()
                         server.capabilities = utils.lsp_capabilities()
-
-                        if server_name == "lua_ls" then
-                            require("neodev").setup {}
-                        end
 
                         server.before_init = function(_, config)
                             if server_name == "pyright" then
