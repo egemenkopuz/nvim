@@ -66,6 +66,7 @@ return {
                     { name = "nvim_lsp", max_item_count = 20, group_index = 0 },
                     { name = "buffer", max_item_count = 20, group_index = 0 },
                     { name = "nvim_lua", max_item_count = 20, group_index = 0 },
+                    { name = "crates", group_index = 0 },
                     { name = "luasnip", group_index = 1 },
                     { name = "path", group_index = 1 },
                     { name = "lazydev", group_index = 1 },

@@ -18,6 +18,24 @@ return {
                 },
             },
             {
+                "saecki/crates.nvim",
+                event = { "BufRead Cargo.toml" },
+                tag = "stable",
+                opts = {
+                    lsp = {
+                        enabled = true,
+                        actions = true,
+                        completion = true,
+                        hover = true,
+                    },
+                    completion = { cmp = { enabled = true } },
+                    null_ls = { enabled = true, name = "crates.nvim" },
+                },
+                config = function(_, opts)
+                    require("crates").setup(opts)
+                end,
+            },
+            {
                 "ray-x/lsp_signature.nvim",
                 opts = {
                     hint_enable = false,
