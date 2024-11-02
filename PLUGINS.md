@@ -74,6 +74,13 @@
 
 - [lazy.nvim](https://github.com/folke/lazy.nvim) - A modern plugin manager, featuring a graphical interface, async execution, a lockfile and more.
 
+## Neovim Lua Development
+
+- [lazydev.nvim](https://github.com/folke/lazydev.nvim) - Faster LuaLS setup.
+- [nui.nvim](https://github.com/MunifTanjim/nui.nvim) - UI Component Library.
+- [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - Plenary: full; complete; entire; absolute; unqualified. All the Lua functions I don't want to write twice.
+- [sqlite.lua](https://github.com/kkharji/sqlite.lua) - SQLite/LuaJIT binding for Lua and Neovim.
+
 ## Game
 
 - [leetcode.nvim](https://github.com/kawre/leetcode.nvim) - Solve Leetcode problems.
@@ -102,12 +109,6 @@
 - [noice.nvim](https://github.com/folke/noice.nvim) - Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
 - [nvim-notify](https://github.com/rcarriga/nvim-notify) - A fancy, configurable, notification manager.
 - [nvim-ufo](https://github.com/kevinhwang91/nvim-ufo) - Ultra fold with modern looking and performance boosting.
-
-## Neovim Lua Development
-
-- [nui.nvim](https://github.com/MunifTanjim/nui.nvim) - UI Component Library.
-- [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - Plenary: full; complete; entire; absolute; unqualified. All the Lua functions I don't want to write twice.
-- [sqlite.lua](https://github.com/kkharji/sqlite.lua) - SQLite/LuaJIT binding for Lua and Neovim.
 
 ## Debugging
 
@@ -161,7 +162,6 @@
 - mini&#46;move
 - mini&#46;splitjoin
 - mini&#46;surround
-- neodev&#46;nvim
 - nvim-dap-python
 - nvim-nio
 - nvim-window-picker
