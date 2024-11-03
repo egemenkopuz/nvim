@@ -283,6 +283,14 @@ M.borders = {
 }
 
 M.diagnostics = {
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = M.icons.diagnostics.error,
+            [vim.diagnostic.severity.WARN] = M.icons.diagnostics.warn,
+            [vim.diagnostic.severity.INFO] = M.icons.diagnostics.info,
+            [vim.diagnostic.severity.HINT] = M.icons.diagnostics.hint,
+        },
+    },
     underline = true,
     update_in_insert = false,
     -- virtual_text = {

@@ -154,29 +154,24 @@ return {
                     require("trouble").open { mode = "quickfix", focus = false }
                 end,
             },
+            highlights = {
+                failed = "DiagnosticError",
+                passed = "NeotestPassed",
+                running = "NeotestRunning",
+                skipped = "NeotestSkipped",
+            },
+            icons = {
+                -- stylua: ignore
+                running_animated = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
+            },
         },
         config = function(_, opts)
-            -- vim table extend with
             opts.adapters = {
                 require "neotest-python" { dap = { justMyCode = false } },
                 require "neotest-rust",
                 -- require("neotest-gtest").setup {},
             }
 
-            local neotest_ns = vim.api.nvim_create_namespace "neotest"
-            vim.diagnostic.config({
-                virtual_text = {
-                    format = function(diagnostic)
-                        -- Replace newline and tab characters with space for more compact diagnostics
-                        local message = diagnostic.message
-                            :gsub("\n", " ")
-                            :gsub("\t", " ")
-                            :gsub("%s+", " ")
-                            :gsub("^%s+", "")
-                        return message
-                    end,
-                },
-            }, neotest_ns)
             opts.consumers = opts.consumers or {}
             -- Refresh and auto close trouble after running tests
             ---@type neotest.Consumer
