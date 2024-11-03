@@ -619,7 +619,9 @@ M.copilot_chat = {
             function()
                 require("user.utils").toggle "copilot_chat_window_alt"
             end,
+            "Alt copilot window",
         },
+        ["<leader>am"] = { "<cmd> CopilotChatModels <cr>", "Select model" },
     },
     [{ "n", "v" }] = {
         ["<leader>at"] = {

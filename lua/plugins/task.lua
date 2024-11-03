@@ -2,7 +2,7 @@ return {
     {
         "CopilotC-Nvim/CopilotChat.nvim",
         branch = "canary",
-        cmd = "CopilotChat",
+        cmd = { "CopilotChat", "CopilotChatModels" },
         opts = function()
             local config = require "user.config"
             local user = vim.env.USER or "User"
