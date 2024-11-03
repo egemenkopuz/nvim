@@ -614,10 +614,23 @@ M.visual_multi = {
 }
 
 M.copilot_chat = {
+    n = {
+        ["<leader>ta"] = {
+            function()
+                require("user.utils").toggle "copilot_chat_window_alt"
+            end,
+        },
+    },
     [{ "n", "v" }] = {
         ["<leader>at"] = {
             function()
-                return require("CopilotChat").toggle()
+                if require("user.utils").is_enabled "copilot_chat_window_alt" then
+                    require("CopilotChat").toggle {
+                        window = require("user.config").copilot_chat_window_alt_opts,
+                    }
+                else
+                    require("CopilotChat").toggle()
+                end
             end,
             "Toggle Chat",
         },
@@ -631,7 +644,14 @@ M.copilot_chat = {
             function()
                 local input = vim.fn.input "Quick Chat: "
                 if input ~= "" then
-                    require("CopilotChat").ask(input)
+                    if require("user.utils").is_enabled "copilot_chat_window_alt" then
+                        require("CopilotChat").ask(
+                            input,
+                            { window = require("user.config").copilot_chat_window_alt_opts }
+                        )
+                    else
+                        require("CopilotChat").ask(input)
+                    end
                 end
             end,
             "Quick Chat",
@@ -640,10 +660,17 @@ M.copilot_chat = {
             function()
                 local input = vim.fn.input "Quick Chat: "
                 if input ~= "" then
-                    require("CopilotChat").ask(
-                        input,
-                        { selection = require("CopilotChat.select").buffer }
-                    )
+                    if require("user.utils").is_enabled "copilot_chat_window_alt" then
+                        require("CopilotChat").ask(input, {
+                            selection = require("CopilotChat.select").buffer,
+                            window = require("user.config").copilot_chat_window_alt_opts,
+                        })
+                    else
+                        require("CopilotChat").ask(
+                            input,
+                            { selection = require("CopilotChat.select").buffer }
+                        )
+                    end
                 end
             end,
             "Quick Buffer Chat",

@@ -8,6 +8,7 @@ local settings = {
     colorcolumn = true,
     diagnostics = true,
     diagnostic_lines = false,
+    copilot_chat_window_alt = false,
 }
 
 local diag_def_virtual_text = require("user.config").diagnostics.virtual_text

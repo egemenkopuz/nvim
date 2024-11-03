@@ -325,6 +325,12 @@ M.lsp_to_status_exclude = {
     "copilot",
 }
 
+M.copilot_chat_window_alt_opts = {
+    layout = "vertical", -- 'vertical', 'horizontal', 'float', 'replace'
+    width = 0.5,
+    height = 0.5,
+}
+
 -- remap macro recording to qq
 vim.api.nvim_set_keymap("n", "q", "<Nop>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "qq", "q", { noremap = true, silent = true })
