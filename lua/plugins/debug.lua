@@ -35,7 +35,6 @@ return {
         local mason_path = vim.fn.stdpath "data" .. "/mason"
         local codelldb_path = mason_path .. "/bin/codelldb"
         local liblldb_path = mason_path .. "/packages/codelldb/extension/lldb/lib/liblldb.so"
-        local debugpy_path = mason_path .. "/bin/debugpy"
 
         require("nvim-dap-virtual-text").setup { commented = true }
 
@@ -77,6 +76,7 @@ return {
             },
         }
 
-        require("dap-python").setup(debugpy_path)
+        require("dap-python").setup()
+        require("dap-python").test_runner = "pytest"
     end,
 }

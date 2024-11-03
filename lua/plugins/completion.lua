@@ -77,26 +77,37 @@ return {
                         if icons[item.kind] then
                             item.kind = icons[item.kind] .. item.kind
                         end
+                        local widths = {
+                            abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
+                            menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
+                        }
+
+                        for key, width in pairs(widths) do
+                            if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
+                                item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
+                            end
+                        end
+
                         return item
                     end,
                 },
                 formatters = { insert_text = require("copilot_cmp.format").remove_existing },
-                sorting = {
-                    priority_weight = 2,
-                    comparators = {
-                        require("copilot_cmp.comparators").prioritize,
-                        require("copilot_cmp.comparators").score,
-                        cmp.config.compare.offset,
-                        cmp.config.compare.exact,
-                        cmp.config.compare.score,
-                        cmp.config.compare.recently_used,
-                        cmp.config.compare.locality,
-                        cmp.config.compare.kind,
-                        cmp.config.compare.sort_text,
-                        cmp.config.compare.length,
-                        cmp.config.compare.order,
-                    },
-                },
+                -- sorting = {
+                --     priority_weight = 2,
+                --     comparators = {
+                --         require("copilot_cmp.comparators").prioritize,
+                --         require("copilot_cmp.comparators").score,
+                --         cmp.config.compare.offset,
+                --         cmp.config.compare.exact,
+                --         cmp.config.compare.score,
+                --         cmp.config.compare.recently_used,
+                --         cmp.config.compare.locality,
+                --         cmp.config.compare.kind,
+                --         cmp.config.compare.sort_text,
+                --         cmp.config.compare.length,
+                --         cmp.config.compare.order,
+                --     },
+                -- },
                 experimental = { ghost_text = { hl_group = "LspCodeLens" } },
             }
         end,

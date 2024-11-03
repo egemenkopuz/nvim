@@ -86,6 +86,8 @@ M.mason_packages = {
     -- ansible
     "ansible-lint",
     "prettier",
+    -- github actions
+    "actionlint",
 }
 
 M.nulls_packages = {
@@ -108,6 +110,7 @@ M.nulls_packages = {
         "terraform_validate",
         "tfsec",
         "trivy",
+        "actionlint",
     },
     code_actions = {},
     hover = {},
