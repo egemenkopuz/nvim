@@ -296,6 +296,41 @@ return {
                 end,
             })
             vim.api.nvim_create_autocmd("User", {
+                pattern = "MiniFilesActionRename",
+                callback = function(args)
+                    if not args.data.from or not args.data.to then
+                        return
+                    end
+                    local changes = {
+                        files = {
+                            {
+                                oldUri = vim.uri_from_fname(args.data.from),
+                                newUri = vim.uri_from_fname(args.data.to),
+                            },
+                        },
+                    }
+                    local clients = vim.lsp.get_clients()
+                    for _, client in ipairs(clients) do
+                        if client.supports_method "workspace/willRenameFiles" then
+                            local resp =
+                                client.request_sync("workspace/willRenameFiles", changes, 10000, 0)
+                            if resp and resp.result ~= nil then
+                                vim.lsp.util.apply_workspace_edit(
+                                    resp.result,
+                                    client.offset_encoding
+                                )
+                            end
+                        end
+                    end
+
+                    for _, client in ipairs(clients) do
+                        if client.supports_method "workspace/didRenameFiles" then
+                            client.notify("workspace/didRenameFiles", changes)
+                        end
+                    end
+                end,
+            })
+            vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniFilesBufferUpdate",
                 callback = function(args)
                     local bufnr = args.data.buf_id
