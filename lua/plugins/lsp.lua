@@ -165,7 +165,7 @@ return {
                         },
                     },
                 },
-                ["ruff_lsp"] = {
+                ["ruff"] = {
                     -- settings = { args = { "--ignore=F821", "--config=$ROOT/pyproject.toml" } },
                     -- settings = { args = { "--ignore=F821" } },
                 },

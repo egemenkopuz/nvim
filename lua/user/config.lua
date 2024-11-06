@@ -62,7 +62,7 @@ M.mason_packages = {
     "cmakelint",
     -- python
     "basedpyright",
-    "ruff-lsp",
+    "ruff",
     "debugpy",
     "black",
     "isort",
