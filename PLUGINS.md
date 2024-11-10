@@ -176,6 +176,7 @@
 - nvim-dap-python
 - nvim-nio
 - nvim-window-picker
+- promise-async
 - schemastore&#46;nvim
 - smart-open&#46;nvim
 - telescope-fzf-native&#46;nvim
