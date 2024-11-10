@@ -273,16 +273,13 @@ return {
 
     {
         "kevinhwang91/nvim-ufo",
-        enabled = false,
+        enabled = true,
         dependencies = "kevinhwang91/promise-async",
         lazy = false,
         init = function()
             require("user.utils").load_keymap "ufo"
         end,
         opts = {
-            provider_selector = function(bufnr, filetype, buftype)
-                return { "treesitter", "indent" }
-            end,
             enable_get_fold_virt_text = true,
             fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate, ctx)
                 local filling = " ⋯ "

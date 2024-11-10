@@ -242,7 +242,21 @@ return {
             local opts = {
                 relculright = true,
                 segments = {
-                    -- { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
+                    {
+                        text = {
+                            function(args)
+                                args.fold = {
+                                    width = 1, -- current width of the fold column
+                                    close = "󰅀", -- foldclose
+                                    open = "󰅂", -- foldopen
+                                    sep = "", -- foldsep
+                                }
+                                return builtin.foldfunc(args)
+                            end,
+                            -- " ",
+                        },
+                        -- click = "v:lua.ScFa",
+                    },
                     -- { sign = { namespace = { "diagnostic" } } },
                     { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
                     { sign = { namespace = { "gitsigns" }, maxwidth = 1, colwidth = 1 } },
