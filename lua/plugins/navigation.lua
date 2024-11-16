@@ -465,7 +465,10 @@ return {
                     height = 0.9,
                     row = 0.5,
                     col = 0.5,
-                    preview = { scrollchars = { "┃", "" } },
+                    preview = {
+                        scrollchars = { "┃", "" },
+                        -- default = "bat_native",
+                    },
                 },
                 files = {
                     cwd_prompt = false,
@@ -474,13 +477,6 @@ return {
                     actions = {
                         ["ctrl-s"] = actions.file_split,
                         ["ctrl-v"] = actions.file_vsplit,
-                        ["ctrl-d"] = function(...)
-                            actions.file_vsplit(...)
-                            vim.cmd "windo diffthis"
-                            local switch =
-                                vim.api.nvim_replace_termcodes("<C-w>h", true, false, true)
-                            vim.api.nvim_feedkeys(switch, "t", false)
-                        end,
                         ["ctrl-t"] = require("trouble.sources.fzf").actions.open,
                         ["alt-h"] = { actions.toggle_hidden },
                     },
