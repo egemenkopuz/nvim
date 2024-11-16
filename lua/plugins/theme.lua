@@ -5,7 +5,7 @@ return {
         priority = 1000,
         lazy = false,
         opts = {
-            compile = true,
+            compile = false,
             colors = {
                 palette = { oldWhite = "#c5c9c5" },
                 theme = { all = { ui = { bg_gutter = "none" } } },
@@ -40,6 +40,11 @@ return {
                     MiniMapSymbolCount = { fg = "gray" },
                     MiniMapSymbolView = { fg = "gray" },
                     MiniMapSymbolLine = { fg = "#ce5a57" },
+                    FzfLuaBorder = { fg = "#524C42" },
+                    FzfLuaTitle = { fg = "#ce5a57" },
+                    FzfLuaPreviewBorder = { fg = "#524C42" },
+                    FzfLuaHeaderText = { fg = "gray" },
+                    FzfLuaScrollBorderFull = { fg = "lightgray" },
                 }
                 colors.palette.oldWhite = colors.palette.fujiWhite
                 if not require("user.config").transparent then

@@ -298,31 +298,4 @@ return {
             require("venv-selector").setup(opts)
         end,
     },
-
-    {
-        "rachartier/tiny-code-action.nvim",
-        dependencies = {
-            { "nvim-lua/plenary.nvim" },
-            { "nvim-telescope/telescope.nvim" },
-        },
-        event = "LspAttach",
-        opts = {
-            telescope_opts = {
-                layout_strategy = "vertical",
-                layout_config = {
-                    width = 0.6,
-                    height = 0.8,
-                    preview_cutoff = 1,
-                    preview_height = function(_, _, max_lines)
-                        local h = math.floor(max_lines * 0.5)
-                        return math.max(h, 10)
-                    end,
-                },
-            },
-        },
-        config = function(_, opts)
-            require("user.utils").load_keymap "tiny_code_action"
-            require("tiny-code-action").setup(opts)
-        end,
-    },
 }

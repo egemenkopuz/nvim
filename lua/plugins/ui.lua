@@ -3,6 +3,9 @@ return {
         "folke/noice.nvim",
         event = "VeryLazy",
         dependencies = { "MunifTanjim/nui.nvim" },
+        init = function()
+            require("user.utils").load_keymap "noice"
+        end,
         opts = {
             presets = {
                 bottom_search = true,
@@ -155,6 +158,41 @@ return {
                 logo = string.rep("\n", 8)
             end
 
+            local project_pick = function()
+                local fzf_lua = require "fzf-lua"
+                local history = require "project_nvim.utils.history"
+                fzf_lua.fzf_exec(function(cb)
+                    local results = history.get_recent_projects()
+                    for _, e in ipairs(results) do
+                        cb(e)
+                    end
+                    cb()
+                end, {
+                    actions = {
+                        ["default"] = function(e)
+                            vim.cmd("e " .. e[1] .. " | cd %:p:h")
+                            require("persistence").load()
+                        end,
+                        ["ctrl-d"] = {
+                            function(selected)
+                                history.delete_project { value = selected[1] }
+                            end,
+                            fzf_lua.actions.resume,
+                        },
+                    },
+                })
+            end
+
+            local function open_nvim_config()
+                vim.cmd "e $MYVIMRC | cd %:p:h"
+                require("persistence").load()
+            end
+
+            local function open_global_config()
+                vim.cmd "e $HOME/.config | cd %:p:h"
+                require("persistence").load()
+            end
+
             local opts = {
                 theme = "doom",
                 hide = { statusline = false },
@@ -163,13 +201,13 @@ return {
                     -- stylua: ignore
                     center = {
                         { action = "ene | startinsert", desc = " New File", icon = " ", key = "fn", },
-                        { action = "Telescope find_files", desc = " Find File", icon = " ", key = "ff", },
-                        { action = "Telescope live_grep", desc = " Find Text", icon = " ", key = "fg", },
-                        { action = "Telescope oldfiles", desc = " Recent Files", icon = "󱋡 ", key = "fr", },
-                        { action = "Telescope persisted", desc = " Sessions", icon = " ", key = "ss", },
-                        { action = "Telescope projects", desc = " Projects", icon = " ", key = "sp", },
-                        { action = "e $MYVIMRC | cd %:p:h | SessionLoad", desc = " Nvim Config", icon = " ", key = "cc", },
-                        { action = "e $HOME/.config | cd %:p:h | SessionLoad", desc = " Global Config", icon = " ", key = "cf", },
+                        { action = "FzfLua files", desc = " Find File", icon = " ", key = "ff", },
+                        { action = "FzfLua live_grep", desc = " Find Text", icon = " ", key = "fg", },
+                        { action = "FzfLua oldfiles", desc = " Recent Files", icon = "󱋡 ", key = "fr", },
+                        { action = require("persistence").select, desc = " Sessions", icon = " ", key = "ss", },
+                        { action = project_pick, desc = " Projects", icon = " ", key = "sp", },
+                        { action = open_nvim_config, desc = "Nvim Config", icon = " ", key = "cc" },
+                        { action = open_global_config, desc = "Global Config", icon = " ", key = "cf" },
                         { action = "Lazy", desc = " Plugins", icon = " ", key = "cp", },
                         { action = function() vim.api.nvim_input "<cmd>qa<cr>" end, desc = " Quit", icon = " ", key = "q", },
                     },
