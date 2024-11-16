@@ -40,8 +40,8 @@ M.general = {
         ["<leader>qq"] = {"<cmd> q <cr>", "Quit window"},
         ["<leader>qQ"] = {"<cmd> q! <cr>", "Quit force window"},
         -- save
-        ["<leader>ws"] = {"<cmd> w <cr>", "Save"},
-        ["<leader>wS"] = {"<cmd> wa <cr>", "Save all"},
+        ["<leader>wz"] = {"<cmd> w <cr>", "Save"},
+        ["<leader>wZ"] = {"<cmd> wa <cr>", "Save all"},
         -- splits
         ["<leader>uv"] = {"<cmd> vsplit <cr>", "Vertical split"},
         ["<leader>ux"] = {"<cmd> split <cr>", "Horizontal split"},
@@ -222,7 +222,7 @@ M.lsp = {
     -- stylua: ignore
     n = {
         ["gD"] = { function() vim.lsp.buf.declaration() end, "Go to declaration", },
-        -- ["<leader>ca"] = { function() vim.lsp.buf.code_action() end, "Code action", },
+        ["<leader>ca"] = { function() vim.lsp.buf.code_action() end, "Code action", },
         ["<leader>cf"] = {
             function()
                 if vim.bo.filetype == "rust" then
@@ -328,7 +328,7 @@ M.trouble = {
 
 M.toggleterm = {
     n = {
-        ["<leader>g\\"] = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>", "Lazygit" },
+        ["<leader>gg"] = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>", "Lazygit" },
         ["<leader>utx"] = {
             "<cmd>ToggleTerm direction=horizontal<cr>",
             "Toggle horizontal terminal",
@@ -680,14 +680,14 @@ M.copilot_chat = {
         ["<leader>ah"] = {
             function()
                 local actions = require "CopilotChat.actions"
-                require("CopilotChat.integrations.telescope").pick(actions.help_actions())
+                require("CopilotChat.integrations.fzflua").pick(actions.help_actions())
             end,
             "Diagnostic Help",
         },
         ["<leader>ap"] = {
             function()
                 local actions = require "CopilotChat.actions"
-                require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+                require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
             end,
             "Prompt Chat Actions",
         },
@@ -763,6 +763,68 @@ M.neotest = {
         ["<leader>nO"] = { function() require("neotest").output_panel.toggle() end, "Show output panel" },
         ["<leader>nw"] = { function() require("neotest").watch.toggle(vim.fn.expand("%")) end, "Toggle watch" },
         -- stylua: ignore end
+    },
+}
+
+M.fzf = {
+    n = {
+        -- stylua: ignore start
+        ["<leader>,"] = { "<cmd>FzfLua command_history<cr>", "Command History" },
+        ["<leader>/"] = { function() require("user.utils").pick "live_grep" end, "Grep (Root Dir)" },
+        ["<leader><space>"] = { function() require("user.utils").pick "files" end, "Find Files (Root Dir)" },
+        ["<leader>fb"] = { "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", "Buffers" },
+        ["<leader>ff"] = { function() require("user.utils").pick "files" end, "Find Files (Root Dir)" },
+        ["<leader>fF"] = { function() require("user.utils").pick("files", { root = false }) end, "Find Files (cwd)" },
+        ["<leader>fg"] = { "<cmd>FzfLua git_files<cr>", "Find Files (git-files)" },
+        ["<leader>fr"] = { "<cmd>FzfLua oldfiles<cr>", "Recent" },
+        ["<leader>fR"] = { function() require("user.utils").pick("oldfiles", { cwd = vim.uv.cwd() }) end, "Recent (cwd)" },
+        ["<leader>fw"] = { function() require("user.utils").pick "live_grep" end, "Grep (Root Dir)" },
+        ["<leader>fW"] = { function() require("user.utils").pick("live_grep", { root = false }) end, "Grep (cwd)" },
+        ["<leader>gc"] = { "<cmd>FzfLua git_commits<CR>", "Commits" },
+        ["<leader>gs"] = { "<cmd>FzfLua git_status<CR>", "Status" },
+        ['<leader>s"'] = { "<cmd>FzfLua registers<cr>", "Registers" },
+        ["<leader>sa"] = { "<cmd>FzfLua autocmds<cr>", "Auto Commands" },
+        ["<leader>sb"] = { "<cmd>FzfLua grep_curbuf<cr>", "Buffer" },
+        ["<leader>s:"] = { "<cmd>FzfLua command_history<cr>", "Command History" },
+        ["<leader>sc"] = { "<cmd>FzfLua commands<cr>", "Commands" },
+        ["<leader>sx"] = { "<cmd>FzfLua diagnostics_document<cr>", "Document Diagnostics" },
+        ["<leader>sX"] = { "<cmd>FzfLua diagnostics_workspace<cr>", "Workspace Diagnostics" },
+        ["<leader>sh"] = { "<cmd>FzfLua help_tags<cr>", "Help Pages" },
+        ["<leader>sH"] = { "<cmd>FzfLua highlights<cr>", "Search Highlight Groups" },
+        ["<leader>sj"] = { "<cmd>FzfLua jumps<cr>", "Jumplist" },
+        ["<leader>sk"] = { "<cmd>FzfLua keymaps<cr>", "Key Maps" },
+        ["<leader>sl"] = { "<cmd>FzfLua loclist<cr>", "Location List" },
+        ["<leader>sM"] = { "<cmd>FzfLua man_pages<cr>", "Man Pages" },
+        ["<leader>sm"] = { "<cmd>FzfLua marks<cr>", "Jump to Mark" },
+        ["<leader>sr"] = { "<cmd>FzfLua resume<cr>", "Resume" },
+        ["<leader>sq"] = { "<cmd>FzfLua quickfix<cr>", "Quickfix List" },
+        ["<leader>sw"] = { function() require("user.utils").pick "grep_cword" end, "Word (Root Dir)" },
+        ["<leader>sW"] = { function() require("user.utils").pick("grep_cword", { root = false }) end, "Word (cwd)" },
+        ["<leader>sd"] = { "<cmd>FzfLua dap_breakpoints<cr>", "DAP breakpoints" },
+        ["<leader>sD"] = { "<cmd>FzfLua dap_variables<cr>", "DAP variables" },
+        -- stylua: ignore end
+    },
+    v = {
+        -- stylua: ignore start
+        ["<leader>sw"] = { function() require("user.utils").pick "grep_visual" end, "Selection (Root Dir)" },
+        ["<leader>sW"] = { function() require("user.utils").pick("grep_visual", { root = false }) end, "Selection (cwd)"},
+        -- stylua: ignore end
+    },
+}
+
+M.persistence = {
+    n = {
+        -- stylua: ignore start
+        ["<leader>ws"] = { function() require("persistence").load() end, "Load session" },
+        ["<leader>wS"] = { function() require("persistence").stop() end, "Stop session" },
+        -- stylua: ignore end
+    },
+}
+
+M.noice = {
+    n = {
+        ["<leader>xn"] = { "<cmd> Noice fzf <cr>", "Notifications" },
+        ["<leader>xN"] = { "<cmd> Noice errors <cr>", "Error notifications" },
     },
 }
 

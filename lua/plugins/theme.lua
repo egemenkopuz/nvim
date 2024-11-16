@@ -40,6 +40,11 @@ return {
                     MiniMapSymbolCount = { fg = "gray" },
                     MiniMapSymbolView = { fg = "gray" },
                     MiniMapSymbolLine = { fg = "#ce5a57" },
+                    FzfLuaBorder = { fg = "#524C42" },
+                    FzfLuaTitle = { fg = "#ce5a57" },
+                    FzfLuaPreviewBorder = { fg = "#524C42" },
+                    FzfLuaHeaderText = { fg = "gray" },
+                    FzfLuaScrollBorderFull = { fg = "lightgray" },
                 }
                 colors.palette.oldWhite = colors.palette.fujiWhite
                 if not require("user.config").transparent then
