@@ -5,7 +5,7 @@ return {
         priority = 1000,
         lazy = false,
         opts = {
-            compile = false,
+            compile = true,
             colors = {
                 palette = { oldWhite = "#c5c9c5" },
                 theme = { all = { ui = { bg_gutter = "none" } } },
