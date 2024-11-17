@@ -268,10 +268,13 @@ function M.swap_window()
 end
 
 function M.lsp_on_attach()
+    local methods = vim.lsp.protocol.Methods
     return function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
+
         M.load_keymap("lsp", { buffer = bufnr })
+
         if require("user.config").lsp_highlight_cursor then
             if client.server_capabilities.documentHighlightProvider then
                 local hl_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
@@ -297,6 +300,20 @@ function M.lsp_on_attach()
                 })
             end
         end
+
+        if client.supports_method(methods.textDocument_documentHighlight) then
+            vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
+                desc = "Highlight references under the cursor",
+                buffer = bufnr,
+                callback = vim.lsp.buf.document_highlight,
+            })
+            vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter", "BufLeave" }, {
+                desc = "Clear highlight references",
+                buffer = bufnr,
+                callback = vim.lsp.buf.clear_references,
+            })
+        end
+
         if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
             M.load_keymap "lsp_inlay_hints"
             if require("user.config").lsp_inlay_hints then

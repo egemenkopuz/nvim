@@ -34,39 +34,6 @@ return {
                     require("crates").setup(opts)
                 end,
             },
-            {
-                "RRethy/vim-illuminate",
-                opts = {
-                    delay = 200,
-                    providers = { "lsp", "treesitter", "regex" },
-                    filetypes_denylist = {
-                        "neo-tree",
-                        "notify",
-                        "dirvish",
-                        "fugitive",
-                        "lazy",
-                        "mason",
-                        "Outline",
-                        "no-neck-pain",
-                        "undotree",
-                        "diff",
-                        "Glance",
-                        "trouble",
-                        "copilot-chat",
-                    },
-                },
-                config = function(_, opts)
-                    require("illuminate").configure(opts)
-                    vim.api.nvim_create_autocmd("FileType", {
-                        callback = function()
-                            local buffer = vim.api.nvim_get_current_buf()
-                            pcall(vim.keymap.del, "n", "]]", { buffer = buffer })
-                            pcall(vim.keymap.del, "n", "[[", { buffer = buffer })
-                        end,
-                    })
-                    require("user.utils").load_keymap "illuminate"
-                end,
-            },
         },
         opts = {
             diagnostics = require("user.config").diagnostics,
