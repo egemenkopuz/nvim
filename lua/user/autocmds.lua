@@ -79,6 +79,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
     desc = "Disable New Line Comment",
 })
 
+vim.api.nvim_create_autocmd("User", {
+    pattern = { "AlphaReady", "DashboardLoaded" },
+    command = "set showtabline=0 | set laststatus=0",
+})
+
 -- hide statusline and tabline on alpha screen
 -- vim.api.nvim_create_autocmd("User", {
 --     pattern = { "AlphaReady", "DashboardLoaded" },
