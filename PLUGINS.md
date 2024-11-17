@@ -4,11 +4,6 @@
 
 - [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) - A chat interface for GitHub Copilot that allows you to directly ask and receive answers to coding-related questions.
 
-## Snippet
-
-- [LuaSnip](https://github.com/L3MON4D3/LuaSnip) - A snippet engine written in Lua.
-- [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) - Set of preconfigured snippets for different languages.
-
 ## Split and Window
 
 - [Navigator.nvim](https://github.com/numToStr/Navigator.nvim) - Smoothly navigate between Neovim splits and Tmux panes.
@@ -27,7 +22,6 @@
 ## Completion
 
 - [copilot.lua](https://github.com/zbirenbaum/copilot.lua) - Fully featured Lua replacement for [GitHub/copilot.vim](https://github.com/github/copilot.vim).
-- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) - A completion plugin written in Lua. New version of nvim-compe.
 
 ## Dependency Management
 
@@ -47,6 +41,10 @@
 
 - [flash.nvim](https://github.com/folke/flash.nvim) - Navigate your code with search labels, enhanced character motions and Tree-sitter integration.
 
+## Snippet
+
+- [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) - Set of preconfigured snippets for different languages.
+
 ## Fuzzy Finder
 
 - [fzf-lua](https://github.com/ibhagwan/fzf-lua) - The Lua version of `fzf.vim`, high-performance and fully async, supports `nvim-web-devicons`, Git indicators, LSP, quickfix/location lists and more. Also supports [`skim`](https://github.com/lotabout/skim) as its fzf binary.
@@ -58,7 +56,6 @@
 - [inc-rename.nvim](https://github.com/smjonas/inc-rename.nvim) - Provides an incremental LSP rename command based on Neovim's command-preview feature.
 - [lsp-progress.nvim](https://github.com/linrongbin16/lsp-progress.nvim) - A performant LSP progress status.
 - [lsp_lines.nvim](https://git.sr.ht/~whynothugo/lsp_lines.nvim) - Render diagnostics using virtual lines on top of the real line of code.
-- [lsp_signature.nvim](https://github.com/ray-x/lsp_signature.nvim) - LSP signature hint when you type.
 - [mason.nvim](https://github.com/williamboman/mason.nvim) - Portable package manager that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters.
 - [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim) - Null-ls.nvim reloaded / Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
 - [nvim-lint](https://github.com/mfussenegger/nvim-lint) - An asynchronous linter plugin, complementary to the built-in Language Server Protocol support.
@@ -147,12 +144,9 @@
 ## Not Categorized
 
 - FixCursorHold&#46;nvim
+- blink-cmp-copilot
+- blink&#46;cmp
 - clangd_extensions&#46;nvim
-- cmp-buffer
-- cmp-nvim-lsp
-- cmp-path
-- cmp_luasnip
-- copilot-cmp
 - mason-lspconfig&#46;nvim
 - mini&#46;ai
 - mini&#46;align
@@ -177,7 +171,6 @@
 - schemastore&#46;nvim
 - undotree
 - venv-selector&#46;nvim
-- vim-visual-multi
 
 ---
 
