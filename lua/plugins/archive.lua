@@ -356,6 +356,30 @@ local archived = {
             require("user.utils").load_keymap "illuminate"
         end,
     },
+
+    {
+        "nvimtools/none-ls.nvim",
+        event = "BufReadPre",
+        dependencies = { "mason.nvim" },
+        config = function()
+            local nls = require "null-ls"
+            local utils = require "user.utils"
+            local packages = require("user.config").nulls_packages
+            local sources = {}
+
+            for t_pkg, pkgs in pairs(packages) do
+                for _, pckg in ipairs(pkgs) do
+                    if type(pckg) == "table" then
+                        table.insert(sources, nls.builtins[t_pkg][pckg[1]].with { pckg[2] })
+                    else
+                        table.insert(sources, nls.builtins[t_pkg][pckg])
+                    end
+                end
+            end
+
+            nls.setup { sources = sources, on_attach = utils.formatting() }
+        end,
+    },
 }
 
 return {}

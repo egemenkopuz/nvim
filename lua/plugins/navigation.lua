@@ -279,6 +279,7 @@ return {
             vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniFilesExplorerOpen",
                 callback = function()
+                    vim.g.minifiles_active = true
                     local bufnr = vim.api.nvim_get_current_buf()
                     update_git_status(bufnr)
                 end,
@@ -292,6 +293,7 @@ return {
             vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniFilesExplorerClose",
                 callback = function()
+                    vim.g.minifiles_active = false
                     clear_cache()
                 end,
             })

@@ -7,6 +7,13 @@ M.lsp_inlay_hints = true
 
 vim.g.python3_host_prog = "/usr/bin/python3"
 
+M.toggle_settings = {
+    autoformat = true,
+    colorcolumn = nil,
+    diagnostics = true,
+    diagnostic_lines = false,
+    copilot_chat_window_alt = false,
+}
 -- auto install treesitter packages
 M.treesitter_packages = {
     "bash",
@@ -94,23 +101,6 @@ M.mason_packages = {
     "actionlint",
 }
 
-M.nulls_packages = {
-    formatting = {
-        "isort",
-        "black",
-        "prettier",
-        "stylua",
-        "clang_format",
-        "shfmt",
-        "cmake_format",
-        "terraform_fmt",
-        "terragrunt_fmt",
-    },
-    diagnostics = {},
-    code_actions = {},
-    hover = {},
-}
-
 M.linting = {
     linters_by_ft = {
         ansible = { "ansible_lint" },
@@ -122,6 +112,37 @@ M.linting = {
         terraform = { "tflint", "trivy" },
         terragrunt = { "trivy" },
         bash = { "trivy", "shellcheck", "bash" },
+    },
+}
+
+M.formatting = {
+    -- stylua: ignore
+    formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "isort", "black" },
+        c = { "clang_format", timeout_ms = 500, lsp_format = "prefer" },
+        cpp = { "clang_format", timeout_ms = 500, lsp_format = "prefer" },
+        cmake = { "cmake_format", timeout_ms = 500, lsp_format = "prefer" },
+        rust = { "rustfmt", lsp_format = "fallback" },
+        sh = { "shfmt", "shellcheck" },
+        markdown = { "prettier", timeout_ms = 500, lsp_format = "prefer" },
+        javascript = { "prettier", timeout_ms = 500, lsp_format = "fallback" },
+        javascriptreact = { "prettier", timeout_ms = 500, lsp_format = "fallback" },
+        json = { "prettier", timeout_ms = 500, lsp_format = "prefer" },
+        jsonc = { "prettier", timeout_ms = 500, lsp_format = "prefer" },
+        typescript = { "prettier",timeout_ms = 500, lsp_format = "fallback" },
+        typescriptreact = { "prettier", timeout_ms = 500, lsp_format = "fallback" },
+        terraform = { "terraform_fmt", timeout_ms = 500, lsp_format = "prefer" },
+        hcl = { "terragrunt_hclfmt", timeout_ms = 500, lsp_format = "prefer" },
+    },
+    formatters = {
+        injected = { options = { ignore_errors = true } },
+        clang_format = {
+            command = "clang-format",
+            append_args = function()
+                return { "--style={BasedOnStyle: Google, IndentWidth: 4}" }
+            end,
+        },
     },
 }
 

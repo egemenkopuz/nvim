@@ -76,7 +76,6 @@ return {
                 { "<leader>aD", desc = "Accept Diff" },
             }
             chat.setup(opts)
-            require("CopilotChat.integrations.cmp").setup()
         end,
     },
 
