@@ -828,4 +828,27 @@ M.noice = {
     },
 }
 
+M.yanky = {
+    [{ "n", "x" }] = {
+        ["<leader>sp"] = { "<cmd>YankyRingHistory<cr>", "Yank History" },
+        ["y"] = { "<Plug>(YankyYank)", "Yank Text" },
+        ["p"] = { "<Plug>(YankyPutAfter)", "Put Text After Cursor" },
+        ["P"] = { "<Plug>(YankyPutBefore)", "Put Text Before Cursor" },
+    },
+    n = {
+        ["[y"] = { "<Plug>(YankyCycleForward)", "Cycle Forward Through Yank History" },
+        ["]y"] = { "<Plug>(YankyCycleBackward)", "Cycle Backward Through Yank History" },
+        ["]p"] = { "<Plug>(YankyPutIndentAfterLinewise)", "Put Indented After Cursor (Linewise)" },
+        ["[p"] = { "<Plug>(YankyPutIndentBeforeLinewise)", "Put Indented Before Cursor (Linewise)" },
+        ["]P"] = { "<Plug>(YankyPutIndentAfterLinewise)", "Put Indented After Cursor (Linewise)" },
+        ["[P"] = { "<Plug>(YankyPutIndentBeforeLinewise)", "Put Indented Before Cursor (Linewise)" },
+        [">p"] = { "<Plug>(YankyPutIndentAfterShiftRight)", "Put and Indent Right" },
+        ["<p"] = { "<Plug>(YankyPutIndentAfterShiftLeft)", "Put and Indent Left" },
+        [">P"] = { "<Plug>(YankyPutIndentBeforeShiftRight)", "Put Before and Indent Right" },
+        ["<P"] = { "<Plug>(YankyPutIndentBeforeShiftLeft)", "Put Before and Indent Left" },
+        ["=p"] = { "<Plug>(YankyPutAfterFilter)", "Put After Applying a Filter" },
+        ["=P"] = { "<Plug>(YankyPutBeforeFilter)", "Put Before Applying a Filter" },
+    },
+}
+
 return M
