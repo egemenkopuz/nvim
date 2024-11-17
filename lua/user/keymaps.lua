@@ -489,6 +489,7 @@ M.bufferline = {
         ["<leader>bsd"] = { "<cmd> BufferLineSortByDirectory <cr>", "Sort buffers by directory" },
         ["<leader>bcr"] = { "<cmd> BufferLineCloseRight <cr>", "Close all visible buffers to the right" },
         ["<leader>bcl"] = { "<cmd> BufferLineCloseLeft <cr>", "Close all visible buffers to the left" },
+        ["<leader>bco"] = { "<cmd> BufferLineCloseOthers <cr>", "Close other buffers" },
         ["<leader>bp"] = { "<cmd> BufferLineTogglePin <cr>", "Pin buffer" },
         ["<leader>bcp"] = { "<cmd> BufferLineGroupClose ungrouped <cr>", "Close non-pinned buffers" },
         ["[b"] = { "<cmd>BufferLineCyclePrev<cr>", "Prev buffer" },
