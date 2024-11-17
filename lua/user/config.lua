@@ -48,6 +48,7 @@ M.treesitter_packages = {
 M.mason_packages = {
     -- bash
     "bash-language-server",
+    "shellcheck",
     "shfmt",
     -- lua
     "lua-language-server",
@@ -56,6 +57,7 @@ M.mason_packages = {
     "terraform-ls",
     "tflint",
     "tfsec",
+    "trivy",
     -- cmake
     "cmake-language-server",
     "cmakelang",
@@ -103,18 +105,23 @@ M.nulls_packages = {
         "terraform_fmt",
         "terragrunt_fmt",
     },
-    diagnostics = {
-        "hadolint",
-        "cmake_lint",
-        "cppcheck",
-        "ansiblelint",
-        "terraform_validate",
-        "tfsec",
-        "trivy",
-        "actionlint",
-    },
+    diagnostics = {},
     code_actions = {},
     hover = {},
+}
+
+M.linting = {
+    linters_by_ft = {
+        ansible = { "ansible_lint" },
+        dockerfile = { "hadolint" },
+        cmake = { "cmakelint" }, -- FIX
+        c = { "cppcheck", "clang_tidy" },
+        cpp = { "cppcheck", "clang_tidy" },
+        ghaction = { "actionlint" },
+        terraform = { "tflint", "trivy" },
+        terragrunt = { "trivy" },
+        bash = { "trivy", "shellcheck", "bash" },
+    },
 }
 
 M.disabled_plugins = {
@@ -363,5 +370,22 @@ vim.api.nvim_set_hl(0, "DapStopped", { fg = "white", bg = "#B14238" })
 
 -- add command TrimWSLPaste to trim ^M after pasting
 vim.cmd [[command! -nargs=0 TrimWSLPaste :%s/\r//g]]
+
+vim.filetype.add {
+    pattern = {
+        [".*/.github/workflows/.*%.yml"] = "yaml.ghaction",
+        [".*/.github/workflows/.*%.yaml"] = "yaml.ghaction",
+        [".*/playbooks/.*%.yml"] = "yaml.ansible",
+        [".*/playbooks/.*%.yaml"] = "yaml.ansible",
+        [".*/roles/.*%.yml"] = "yaml.ansible",
+        [".*/roles/.*%.yaml"] = "yaml.ansible",
+        [".*/ansible/.*%.yml"] = "yaml.ansible",
+        [".*/ansible/.*%.yaml"] = "yaml.ansible",
+        [".*/roles/*/tasks/.*%.yml"] = "yaml.ansible",
+        [".*/roles/*/tasks/.*%.yaml"] = "yaml.ansible",
+        [".*%.ansible.yml"] = "yaml.ansible",
+        [".*%.ansible.yaml"] = "yaml.ansible",
+    },
+}
 
 return M

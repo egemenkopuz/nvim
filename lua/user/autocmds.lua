@@ -79,50 +79,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
     desc = "Disable New Line Comment",
 })
 
--- detect ansible filetype
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = { "*.ansible.yml", "*.ansible.yaml" },
-    callback = function()
-        vim.bo.filetype = "yaml.ansible"
-    end,
-})
-
--- detect ansible filetype if path includes ansible as a name in parent directory
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = {
-        "*/ansible/*.yml",
-        "*/ansible/*.yaml",
-        "roles/*/tasks/*.yml",
-        "roles/*/tasks/*.yaml",
-    },
-    callback = function()
-        vim.bo.filetype = "yaml.ansible"
-    end,
-})
-
--- detech terraform filetype
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = { "*.tf" },
-    callback = function()
-        vim.bo.filetype = "terraform"
-    end,
-})
-
--- save current and delete all prev buffers on session switch
-vim.api.nvim_create_autocmd({ "User" }, {
-    pattern = "PersistedTelescopeLoadPre",
-    group = vim.api.nvim_create_augroup("PersistedHooks", {}),
-    callback = function(session)
-        require("persisted").save { session = vim.g.persisted_loaded_session }
-        vim.api.nvim_input "<ESC>:%bd!<CR>"
-    end,
-})
-
 -- hide statusline and tabline on alpha screen
-vim.api.nvim_create_autocmd("User", {
-    pattern = { "AlphaReady", "DashboardLoaded" },
-    command = "set showtabline=0 | set laststatus=0",
-})
+-- vim.api.nvim_create_autocmd("User", {
+--     pattern = { "AlphaReady", "DashboardLoaded" },
+--     command = "set showtabline=0 | set laststatus=0",
+-- })
 
 -- make some background transparent if enabled
 vim.api.nvim_create_autocmd("VimEnter", {
