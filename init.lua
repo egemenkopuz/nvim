@@ -30,4 +30,5 @@ require("lazy").setup("plugins", {
 })
 
 require "user.autocmds"
+require "user.filetype"
 require("user.utils").load_keymap "general"
