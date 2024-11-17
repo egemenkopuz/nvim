@@ -3,9 +3,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
 jobs:
   add-plugins-md:
     runs-on: ubuntu-latest
