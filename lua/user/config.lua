@@ -42,6 +42,7 @@ M.treesitter_packages = {
     "ninja",
     "rust",
     "ron",
+    "requirements",
 }
 
 -- auto install mason packages

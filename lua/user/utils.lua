@@ -307,20 +307,7 @@ function M.lsp_on_attach()
             -- Disable hover in favor of basedpyright
             client.server_capabilities.hoverProvider = false
         end
-        if client.supports_method "textDocument/signatureHelp" then
-            require("lsp_signature").on_attach({}, bufnr)
-        end
     end
-end
-
-function M.lsp_capabilities()
-    local capabilities =
-        require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-    capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-    }
-    return capabilities
 end
 
 function M.formatting()

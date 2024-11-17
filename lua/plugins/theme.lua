@@ -45,6 +45,11 @@ return {
                     FzfLuaPreviewBorder = { fg = "#524C42" },
                     FzfLuaHeaderText = { fg = "gray" },
                     FzfLuaScrollBorderFull = { fg = "lightgray" },
+                    BlinkCmpMenu = { link = "float" },
+                    BlinkCmpMenuBorder = { fg = "#524C42" },
+                    BlinkCmpMenuSelection = { fg = "#7FB4CA", bg = "#2E3440" },
+                    BlinkCmpDocBorder = { fg = "#524C42" },
+                    BlinkCmpSignatureHelpBorder = { fg = "#524C42" },
                 }
                 colors.palette.oldWhite = colors.palette.fujiWhite
                 if not require("user.config").transparent then

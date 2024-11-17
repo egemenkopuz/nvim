@@ -5,7 +5,6 @@ return {
         dependencies = {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "hrsh7th/cmp-nvim-lsp",
             "b0o/schemastore.nvim",
             "p00f/clangd_extensions.nvim",
             {
@@ -28,24 +27,12 @@ return {
                         completion = true,
                         hover = true,
                     },
-                    completion = { cmp = { enabled = true } },
+                    completion = { cmp = { enabled = false } },
                     null_ls = { enabled = true, name = "crates.nvim" },
                 },
                 config = function(_, opts)
                     require("crates").setup(opts)
                 end,
-            },
-            {
-                "ray-x/lsp_signature.nvim",
-                opts = {
-                    hint_enable = false,
-                    hint_prefix = "",
-                    fixpos = true,
-                    padding = " ",
-                    bind = true,
-                    noice = true,
-                    handler_opts = { border = "single" },
-                },
             },
             {
                 "RRethy/vim-illuminate",
@@ -200,8 +187,13 @@ return {
 
                         server.flags = { debounce_text_changes = 150 }
                         server.on_attach = utils.lsp_on_attach()
-                        server.capabilities = utils.lsp_capabilities()
 
+                        -- stylua: ignore
+                        server.capabilities = require("blink.cmp").get_lsp_capabilities()
+                        server.capabilities.textDocument.foldingRange = {
+                            dynamicRegistration = false,
+                            lineFoldingOnly = true,
+                        }
                         server.before_init = function(_, config)
                             if server_name == "pyright" then
                                 config.settings.python.pythonPath =
