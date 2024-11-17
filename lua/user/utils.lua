@@ -2,30 +2,30 @@ local M = {}
 
 local merge_tb = vim.tbl_deep_extend
 local general_opts = { noremap = true, silent = true }
-
-local settings = {
-    autoformat = true,
-    colorcolumn = true,
-    diagnostics = true,
-    diagnostic_lines = false,
-    copilot_chat_window_alt = false,
-}
-
 local diag_def_virtual_text = require("user.config").diagnostics.virtual_text
+
+for key, value in pairs(require("user.config").toggle_settings) do
+    vim.g[key] = value
+end
 
 -- util init
 if vim.api.nvim_get_option_value("colorcolumn", {}) == "" then
-    settings.colorcolumn = false
+    vim.g["colorcolumn"] = false
 else
-    settings.colorcolumn = true
+    vim.g["colorcolumn"] = true
 end
 
-function M.toggle(var_name)
-    settings[var_name] = not settings[var_name]
+function M.toggle(var_name, override)
+    override = override or nil
+    if override then
+        vim.g[var_name] = override
+    else
+        vim.g[var_name] = not vim.g[var_name]
+    end
 end
 
 function M.is_enabled(var_name)
-    return settings[var_name]
+    return vim.g[var_name]
 end
 
 function M.notify(message, level, title)
