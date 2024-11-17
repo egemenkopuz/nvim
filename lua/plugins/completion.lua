@@ -1,7 +1,8 @@
 return {
     {
         "saghen/blink.cmp",
-        version = "v0.*",
+        branch = "main",
+        build = "cargo build --release",
         opts_extend = {
             "sources.completion.enabled_providers",
             "sources.compat",
@@ -22,6 +23,7 @@ return {
                 highlight = { use_nvim_cmp_as_default = true },
                 nerd_font_variant = "mono",
                 trigger = { signature_help = { enabled = true } },
+                accept = { auto_brackets = { enabled = true } },
                 sources = {
                     lsp = { fallback_for = { "lazydev" } },
                     lazydev = {
@@ -49,6 +51,7 @@ return {
                     autocomplete = {
                         -- draw = "reversed",
                         winblend = vim.o.pumblend,
+                        scrollbar = false,
                         border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
                     },
                     documentation = {
