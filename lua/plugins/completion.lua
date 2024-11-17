@@ -1,141 +1,94 @@
 return {
     {
-        "hrsh7th/nvim-cmp",
-        version = false,
-        event = "InsertEnter",
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            {
-                "L3MON4D3/LuaSnip",
-                dependencies = {
-                    "rafamadriz/friendly-snippets",
-                    config = function()
-                        require("luasnip.loaders.from_vscode").lazy_load()
-                    end,
-                },
-                opts = { history = true, delete_check_events = "TextChanged" },
-                -- stylua: ignore
-                keys = {
-                    { "<tab>", function() return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>" end, expr = true, silent = true, mode = "i", },
-                    { "<tab>", function() require("luasnip").jump(1) end, mode = "s", },
-                    { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" }, },
-                },
-            },
-            "saadparwaiz1/cmp_luasnip",
-            "zbirenbaum/copilot-cmp",
+        "saghen/blink.cmp",
+        version = "v0.*",
+        opts_extend = {
+            "sources.completion.enabled_providers",
+            "sources.compat",
         },
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+            { "giuxtaposition/blink-cmp-copilot", dependencies = "zbirenbaum/copilot.lua" },
+        },
+        lazy = false,
         opts = function()
-            local cmp = require "cmp"
-            return {
-                window = {
-                    completion = cmp.config.window.bordered {
-                        scrollbar = false,
+            local kind_icons = require("user.config").icons.kinds
+            local opts = {
+                keymap = {
+                    preset = "default",
+                    ["<C-space>"] = {},
+                    ["<C-g>"] = { "show", "show_documentation", "hide_documentation" },
+                },
+                highlight = { use_nvim_cmp_as_default = true },
+                nerd_font_variant = "mono",
+                trigger = { signature_help = { enabled = true } },
+                sources = {
+                    lsp = { fallback_for = { "lazydev" } },
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                    },
+                    providers = {
+                        copilot = {
+                            name = "copilot",
+                            module = "blink-cmp-copilot",
+                        },
+                    },
+                    compat = {},
+                    completion = {
+                        enabled_providers = {
+                            "lsp",
+                            "path",
+                            "copilot",
+                            "snippets",
+                            "buffer",
+                        },
+                    },
+                },
+                windows = {
+                    autocomplete = {
+                        -- draw = "reversed",
+                        winblend = vim.o.pumblend,
                         border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
                     },
-                    documentation = cmp.config.window.bordered {
-                        scrollbar = false,
+                    documentation = {
+                        min_width = 10,
+                        max_width = 75,
+                        max_height = 30,
+                        scrollbar = true,
+                        auto_show = true,
+                        auto_show_delay_ms = 200,
                         border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
+                        treesitter_highlighting = true,
                     },
-                },
-                completion = { completeopt = "menu,menuone,noinsert" },
-                snippet = {
-                    expand = function(args)
-                        require("luasnip").lsp_expand(args.body)
-                    end,
-                },
-                mapping = cmp.mapping.preset.insert {
-                    ["<C-d>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-e>"] = cmp.mapping.abort(),
-                    ["<C-y>"] = cmp.mapping.confirm { select = true },
-                    ["<S-CR>"] = cmp.mapping.confirm {
-                        behavior = cmp.ConfirmBehavior.Replace,
-                        select = true,
+                    signature_help = {
+                        min_width = 1,
+                        max_width = 100,
+                        max_height = 10,
+                        border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
+                        treesitter_highlighting = true,
                     },
-                    ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-                    ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-                    ["<C-CR>"] = function(fallback)
-                        cmp.abort()
-                        fallback()
-                    end,
+                    ghost_text = { enabled = true },
                 },
-                sources = cmp.config.sources {
-                    { name = "copilot", group_index = 0 },
-                    { name = "nvim_lsp", max_item_count = 20, group_index = 0 },
-                    { name = "buffer", max_item_count = 20, group_index = 0 },
-                    { name = "nvim_lua", max_item_count = 20, group_index = 0 },
-                    { name = "crates", group_index = 0 },
-                    { name = "luasnip", group_index = 1 },
-                    { name = "path", group_index = 1 },
-                    { name = "lazydev", group_index = 1 },
-                },
-                formatting = {
-                    format = function(_, item)
-                        local icons = require("user.config").icons.kinds
-                        if icons[item.kind] then
-                            item.kind = icons[item.kind] .. item.kind
-                        end
-                        local widths = {
-                            abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
-                            menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
-                        }
-
-                        for key, width in pairs(widths) do
-                            if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
-                                item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
-                            end
-                        end
-
-                        return item
-                    end,
-                },
-                formatters = { insert_text = require("copilot_cmp.format").remove_existing },
-                sorting = {
-                    priority_weight = 2,
-                    comparators = {
-                        require("copilot_cmp.comparators").prioritize,
-                        require("copilot_cmp.comparators").score,
-                        cmp.config.compare.offset,
-                        cmp.config.compare.exact,
-                        cmp.config.compare.score,
-                        cmp.config.compare.recently_used,
-                        cmp.config.compare.locality,
-                        cmp.config.compare.kind,
-                        cmp.config.compare.sort_text,
-                        cmp.config.compare.length,
-                        cmp.config.compare.order,
-                    },
-                },
-                experimental = { ghost_text = { hl_group = "LspCodeLens" } },
+                kind_icons = {},
             }
+            opts.kind_icons = vim.tbl_deep_extend("force", opts.kind_icons, kind_icons)
+            return opts
         end,
-    },
-    {
-        "zbirenbaum/copilot-cmp",
-        event = "InsertEnter",
-        dependencies = {
-            "zbirenbaum/copilot.lua",
-            opts = {
-                suggestion = { enabled = false },
-                panel = { enabled = false },
-                filetypes = {
-                    markdown = true,
-                    sh = function()
-                        if
-                            string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*")
-                        then
-                            return false
-                        end
-                        return true
-                    end,
-                },
-            },
-        },
-        opts = { method = "getCompletionsCycling" },
         config = function(_, opts)
-            require("copilot_cmp").setup(opts)
+            -- setup compat sources
+            local enabled = opts.sources.completion.enabled_providers
+            for _, source in ipairs(opts.sources.compat or {}) do
+                opts.sources.providers[source] = vim.tbl_deep_extend(
+                    "force",
+                    { name = source, module = "blink.compat.source" },
+                    opts.sources.providers[source] or {}
+                )
+                if type(enabled) == "table" and not vim.tbl_contains(enabled, source) then
+                    table.insert(enabled, source)
+                end
+            end
+            require("blink.cmp").setup(opts)
         end,
     },
 }

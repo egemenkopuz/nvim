@@ -360,10 +360,10 @@ return {
                     -- stylua: ignore start
                     local buf_id = args.data.buf_id
                     vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
-                    vim.keymap.set("n", "gs", files_grug_far_replace, { buffer = args.data.buf_id, desc = "Search in directory" })
-                    map_split(buf_id, "gx", "belowright horizontal")
+                    vim.keymap.set("n", "gr", files_grug_far_replace, { buffer = args.data.buf_id, desc = "Search in directory" })
+                    map_split(buf_id, "gs", "belowright horizontal")
                     map_split(buf_id, "gv", "belowright vertical")
-                    map_split(buf_id, "gX", "belowright horizontal", true)
+                    map_split(buf_id, "gS", "belowright horizontal", true)
                     map_split(buf_id, "gV", "belowright vertical", true)
                     map_from_window_picker(buf_id, "gw")
                     map_from_window_picker(buf_id, "gW", true)

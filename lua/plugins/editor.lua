@@ -58,9 +58,12 @@ return {
                 use_trouble_qf = true,
                 mappings = {
                     list = {
-                        ["x"] = actions.jump_split,
+                        ["s"] = actions.jump_split,
                         ["w"] = window_picker_jump,
-                        ["s"] = "",
+                        ["<C-b>"] = actions.preview_scroll_win(5),
+                        ["<C-f>"] = actions.preview_scroll_win(-5),
+                        ["<C-u>"] = false,
+                        ["<C-d>"] = false,
                     },
                 },
             }
@@ -147,6 +150,7 @@ return {
         cmd = { "TroubleToggle", "Trouble" },
         opts = {
             focus = true,
+            auto_preview = false,
             modes = {
                 diagnostics_preview = {
                     mode = "diagnostics",
@@ -267,7 +271,7 @@ return {
         init = function()
             require("user.utils").load_keymap "neogen"
         end,
-        opts = { snippet_engine = "luasnip" },
+        opts = { snippet_engine = "nvim" },
         config = true,
     },
 
@@ -309,19 +313,6 @@ return {
         },
         config = function(_, opts)
             require("ufo").setup(opts)
-        end,
-    },
-
-    {
-        "mg979/vim-visual-multi",
-        event = "BufReadPre",
-        init = function()
-            vim.g.VM_default_mappings = 0
-            vim.g.VM_maps = { ["Find Under"] = "" }
-            vim.g.VM_add_cursor_at_pos_no_mappings = 1
-            vim.g.VM_set_statusline = 0
-            vim.g.VM_silent_exit = 1
-            require("user.utils").load_keymap "visual_multi"
         end,
     },
 

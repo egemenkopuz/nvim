@@ -44,7 +44,7 @@ M.general = {
         ["<leader>wZ"] = {"<cmd> wa <cr>", "Save all"},
         -- splits
         ["<leader>uv"] = {"<cmd> vsplit <cr>", "Vertical split"},
-        ["<leader>ux"] = {"<cmd> split <cr>", "Horizontal split"},
+        ["<leader>us"] = {"<cmd> split <cr>", "Horizontal split"},
         ["<leader>ue"] = {"<C-w>=", "Equalize splits"},
         -- ui reset
         ["<leader>ur"] = { "<cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><cr>", "Redraw / clear hlsearch / diff update"},
@@ -434,7 +434,7 @@ M.window_picker = {
             end,
             "Pick window",
         },
-        ["<leader>us"] = {
+        ["<leader>uS"] = {
             function()
                 utils.swap_window()
             end,
