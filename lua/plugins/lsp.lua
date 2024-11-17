@@ -226,7 +226,7 @@ return {
         cmd = "Mason",
         opts = {
             ensure_installed = require("user.config").mason_packages,
-            ui = { border = "single" },
+            ui = { border = require("user.config").borders.default },
         },
         config = function(_, opts)
             require("mason").setup(opts)

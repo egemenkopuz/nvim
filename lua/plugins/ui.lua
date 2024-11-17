@@ -1,6 +1,7 @@
 return {
     {
         "folke/noice.nvim",
+        enabled = true,
         event = "VeryLazy",
         dependencies = { "MunifTanjim/nui.nvim" },
         init = function()
@@ -11,11 +12,22 @@ return {
                 bottom_search = true,
                 command_palette = true,
                 long_message_to_split = true,
-                inc_rename = false,
+                inc_rename = true,
+                lsp_doc_border = true,
             },
             lsp = {
                 signature = { enabled = false },
                 progress = { enabled = false },
+                hover = {
+                    enabled = true,
+                    opts = {
+                        scrollbar = false,
+                        size = {
+                            max_height = math.floor(vim.o.lines * 0.5),
+                            max_width = math.floor(vim.o.columns * 0.4),
+                        },
+                    },
+                },
                 override = {
                     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                     ["vim.lsp.util.stylize_markdown"] = true,

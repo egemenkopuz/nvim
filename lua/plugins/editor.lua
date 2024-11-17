@@ -120,11 +120,8 @@ return {
             shading_factor = 2,
             start_in_insert = true,
             direction = "float",
-            float_opts = {
-                border = "single",
-                winblend = 0,
-                highlights = { border = "Normal", background = "Normal" },
-            },
+            float_opts = { border = "single", winblend = 0 },
+            highlights = { FloatBorder = { guifg = "#524C42" } },
         },
         config = function(_, opts)
             require("toggleterm").setup(opts)

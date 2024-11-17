@@ -292,7 +292,9 @@ M.borders = {
     none = { "", "", "", "", "", "", "", "" },
     invs = { " ", " ", " ", " ", " ", " ", " ", " " },
     thin = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    sharp = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
 }
+M.borders.default = M.borders.sharp
 
 M.diagnostics = {
     signs = {
@@ -315,7 +317,7 @@ M.diagnostics = {
     virtual_text = false,
     severity_sort = true,
     float = {
-        border = M.borders.thin,
+        border = M.borders.default,
         header = " ",
         source = "if_many",
         severity_sort = true,
@@ -340,16 +342,9 @@ M.diagnostics = {
 
 M.lsp_to_status_name = {}
 
-M.lsp_to_status_exclude = {
-    "null-ls",
-    "copilot",
-}
+M.lsp_to_status_exclude = { "null-ls", "copilot" }
 
-M.copilot_chat_window_alt_opts = {
-    layout = "vertical", -- 'vertical', 'horizontal', 'float', 'replace'
-    width = 0.5,
-    height = 0.5,
-}
+M.copilot_chat_window_alt_opts = { layout = "vertical", width = 0.5, height = 0.5 }
 
 -- remap macro recording to qq
 vim.api.nvim_set_keymap("n", "q", "<Nop>", { noremap = true, silent = true })
@@ -368,8 +363,5 @@ vim.api.nvim_set_hl(0, "DapBreakpoint", { bg = "#454545" })
 vim.api.nvim_set_hl(0, "DapLogPoint", { bg = "#31353f" })
 vim.api.nvim_set_hl(0, "DapStopped", { fg = "white", bg = "#B14238" })
 -- stylua: ignore end
-
--- add command TrimWSLPaste to trim ^M after pasting
-vim.cmd [[command! -nargs=0 TrimWSLPaste :%s/\r//g]]
 
 return M
