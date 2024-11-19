@@ -9,7 +9,7 @@ M.general = {
     CursorLine = { bg = "#2E3440" },
     -- indent
     IblIndent = { fg = "#2E3440" },
-    IblScope = { fg = "gray" },
+    IblScope = { fg = colors.custom.gray },
     -- dap
     DapBreakpoint = { bg = "#454545" },
     DapLogPoint = { bg = "#31353f" },
@@ -58,10 +58,12 @@ M.general = {
     LspReferenceWrite = { link = "LspReferenceText" },
     -- mini.files
     MiniFilesTitleFocused = { fg = colors.custom.light_red, bold = true },
+    StatusLineBackground = { bg = colors.general.status_line_bg },
 }
 
 M.transparent = {
     FloatBorder = { fg = colors.general.border, bg = "none" },
+    StatusLineBackground = { bg = "none" },
     Normal = { bg = "none" },
     NormalFLoat = { bg = "none" },
 }

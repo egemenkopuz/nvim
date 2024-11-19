@@ -26,6 +26,7 @@ M.branch_type = {
 M.general = {
     border = "#524C42",
     selection = "#7FB4CA",
+    status_line_bg = "#181818",
 }
 
 M.custom = {

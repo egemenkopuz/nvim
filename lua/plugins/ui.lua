@@ -129,9 +129,11 @@ return {
             local colors = require "user.colors"
 
             local bg_color = colors.sl_bg
+
             if vim.g.transparent then
                 bg_color = "None"
             end
+
             local statusline = {
                 hl = { bg = bg_color },
                 others.mode(),

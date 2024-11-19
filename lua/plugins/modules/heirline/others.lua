@@ -1,12 +1,13 @@
 local M = {}
 
 local utils = require "plugins.modules.heirline.utils"
-local common_colors = require("user.colors").custom
+local colors = require "user.colors"
 local custom_icons = require("user.icons").custom
 
 function M.fill()
     return {
         provider = utils.fill,
+        hl = "StatusLineBackground",
     }
 end
 
@@ -60,19 +61,19 @@ function M.mode()
                 t = "T",
             },
             mode_colors = {
-                n = common_colors.light_red,
-                i = common_colors.light_green,
-                v = common_colors.light_purple,
-                V = common_colors.light_purple,
-                ["\22"] = common_colors.light_purple,
-                c = common_colors.light_gray,
-                s = common_colors.light_cyan,
-                S = common_colors.light_cyan,
-                ["\19"] = common_colors.light_cyan,
-                R = common_colors.light_orange,
-                r = common_colors.light_orange,
-                ["!"] = common_colors.light_red,
-                t = common_colors.light_red,
+                n = colors.custom.light_red,
+                i = colors.custom.light_green,
+                v = colors.custom.light_purple,
+                V = colors.custom.light_purple,
+                ["\22"] = colors.custom.light_purple,
+                c = colors.custom.light_gray,
+                s = colors.custom.light_cyan,
+                S = colors.custom.light_cyan,
+                ["\19"] = colors.custom.light_cyan,
+                R = colors.custom.light_orange,
+                r = colors.custom.light_orange,
+                ["!"] = colors.custom.light_red,
+                t = colors.custom.light_red,
             },
         },
         provider = function(self)
@@ -100,19 +101,19 @@ function M.macro()
             provider = function(self)
                 return utils.stylize(self.recording_icon, { padding = { left = 2 } })
             end,
-            hl = { fg = common_colors.light_red, bold = false },
+            hl = { fg = colors.custom.light_red, bold = false },
         },
         {
             provider = function(_)
                 return utils.stylize("recording macro:", {})
             end,
-            hl = { fg = common_colors.light_yellow, bold = false },
+            hl = { fg = colors.custom.light_yellow, bold = false },
         },
         {
             provider = function(self)
                 return utils.stylize(self.macro_key, { padding = { right = 2 } })
             end,
-            hl = { fg = common_colors.light_orange, bold = false },
+            hl = { fg = colors.custom.light_orange, bold = false },
         },
     }
 end
@@ -135,7 +136,7 @@ function M.search_count()
                 { padding = { left = 1, right = 1 } }
             )
         end,
-        hl = { fg = common_colors.light_cyan, bold = false },
+        hl = { fg = colors.custom.light_cyan, bold = false },
     }
 end
 
@@ -143,7 +144,7 @@ function M.copilot()
     return {
         static = {
             idle_icon = custom_icons.copilot,
-            color = common_colors.sl_copilot,
+            color = colors.custom.sl_copilot,
         },
         condition = function()
             local client = vim.lsp.get_clients({ name = "copilot" })[1]
