@@ -407,12 +407,17 @@ return {
                 o.buf = ctx.__CTX.bufnr
                 utils.pick(ctx.__INFO.cmd, o)
             end
+
             config.defaults.actions.files["alt-c"] = config.defaults.actions.files["ctrl-r"]
             config.set_action_helpstr(config.defaults.actions.files["ctrl-r"], "toggle-root-dir")
 
             return {
                 "default-title",
-                fzf_colors = true,
+                fzf_colors = {
+                    ["hl"] = { "fg", "FzfColorsHl" },
+                    ["hl+"] = { "fg", "FzfColorsHl" },
+                    ["gutter"] = "-1",
+                },
                 fzf_opts = {
                     ["--no-info"] = "",
                     ["--info"] = "hidden",
@@ -423,7 +428,7 @@ return {
                 defaults = {
                     formatter = "path.filename_first",
                     -- formatter = "path.dirname_first",
-                    git_icons = false,
+                    -- git_icons = false,
                 },
                 ui_select = function(fzf_opts, items)
                     return vim.tbl_deep_extend("force", fzf_opts, {

@@ -56,6 +56,11 @@ return {
 
             return {
                 use_trouble_qf = true,
+                border = {
+                    enable = vim.g.transparent,
+                    top_char = "―",
+                    bottom_char = "―",
+                },
                 mappings = {
                     list = {
                         ["s"] = actions.jump_split,
@@ -253,7 +258,7 @@ return {
         end,
         opts = function()
             local opts = { symbols = {} }
-            local kinds = require("user.config").icons.kinds
+            local kinds = require("user.icons").kinds
             for k, v in pairs(kinds) do
                 opts.symbols[k] = { icon = v }
             end

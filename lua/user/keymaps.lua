@@ -34,6 +34,8 @@ M.general = {
     },
     -- stylua: ignore
     n = {
+        ["q"] = {"<Nop>", opts = { noremap = true, silent = true }},
+        ["qq"] = {"q", opts = { noremap = true, silent = true }},
         -- quit
         ["<leader>qa"] = {"<cmd> qall <cr>", "Quit all"},
         ["<leader>qA"] = {"<cmd> qall! <cr>", "Quit force all"},

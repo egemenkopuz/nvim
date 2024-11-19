@@ -1,8 +1,8 @@
 local M = {}
 
 local utils = require "plugins.modules.heirline.utils"
-local custom_colors = require("user.config").colors.custom
-local custom_icons = require("user.config").icons.custom
+local common_colors = require("user.colors").custom
+local custom_icons = require("user.icons").custom
 
 function M.fill()
     return {
@@ -60,19 +60,19 @@ function M.mode()
                 t = "T",
             },
             mode_colors = {
-                n = custom_colors.light_red,
-                i = custom_colors.light_green,
-                v = custom_colors.light_purple,
-                V = custom_colors.light_purple,
-                ["\22"] = custom_colors.light_purple,
-                c = custom_colors.light_gray,
-                s = custom_colors.light_cyan,
-                S = custom_colors.light_cyan,
-                ["\19"] = custom_colors.light_cyan,
-                R = custom_colors.light_orange,
-                r = custom_colors.light_orange,
-                ["!"] = custom_colors.light_red,
-                t = custom_colors.light_red,
+                n = common_colors.light_red,
+                i = common_colors.light_green,
+                v = common_colors.light_purple,
+                V = common_colors.light_purple,
+                ["\22"] = common_colors.light_purple,
+                c = common_colors.light_gray,
+                s = common_colors.light_cyan,
+                S = common_colors.light_cyan,
+                ["\19"] = common_colors.light_cyan,
+                R = common_colors.light_orange,
+                r = common_colors.light_orange,
+                ["!"] = common_colors.light_red,
+                t = common_colors.light_red,
             },
         },
         provider = function(self)
@@ -100,19 +100,19 @@ function M.macro()
             provider = function(self)
                 return utils.stylize(self.recording_icon, { padding = { left = 2 } })
             end,
-            hl = { fg = custom_colors.light_red, bold = false },
+            hl = { fg = common_colors.light_red, bold = false },
         },
         {
             provider = function(_)
                 return utils.stylize("recording macro:", {})
             end,
-            hl = { fg = custom_colors.light_yellow, bold = false },
+            hl = { fg = common_colors.light_yellow, bold = false },
         },
         {
             provider = function(self)
                 return utils.stylize(self.macro_key, { padding = { right = 2 } })
             end,
-            hl = { fg = custom_colors.light_orange, bold = false },
+            hl = { fg = common_colors.light_orange, bold = false },
         },
     }
 end
@@ -135,7 +135,7 @@ function M.search_count()
                 { padding = { left = 1, right = 1 } }
             )
         end,
-        hl = { fg = custom_colors.light_cyan, bold = false },
+        hl = { fg = common_colors.light_cyan, bold = false },
     }
 end
 
@@ -143,7 +143,7 @@ function M.copilot()
     return {
         static = {
             idle_icon = custom_icons.copilot,
-            color = custom_colors.sl_copilot,
+            color = common_colors.sl_copilot,
         },
         condition = function()
             local client = vim.lsp.get_clients({ name = "copilot" })[1]
@@ -160,7 +160,8 @@ function M.copilot()
             if vim.tbl_isempty(self.client.requests) then
                 return utils.stylize(self.idle_icon, { padding = { left = 1, right = 1 } })
             end
-            local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+            local spinners =
+                { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
             local ms = vim.loop.hrtime() / 1000000
             local frame = math.floor(ms / 120) % #spinners
             return utils.stylize(spinners[frame + 1], { padding = { left = 1, right = 1 } })

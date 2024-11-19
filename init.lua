@@ -21,7 +21,7 @@ vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup("plugins", {
     defaults = { lazy = true },
     lockfile = vim.fn.stdpath "config" .. "/plugin-lock.json",
-    ui = { size = { width = 0.9, height = 0.9 }, border = require("user.config").borders.default },
+    ui = { size = { width = 0.9, height = 0.9 }, border = require("user.config").borders },
     performance = {
         cache = { enabled = true },
         rtp = { disabled_plugins = require("user.config").disabled_plugins },
@@ -32,4 +32,6 @@ require("lazy").setup("plugins", {
 require "user.autocmds"
 require "user.cmds"
 require "user.filetype"
+
+-- require("user.utils").load_highlights "general"
 require("user.utils").load_keymap "general"

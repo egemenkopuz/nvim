@@ -3,8 +3,7 @@ local M = {}
 local conditions = require "heirline.conditions"
 local utils = require "plugins.modules.heirline.utils"
 
-local config = require "user.config"
-local custom_colors = config.colors.custom
+local common_colors = require("user.colors").custom
 
 -- caching
 local cache_python_env = ""
@@ -32,7 +31,7 @@ function M.lsp_progress()
                 { padding = { left = 1, right = 1 } }
             )
         end,
-        hl = { fg = custom_colors.sl_lsp_progress },
+        hl = { fg = common_colors.sl_lsp_progress },
     }
 end
 
@@ -64,7 +63,7 @@ function M.python_env()
             local venv = utils.env_cleanup(self.venv)
             return venv ~= nil and utils.stylize(venv, { padding = { left = 1, right = 1 } })
         end,
-        hl = { fg = custom_colors.sl_python_env },
+        hl = { fg = common_colors.sl_python_env },
     }
 end
 

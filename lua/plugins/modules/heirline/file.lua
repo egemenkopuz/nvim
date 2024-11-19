@@ -3,7 +3,7 @@ local M = {}
 local utils = require "plugins.modules.heirline.utils"
 local conditions = require "heirline.conditions"
 
-local custom_colors = require("user.config").colors.custom
+local common_colors = require("user.colors").custom
 
 -- caching
 local cache_filename = nil
@@ -12,7 +12,7 @@ local cache_filetype = nil
 function M.filetype()
     return {
         static = {
-            default_icon_color = custom_colors.light_blue,
+            default_icon_color = common_colors.light_blue,
         },
         update = function(_)
             local filetype = vim.bo.filetype
@@ -76,7 +76,7 @@ function M.filename()
                 )
             end,
             hl = function()
-                return { fg = custom_colors.sl_parent_path, bold = false }
+                return { fg = common_colors.sl_parent_path, bold = false }
             end,
         },
         {
@@ -84,7 +84,7 @@ function M.filename()
                 return utils.stylize(self.filename, { padding = { left = 0, right = 0 } })
             end,
             hl = function(self)
-                return { fg = custom_colors.sl_filename, bold = self.parent_path and true or false }
+                return { fg = common_colors.sl_filename, bold = self.parent_path and true or false }
             end,
         },
     }

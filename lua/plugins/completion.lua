@@ -13,7 +13,7 @@ return {
         },
         lazy = false,
         opts = function()
-            local kind_icons = require("user.config").icons.kinds
+            local kind_icons = require("user.icons").kinds
             local config = require "user.config"
 
             local opts = {
@@ -54,7 +54,7 @@ return {
                         -- draw = "reversed",
                         winblend = vim.o.pumblend,
                         scrollbar = false,
-                        border = config.borders.default,
+                        border = config.borders,
                     },
                     documentation = {
                         min_width = 10,
@@ -63,14 +63,14 @@ return {
                         scrollbar = true,
                         auto_show = true,
                         auto_show_delay_ms = 200,
-                        border = config.borders.default,
+                        border = config.borders,
                         treesitter_highlighting = true,
                     },
                     signature_help = {
                         min_width = 1,
                         max_width = 100,
                         max_height = 10,
-                        border = config.borders.default,
+                        border = config.borders,
                         treesitter_highlighting = true,
                     },
                     ghost_text = { enabled = true },

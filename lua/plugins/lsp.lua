@@ -186,7 +186,7 @@ return {
                         elseif server_name == "clangd" then
                             server.capabilities.offsetEncoding = "utf-16"
                             require("clangd_extensions").setup {
-                                ast = require("user.config").icons.clangd,
+                                ast = require("user.icons").clangd,
                             }
                         end
 
@@ -202,7 +202,7 @@ return {
         cmd = "Mason",
         opts = {
             ensure_installed = require("user.config").mason_packages,
-            ui = { border = require("user.config").borders.default },
+            ui = { border = require("user.config").borders },
         },
         config = function(_, opts)
             require("mason").setup(opts)

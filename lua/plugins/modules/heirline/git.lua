@@ -3,11 +3,13 @@ local M = {}
 local conditions = require "heirline.conditions"
 local utils = require "plugins.modules.heirline.utils"
 
-local config = require "user.config"
-local diff_colors = config.colors.diff
-local diff_icons = config.icons.diff
-local branch_type_colors = config.colors.branch_type
-local custom_icons = config.icons.custom
+local colors = require "user.colors"
+local icons = require "user.icons"
+
+local diff_colors = colors.diff
+local diff_icons = icons.diff
+local branch_type_colors = colors.branch_type
+local custom_icons = icons.custom
 
 -- caching
 local cache_branch = nil

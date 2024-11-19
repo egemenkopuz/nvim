@@ -53,6 +53,18 @@ function M.load_keymap(section_name, add_opts)
     end
 end
 
+function M.load_highlights(section_name, add_opts)
+    local present, keys = pcall(require, "user.highlights")
+    if not present or keys[section_name] == nil then
+        M.notify("Highlights for " .. section_name .. " not found", vim.log.levels.ERROR)
+        return
+    end
+    for hl_id, hl_opts in pairs(keys[section_name]) do
+        hl_opts = merge_tb("force", hl_opts, add_opts or {})
+        vim.api.nvim_set_hl(0, hl_id, hl_opts)
+    end
+end
+
 function M.toggle_diagnostics()
     M.toggle "diagnostics"
     if M.is_enabled "diagnostics" then
@@ -275,7 +287,7 @@ function M.lsp_on_attach()
 
         M.load_keymap("lsp", { buffer = bufnr })
 
-        if require("user.config").lsp_highlight_cursor then
+        if vim.g.lsp_highlight_cursor_enabled then
             if client.server_capabilities.documentHighlightProvider then
                 local hl_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
                 vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -316,36 +328,13 @@ function M.lsp_on_attach()
 
         if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
             M.load_keymap "lsp_inlay_hints"
-            if require("user.config").lsp_inlay_hints then
+            if vim.g.lsp_inlay_hints_enabled then
                 vim.lsp.inlay_hint.enable(true)
             end
         end
         if client.name == "ruff" then
             -- Disable hover in favor of basedpyright
             client.server_capabilities.hoverProvider = false
-        end
-    end
-end
-
-function M.formatting()
-    return function(client, bufnr)
-        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-        if client.supports_method "textDocument/formatting" then
-            vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = bufnr,
-                callback = function()
-                    if M.is_enabled "autoformat" then
-                        vim.lsp.buf.format {
-                            bufnr = bufnr,
-                            filter = function(c)
-                                return c.name == "null-ls"
-                            end,
-                        }
-                    end
-                end,
-            })
         end
     end
 end

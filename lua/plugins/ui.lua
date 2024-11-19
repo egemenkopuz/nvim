@@ -126,11 +126,10 @@ return {
             local fm = require "plugins.modules.heirline.file"
             local lm = require "plugins.modules.heirline.lang"
             local others = require "plugins.modules.heirline.others"
-            local config = require "user.config"
-            local custom_colors = config.colors.custom
+            local colors = require "user.colors"
 
-            local bg_color = custom_colors.sl_bg
-            if config.transparent then
+            local bg_color = colors.sl_bg
+            if vim.g.transparent then
                 bg_color = "None"
             end
             local statusline = {

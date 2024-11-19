@@ -3,9 +3,11 @@ local M = {}
 local conditions = require "heirline.conditions"
 local utils = require "plugins.modules.heirline.utils"
 
-local config = require "user.config"
-local diag_colors = config.colors.diagnostics
-local diag_icons = config.icons.diagnostics
+local colors = require "user.colors"
+local icons = require "user.icons"
+
+local diag_colors = colors.diagnostics
+local diag_icons = icons.diagnostics
 
 function M.diagnostics()
     return {

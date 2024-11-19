@@ -137,7 +137,7 @@ local archived = {
             telescope.load_extension "noice"
             telescope.load_extension "terraform_doc"
 
-            if not require("user.config").transparent then
+            if not vim.g.transparent then
                 local tc1 = "#282727"
                 local tc2 = "#7FB4CA"
                 local tc3 = "#181616"
@@ -256,7 +256,7 @@ local archived = {
                 },
                 formatting = {
                     format = function(_, item)
-                        local icons = require("user.config").icons.kinds
+                        local icons = require("user.icons").kinds
                         if icons[item.kind] then
                             item.kind = icons[item.kind] .. item.kind
                         end

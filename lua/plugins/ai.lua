@@ -4,7 +4,7 @@ return {
         branch = "canary",
         cmd = { "CopilotChat", "CopilotChatModels" },
         opts = function()
-            local config = require "user.config"
+            local icons = require "user.icons"
             local user = vim.env.USER or "User"
             user = user:sub(1, 1):upper() .. user:sub(2)
             -- stylua: ignore
@@ -26,9 +26,9 @@ return {
                 auto_insert_mode = false,
                 auto_follow_cursor = false,
                 show_help = true,
-                question_header = config.icons.custom.user .. " " .. user .. " ",
-                answer_header = config.icons.custom.copilot .. " Copilot ",
-                error_header = config.icons.diagnostics.error .. " Error ",
+                question_header = icons.custom.user .. " " .. user .. " ",
+                answer_header = icons.custom.copilot .. " Copilot ",
+                error_header = icons.diagnostics.error .. " Error ",
                 window = {
                     layout = "float",
                     relative = "cursor",
