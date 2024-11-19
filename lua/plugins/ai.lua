@@ -82,7 +82,16 @@ return {
     {
         "zbirenbaum/copilot.lua",
         opts = {
-            suggestion = { enabled = false },
+            suggestion = {
+                enabled = true,
+                auto_trigger = false,
+                keymap = {
+                    accept = false,
+                    dismiss = false,
+                    next = "<C-]>",
+                    prev = "<C-[>",
+                },
+            },
             panel = { enabled = false },
             filetypes = {
                 markdown = true,

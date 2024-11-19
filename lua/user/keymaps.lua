@@ -24,13 +24,17 @@ M.general = {
         ["<C-b>"] = { "<ESC>^i", "Go to beginning of line" },
         -- go to end of line
         ["<C-e>"] = { "<End>", "Go to end of line" },
-        -- save file
-        ["<C-s>"] = { "<cmd> w <cr>", "Save file" },
         -- navigation
         ["<C-h>"] = { "<left>" },
         ["<C-j>"] = { "<down>" },
         ["<C-k>"] = { "<up>" },
         ["<C-l>"] = { "<right>" },
+        -- delete few default completion keymaps
+        ["<C-n>"] = { "<Nop>", opts = { noremap = true, silent = true } },
+        ["<C-p>"] = { "<Nop>", opts = { noremap = true, silent = true } },
+        ["<C-q>"] = { "<Nop>", opts = { noremap = true, silent = true } },
+        ["<C-o>"] = { "<Nop>", opts = { noremap = true, silent = true } },
+        ["<C-z>"] = { "<Nop>", opts = { noremap = true, silent = true } },
     },
     -- stylua: ignore
     n = {

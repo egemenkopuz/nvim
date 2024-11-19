@@ -19,20 +19,18 @@ return {
             local opts = {
                 keymap = {
                     preset = "default",
-                    ["<C-space>"] = {},
-                    ["<C-g>"] = { "show", "show_documentation", "hide_documentation" },
+                    ["<C-e>"] = {},
+                    ["<C-g>"] = { vim.g.accept_ai_suggestion },
+                    ["<C-space>"] = { "show", "hide" },
                 },
                 highlight = { use_nvim_cmp_as_default = true },
                 nerd_font_variant = "mono",
                 trigger = { signature_help = { enabled = true } },
                 accept = { auto_brackets = { enabled = true } },
                 sources = {
-                    lsp = { fallback_for = { "lazydev" } },
-                    lazydev = {
-                        name = "LazyDev",
-                        module = "lazydev.integrations.blink",
-                    },
                     providers = {
+                        lsp = { fallback_for = { "lazydev" } },
+                        lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
                         copilot = {
                             name = "copilot",
                             module = "blink-cmp-copilot",
@@ -46,6 +44,7 @@ return {
                             "copilot",
                             "snippets",
                             "buffer",
+                            "lazydev",
                         },
                     },
                 },

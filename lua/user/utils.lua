@@ -339,4 +339,18 @@ function M.lsp_on_attach()
     end
 end
 
+vim.g.accept_ai_suggestion = function()
+    if require("copilot.suggestion").is_visible() then
+        if vim.api.nvim_get_mode().mode == "i" then
+            vim.api.nvim_feedkeys(
+                vim.api.nvim_replace_termcodes("<c-G>u", true, true, true),
+                "n",
+                false
+            )
+        end
+        require("copilot.suggestion").accept()
+        return true
+    end
+end
+
 return M
