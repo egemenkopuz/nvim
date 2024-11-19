@@ -144,6 +144,7 @@ M.formatting = {
         typescriptreact = { "prettier", timeout_ms = 500, lsp_format = "fallback" },
         terraform = { "terraform_fmt", timeout_ms = 500, lsp_format = "prefer" },
         hcl = { "terragrunt_hclfmt", timeout_ms = 500, lsp_format = "prefer" },
+        toml = { "taplo", timeout_ms = 500, lsp_format = "prefer" },
     },
     formatters = {
         injected = { options = { ignore_errors = true } },
