@@ -221,11 +221,10 @@ return {
     },
 
     {
-        "iamcco/markdown-preview.nvim",
-        ft = "markdown",
-        build = function()
-            vim.fn["mkdp#util#install"]()
-        end,
+        "brianhuster/live-preview.nvim",
+        cmd = "LivePreview",
+        dependencies = { "ibhagwan/fzf-lua" },
+        opts = { picker = "fzf-lua" },
     },
 
     {
