@@ -156,20 +156,11 @@ return {
             require("heirline").setup(opts)
         end,
     },
-
     {
-        "nvimdev/dashboard-nvim",
+        "folke/snacks.nvim",
+        priority = 1000,
         lazy = false,
         opts = function()
-            local logo_table = require("user.config").logo
-            local logo
-            if logo_table ~= "" then
-                logo = table.concat(logo_table, "\n")
-                logo = string.rep("\n", 4) .. logo .. "\n\n"
-            else
-                logo = string.rep("\n", 8)
-            end
-
             local project_pick = function()
                 local fzf_lua = require "fzf-lua"
                 local history = require "project_nvim.utils.history"
@@ -194,7 +185,6 @@ return {
                     },
                 })
             end
-
             local function open_nvim_config()
                 vim.cmd "e $MYVIMRC | cd %:p:h"
                 require("persistence").load()
@@ -204,53 +194,36 @@ return {
                 vim.cmd "e $HOME/.config | cd %:p:h"
                 require("persistence").load()
             end
-
-            local opts = {
-                theme = "doom",
-                hide = { statusline = false },
-                config = {
-                    header = vim.split(logo, "\n"),
-                    -- stylua: ignore
-                    center = {
-                        { action = "ene | startinsert", desc = " New File", icon = " ", key = "fn", },
-                        { action = "FzfLua files", desc = " Find File", icon = " ", key = "ff", },
-                        { action = "FzfLua live_grep", desc = " Find Text", icon = " ", key = "fg", },
-                        { action = "FzfLua oldfiles", desc = " Recent Files", icon = "󱋡 ", key = "fr", },
-                        { action = require("persistence").select, desc = " Sessions", icon = " ", key = "ss", },
-                        { action = project_pick, desc = " Projects", icon = " ", key = "sp", },
-                        { action = open_nvim_config, desc = "Nvim Config", icon = "  ", key = "cc" },
-                        { action = open_global_config, desc = "Global Config", icon = "  ", key = "cf" },
-                        { action = "Lazy", desc = " Plugins", icon = " ", key = "cp", },
-                        { action = function() vim.api.nvim_input "<cmd>qa<cr>" end, desc = " Quit", icon = " ", key = "q", },
+            return {
+                dashboard = {
+                    preset = {
+                        header = require("user.icons").dashboard,
+                        keys = {
+                            -- stylua: ignore start
+                            { action = ":ene | startinsert", desc = " New File", icon = " ", key = "fn", },
+                            { action = ":FzfLua files", desc = " Find File", icon = " ", key = "ff", },
+                            { action = ":FzfLua live_grep", desc = " Find Text", icon = " ", key = "fg", },
+                            { action = ":FzfLua oldfiles", desc = " Recent Files", icon = "󱋡 ", key = "fr", },
+                            { action = require("persistence").select, desc = " Sessions", icon = " ", key = "ss", },
+                            { action = project_pick, desc = " Projects", icon = " ", key = "sp", },
+                            { action = open_nvim_config, desc = "Nvim Config", icon = "  ", key = "cc" },
+                            { action = open_global_config, desc = "Global Config", icon = "  ", key = "cf" },
+                            { action = ":Lazy", desc = " Plugins", icon = " ", key = "cp", },
+                            { action = function() vim.api.nvim_input "<cmd>qa<cr>" end, desc = " Quit", icon = " ", key = "q", },
+                            -- stylua: ignore end
+                        },
+                    },
+                    sections = {
+                        -- stylua: ignore start
+                        { section = 'header', padding = 1 },
+                        { section = "keys",  padding = 1 },
+                        { section = "recent_files", padding = 1 },
+                        { section = "projects", padding = 1 },
+                        { section = "startup" },
+                        -- stylua: ignore end
                     },
                 },
             }
-
-            for _, button in ipairs(opts.config.center) do
-                button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
-                button.key_format = "  %s"
-            end
-
-            vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "#524C42" })
-            vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#B43F3F" })
-            vim.api.nvim_set_hl(0, "DashboardDesc", { fg = "#F8EDED" })
-            vim.api.nvim_set_hl(0, "DashboardKey", { fg = "#B43F3F" })
-            vim.api.nvim_set_hl(0, "DashboardIcon", { fg = "#524C42" })
-
-            -- open dashboard after closing lazy
-            if vim.o.filetype == "lazy" then
-                vim.api.nvim_create_autocmd("WinClosed", {
-                    pattern = tostring(vim.api.nvim_get_current_win()),
-                    once = true,
-                    callback = function()
-                        vim.schedule(function()
-                            vim.api.nvim_exec_autocmds("UIEnter", { group = "dashboard" })
-                        end)
-                    end,
-                })
-            end
-
-            return opts
         end,
     },
 
