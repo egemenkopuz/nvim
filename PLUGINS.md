@@ -31,10 +31,6 @@
 
 - [crates.nvim](https://github.com/Saecki/crates.nvim) - Rust dependency management for `Cargo.toml`.
 
-## Startup
-
-- [dashboard-nvim](https://github.com/nvimdev/dashboard-nvim) - A minimalist dashboard, inspired by doom-emacs.
-
 ## Git
 
 - [diffview.nvim](https://github.com/sindrets/diffview.nvim) - Single tabpage interface for easily cycling through diffs for all modified files for any Git rev.
@@ -91,7 +87,6 @@
 
 ## Programming Languages Support
 
-- [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) - Preview markdown on your modern browser with synchronised scrolling and flexible configuration.
 - [markview.nvim](https://github.com/OXY2DEV/markview.nvim) - Highly customisable markdown(latex & inline html) previewer.
 
 ## Editing Support
@@ -146,6 +141,7 @@
 - blink-cmp-copilot
 - blink&#46;cmp
 - clangd_extensions&#46;nvim
+- live-preview&#46;nvim
 - mason-lspconfig&#46;nvim
 - mini&#46;ai
 - mini&#46;align
@@ -168,6 +164,7 @@
 - persistence&#46;nvim
 - promise-async
 - schemastore&#46;nvim
+- snacks&#46;nvim
 - undotree
 - venv-selector&#46;nvim
 
