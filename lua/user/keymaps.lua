@@ -102,12 +102,9 @@ M.general = {
         ["<leader><tab>]"] = {":tabnext<cr>", "Next tab"},
         ["<leader><tab>g"] = {":tabfirst<cr>", "First tab"},
         ["<leader><tab>G"] = {":tablast<cr>", "Last tab"},
+        -- search and replace under cursor
+        ["<leader>cR"] = {":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Fast search and Replace"}
     },
-    -- v = {
-    --     -- sorting
-    --     ["<leader>s"] = { ":sort<cr>", "Sort ascending" },
-    --     ["<leader>S"] = { ":sort!<cr>", "Sort descending" },
-    -- },
 }
 
 M.clipboard = {
@@ -204,7 +201,7 @@ M.telescope = {
 M.rename = {
     -- stylua: ignore
     n = {
-        ["<leader>cr"] = { function() return ":IncRename " .. vim.fn.expand "<cword>" end, "Rename", opts = { expr = true }, },
+        ["<leader>cr"] = { function() return ":IncRename " .. vim.fn.expand "<cword>" end, "LSP rename", opts = { expr = true }, },
     },
 }
 
@@ -333,7 +330,6 @@ M.trouble = {
 
 M.toggleterm = {
     n = {
-        ["<leader>gg"] = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>", "Lazygit" },
         ["<leader>utx"] = {
             "<cmd>ToggleTerm direction=horizontal<cr>",
             "Toggle horizontal terminal",
@@ -619,14 +615,25 @@ M.visual_multi = {
     },
 }
 
-M.copilot_chat = {
+M.copilot = {
     n = {
         ["<leader>ta"] = {
             function()
-                require("user.utils").toggle "copilot_chat_window_alt"
+                require("copilot.suggestion").toggle_auto_trigger()
             end,
-            "Alt copilot window",
+            "Copilot auto-trigger",
         },
+    },
+}
+
+M.copilot_chat = {
+    n = {
+        -- ["<leader>ta"] = {
+        --     function()
+        --         require("user.utils").toggle "copilot_chat_window_alt"
+        --     end,
+        --     "Alt copilot window",
+        -- },
         ["<leader>am"] = { "<cmd> CopilotChatModels <cr>", "Select model" },
     },
     [{ "n", "v" }] = {
@@ -854,6 +861,14 @@ M.yanky = {
         ["<P"] = { "<Plug>(YankyPutIndentBeforeShiftLeft)", "Put Before and Indent Left" },
         ["=p"] = { "<Plug>(YankyPutAfterFilter)", "Put After Applying a Filter" },
         ["=P"] = { "<Plug>(YankyPutBeforeFilter)", "Put Before Applying a Filter" },
+    },
+}
+
+M.snacks = {
+    n = {
+        -- stylua: ignore start
+        ["<leader>gg"] = { function() Snacks.lazygit() end, "Lazygit" },
+        -- stylua: ignore end
     },
 }
 

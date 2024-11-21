@@ -130,19 +130,20 @@ return {
         },
         config = function(_, opts)
             require("toggleterm").setup(opts)
-            local Terminal = require("toggleterm.terminal").Terminal
-            local lazygit = Terminal:new {
-                cmd = "lazygit",
-                hidden = true,
-                count = 20,
-                float_opts = { width = vim.o.columns, height = vim.o.lines },
-                on_close = function()
-                    vim.cmd [[ "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>" ]]
-                end,
-            }
-            function _LAZYGIT_TOGGLE()
-                lazygit:toggle()
-            end
+            -- being done by snacks.nvim
+            -- local Terminal = require("toggleterm.terminal").Terminal
+            -- local lazygit = Terminal:new {
+            --     cmd = "lazygit",
+            --     hidden = true,
+            --     count = 20,
+            --     float_opts = { width = vim.o.columns, height = vim.o.lines },
+            --     on_close = function()
+            --         vim.cmd [[ "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>" ]]
+            --     end,
+            -- }
+            -- function _LAZYGIT_TOGGLE()
+            --     lazygit:toggle()
+            -- end
             require("user.utils").load_keymap "toggleterm"
         end,
     },

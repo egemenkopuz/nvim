@@ -81,6 +81,9 @@ return {
 
     {
         "zbirenbaum/copilot.lua",
+        init = function()
+            require("user.utils").load_keymap "copilot"
+        end,
         opts = {
             suggestion = {
                 enabled = true,

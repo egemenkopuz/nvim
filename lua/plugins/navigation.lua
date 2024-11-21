@@ -384,6 +384,7 @@ return {
             { "<c-k>", "<c-k>", ft = "fzf", mode = "t", nowait = true },
         },
         opts = function(_, opts)
+            local fzf = require "fzf-lua"
             local config = require "fzf-lua.config"
             local actions = require "fzf-lua.actions"
             local utils = require "user.utils"
@@ -443,7 +444,7 @@ return {
                         winopts = {
                             layout = "vertical",
                             -- height is number of items minus 15 lines for the preview, with a max of 80% screen height
-                            height = math.floor(math.min(vim.o.lines * 0.8 - 16, #items + 2) + 0.5)
+                            height = math.floor(math.min(vim.o.lines * 0.8 - 16, #items + 3) + 0.5)
                                 + 16,
                             width = 0.7,
                             preview = not vim.tbl_isempty(
@@ -463,7 +464,7 @@ return {
                         winopts = {
                             width = 0.5,
                             -- height is number of items, with a max of 80% screen height
-                            height = math.floor(math.min(vim.o.lines * 0.8, #items + 2) + 0.5),
+                            height = math.floor(math.min(vim.o.lines * 0.8, #items + 3) + 0.5),
                         },
                     })
                 end,
@@ -486,6 +487,9 @@ return {
                         ["ctrl-v"] = actions.file_vsplit,
                         ["ctrl-t"] = require("trouble.sources.fzf").actions.open,
                         ["alt-h"] = { actions.toggle_hidden },
+                        ["Ctrl-Space"] = function(_, action_opts)
+                            fzf.buffers { query = action_opts.last_query, cwd = action_opts.cwd }
+                        end,
                     },
                 },
                 buffers = {
@@ -494,6 +498,9 @@ return {
                     actions = {
                         ["ctrl-x"] = false,
                         ["ctrl-d"] = { actions.buf_del, actions.resume },
+                        ["Ctrl-Space"] = function(_, action_opts)
+                            fzf.files { query = action_opts.last_query, cwd = action_opts.cwd }
+                        end,
                     },
                 },
                 grep = {
@@ -509,6 +516,15 @@ return {
                 lsp = {
                     code_actions = {
                         previewer = vim.fn.executable "delta" == 1 and "codeaction_native" or nil,
+                    },
+                    symbols = {
+                        symbol_hl = function(s)
+                            return "TroubleIcon" .. s
+                        end,
+                        symbol_fmt = function(s)
+                            return s:lower() .. "\t"
+                        end,
+                        child_prefix = false,
                     },
                 },
             }

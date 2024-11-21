@@ -160,6 +160,9 @@ return {
         "folke/snacks.nvim",
         priority = 1000,
         lazy = false,
+        init = function()
+            require("user.utils").load_keymap "snacks"
+        end,
         opts = function()
             local project_pick = function()
                 local fzf_lua = require "fzf-lua"
@@ -195,6 +198,9 @@ return {
                 require("persistence").load()
             end
             return {
+                styles = { lazygit = { width = 0, height = 0 } },
+                bigfile = { enabled = true },
+                lazygit = { enabled = true },
                 dashboard = {
                     preset = {
                         header = require("user.icons").dashboard,
@@ -214,13 +220,11 @@ return {
                         },
                     },
                     sections = {
-                        -- stylua: ignore start
-                        { section = 'header', padding = 1 },
-                        { section = "keys",  padding = 1 },
+                        { section = "header", padding = 1 },
+                        { section = "keys", padding = 1 },
                         { section = "recent_files", padding = 1 },
                         { section = "projects", padding = 1 },
                         { section = "startup" },
-                        -- stylua: ignore end
                     },
                 },
             }
