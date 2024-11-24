@@ -455,4 +455,15 @@ return {
             require("user.utils").load_keymap "notify"
         end,
     },
+
+    {
+        "sphamba/smear-cursor.nvim",
+        lazy = false,
+        opts = {
+            smear_between_buffers = true,
+            use_floating_windows = true,
+            legacy_computing_symbols_support = false,
+            hide_target_hack = true,
+        },
+    },
 }
