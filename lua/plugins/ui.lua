@@ -461,9 +461,12 @@ return {
         lazy = false,
         opts = {
             smear_between_buffers = true,
+            smear_between_neighbor_lines = true,
             use_floating_windows = true,
             legacy_computing_symbols_support = false,
             hide_target_hack = true,
+            stiffness = 0.75,
+            distance_stop_animating = 0.5,
         },
     },
 }
