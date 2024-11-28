@@ -13,8 +13,12 @@ return {
         },
         lazy = false,
         opts = function()
-            local kind_icons = require("user.icons").kinds
             local config = require "user.config"
+
+            local kind_icons = vim.deepcopy(require("user.icons").kinds)
+            for k, v in pairs(kind_icons) do
+                kind_icons[k] = string.sub(v, 1, -2)
+            end
 
             local opts = {
                 keymap = {
@@ -23,10 +27,36 @@ return {
                     ["<C-g>"] = { vim.g.accept_ai_suggestion },
                     ["<C-space>"] = { "show", "hide" },
                 },
-                highlight = { use_nvim_cmp_as_default = true },
-                nerd_font_variant = "mono",
-                trigger = { signature_help = { enabled = true } },
-                accept = { auto_brackets = { enabled = true } },
+                completion = {
+                    accept = { auto_brackets = { enabled = true } },
+                    menu = {
+                        winblend = vim.o.pumblend,
+                        scrollbar = false,
+                        border = config.borders,
+                    },
+                    documentation = {
+                        auto_show = true,
+                        auto_show_delay_ms = 200,
+                        window = {
+                            min_width = 10,
+                            max_width = 75,
+                            max_height = 30,
+                            scrollbar = true,
+                            border = config.borders,
+                        },
+                    },
+                    ghost_text = { enabled = false },
+                },
+                signature = {
+                    enabled = true,
+                    window = {
+                        min_width = 1,
+                        max_width = 100,
+                        max_height = 10,
+                        scrolbar = false,
+                        border = config.borders,
+                    },
+                },
                 sources = {
                     providers = {
                         lsp = { fallback_for = { "lazydev" } },
@@ -36,7 +66,6 @@ return {
                             module = "blink-cmp-copilot",
                         },
                     },
-                    compat = {},
                     completion = {
                         enabled_providers = {
                             "lsp",
@@ -48,35 +77,12 @@ return {
                         },
                     },
                 },
-                windows = {
-                    autocomplete = {
-                        -- draw = "reversed",
-                        winblend = vim.o.pumblend,
-                        scrollbar = false,
-                        border = config.borders,
-                    },
-                    documentation = {
-                        min_width = 10,
-                        max_width = 75,
-                        max_height = 30,
-                        scrollbar = true,
-                        auto_show = true,
-                        auto_show_delay_ms = 200,
-                        border = config.borders,
-                        treesitter_highlighting = true,
-                    },
-                    signature_help = {
-                        min_width = 1,
-                        max_width = 100,
-                        max_height = 10,
-                        border = config.borders,
-                        treesitter_highlighting = true,
-                    },
-                    ghost_text = { enabled = true },
+                appearance = {
+                    use_nvim_cmp_as_default = true,
+                    nerd_font_variant = "mono",
+                    kind_icons = kind_icons,
                 },
-                kind_icons = {},
             }
-            opts.kind_icons = vim.tbl_deep_extend("force", opts.kind_icons, kind_icons)
             return opts
         end,
         config = function(_, opts)
