@@ -164,6 +164,7 @@
 - persistence&#46;nvim
 - promise-async
 - schemastore&#46;nvim
+- smear-cursor&#46;nvim
 - snacks&#46;nvim
 - undotree
 - venv-selector&#46;nvim
