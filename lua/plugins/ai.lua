@@ -49,8 +49,8 @@ return {
                     accept_diff = { normal = "<leader>aD" },
                     yank_diff = { normal = "<leader>ay" },
                     show_diff = { normal = "<leader>ad" },
-                    show_system_prompt = { normal = "<leader>as" },
-                    show_user_selection = { normal = "<leader>au" },
+                    show_info = { normal = "<leader>as" },
+                    show_context = { normal = "<leader>au" },
                 },
             }
         end,
