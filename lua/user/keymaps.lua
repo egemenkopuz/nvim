@@ -836,8 +836,8 @@ M.persistence = {
 
 M.noice = {
     n = {
-        ["<leader>xn"] = { "<cmd> Noice fzf <cr>", "Notifications" },
-        ["<leader>xN"] = { "<cmd> Noice errors <cr>", "Error notifications" },
+        -- ["<leader>xn"] = { "<cmd> Noice fzf <cr>", "Notifications" },
+        -- ["<leader>xN"] = { "<cmd> Noice errors <cr>", "Error notifications" },
     },
 }
 
@@ -868,6 +868,7 @@ M.snacks = {
     n = {
         -- stylua: ignore start
         ["<leader>gg"] = { function() Snacks.lazygit() end, "Lazygit" },
+        ["<leader>xn"] = {function() Snacks.notifier.show_history() end, "Notification History"},
         -- stylua: ignore end
     },
 }

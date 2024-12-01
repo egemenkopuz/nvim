@@ -59,6 +59,11 @@ M.general = {
     -- mini.files
     MiniFilesTitleFocused = { fg = colors.custom.light_red, bold = true },
     StatusLineBackground = { bg = colors.general.status_line_bg },
+    SnacksNotifierBorderInfo = { link = "FloatBorder" },
+    SnacksNotifierBorderWarn = { link = "FloatBorder" },
+    SnacksNotifierBorderDebug = { link = "FloatBorder" },
+    SnacksNotifierBorderError = { link = "FloatBorder" },
+    SnacksNotifierBorderTrace = { link = "FloatBorder" },
 }
 
 M.transparent = {

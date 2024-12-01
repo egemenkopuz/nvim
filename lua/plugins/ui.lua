@@ -198,9 +198,13 @@ return {
                 require("persistence").load()
             end
             return {
-                styles = { lazygit = { width = 0, height = 0 } },
+                styles = {
+                    lazygit = { width = 0, height = 0 },
+                    notification = { wo = { wrap = true } },
+                },
                 bigfile = { enabled = true },
                 lazygit = { enabled = true },
+                notifier = { enabled = true, timeout = 1000 },
                 dashboard = {
                     preset = {
                         header = require("user.icons").dashboard,
@@ -431,29 +435,6 @@ return {
             require("user.utils").load_keymap "lsp_lines"
         end,
         config = true,
-    },
-
-    {
-        "rcarriga/nvim-notify",
-        lazy = false,
-        opts = {
-            timeout = 1000,
-            max_height = function()
-                return math.floor(vim.o.lines * 0.75)
-            end,
-            max_width = function()
-                return math.floor(vim.o.columns * 0.75)
-            end,
-            on_open = function(win)
-                vim.api.nvim_win_set_config(win, { zindex = 100 })
-            end,
-            render = "compact",
-            stages = "static",
-        },
-        init = function()
-            vim.notify = require "notify"
-            require("user.utils").load_keymap "notify"
-        end,
     },
 
     {
