@@ -64,6 +64,9 @@ M.general = {
     SnacksNotifierBorderDebug = { link = "FloatBorder" },
     SnacksNotifierBorderError = { link = "FloatBorder" },
     SnacksNotifierBorderTrace = { link = "FloatBorder" },
+    MiniDiffSignChange = { fg = colors.diff.modified },
+    MiniDiffSignAdd = { fg = colors.diff.added },
+    MiniDiffSignDelete = { fg = colors.diff.removed },
 }
 
 M.transparent = {

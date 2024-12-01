@@ -125,27 +125,32 @@ return {
             local git_status_cache = {}
             local cache_timeout = 2000 -- Cache timeout in milliseconds
 
-            local map_symbols = function(status)
+            local map_symbols = function(status, is_symlink)
                 local status_map = {
                     -- stylua: ignore start 
-                    [" M"] = { symbol = "•", hlGroup  = "MiniDiffSignChange"}, -- Modified in the working directory
-                    ["M "] = { symbol = "✹", hlGroup  = "MiniDiffSignChange"}, -- modified in index
-                    ["MM"] = { symbol = "≠", hlGroup  = "MiniDiffSignChange"}, -- modified in both working tree and index
-                    ["A "] = { symbol = "+", hlGroup  = "MiniDiffSignAdd"   }, -- Added to the staging area, new file
-                    ["AA"] = { symbol = "≈", hlGroup  = "MiniDiffSignAdd"   }, -- file is added in both working tree and index
-                    ["D "] = { symbol = "-", hlGroup  = "MiniDiffSignDelete"}, -- Deleted from the staging area
-                    ["AM"] = { symbol = "⊕", hlGroup  = "MiniDiffSignChange"}, -- added in working tree, modified in index
-                    ["AD"] = { symbol = "-•", hlGroup = "MiniDiffSignChange"}, -- Added in the index and deleted in the working directory
-                    ["R "] = { symbol = "→", hlGroup  = "MiniDiffSignChange"}, -- Renamed in the index
-                    ["U "] = { symbol = "‖", hlGroup  = "MiniDiffSignChange"}, -- Unmerged path
-                    ["UU"] = { symbol = "⇄", hlGroup  = "MiniDiffSignAdd"   }, -- file is unmerged
-                    ["UA"] = { symbol = "⊕", hlGroup  = "MiniDiffSignAdd"   }, -- file is unmerged and added in working tree
-                    ["??"] = { symbol = "?", hlGroup  = "MiniDiffSignDelete"}, -- Untracked files
-                    ["!!"] = { symbol = "!", hlGroup  = "MiniDiffSignChange"}, -- Ignored files
+                    [" M"] = { icon = "•", hl_group  = "MiniDiffSignChange"}, -- Modified in the working directory
+                    ["M "] = { icon = "✹", hl_group  = "MiniDiffSignChange"}, -- modified in index
+                    ["MM"] = { icon = "≠", hl_group  = "MiniDiffSignChange"}, -- modified in both working tree and index
+                    ["A "] = { icon = "+", hl_group  = "MiniDiffSignAdd"   }, -- Added to the staging area, new file
+                    ["AA"] = { icon = "≈", hl_group  = "MiniDiffSignAdd"   }, -- file is added in both working tree and index
+                    ["D "] = { icon = "-", hl_group  = "MiniDiffSignDelete"}, -- Deleted from the staging area
+                    ["AM"] = { icon = "⊕", hl_group  = "MiniDiffSignChange"}, -- added in working tree, modified in index
+                    ["AD"] = { icon = "-•", hl_group = "MiniDiffSignChange"}, -- Added in the index and deleted in the working directory
+                    ["R "] = { icon = "→", hl_group  = "MiniDiffSignChange"}, -- Renamed in the index
+                    ["U "] = { icon = "‖", hl_group  = "MiniDiffSignChange"}, -- Unmerged path
+                    ["UU"] = { icon = "⇄", hl_group  = "MiniDiffSignAdd"   }, -- file is unmerged
+                    ["UA"] = { icon = "⊕", hl_group  = "MiniDiffSignAdd"   }, -- file is unmerged and added in working tree
+                    ["??"] = { icon = "?", hl_group  = "MiniDiffSignDelete"}, -- Untracked files
+                    ["!!"] = { icon = "!", hl_group  = "MiniDiffSignChange"}, -- Ignored files
                     -- stylua: ignore end
                 }
                 local result = status_map[status] or { symbol = "?", hlGroup = "NonText" }
-                return result.symbol, result.hlGroup
+                local symlink_icon = is_symlink and "↩" or ""
+                local combined_icon = (symlink_icon .. result.icon)
+                    :gsub("^%s+", "")
+                    :gsub("%s+$", "")
+                local combined_hl_group = is_symlink and "MiniDiffSignDelete" or result.hl_group
+                return combined_icon, combined_hl_group
             end
 
             local fetch_git_status = function(cwd, callback)
@@ -160,6 +165,11 @@ return {
                     { text = true, cwd = cwd },
                     on_exit
                 )
+            end
+
+            local function check_symlink(path)
+                local stat = vim.loop.fs_lstat(path)
+                return stat and stat.type == "link"
             end
 
             local escape_pattern = function(str)
@@ -184,7 +194,8 @@ return {
                         local status = git_status_map[relativePath]
 
                         if status then
-                            local symbol, hlGroup = map_symbols(status)
+                            local is_symlink = check_symlink(entry.path)
+                            local symbol, hlGroup = map_symbols(status, is_symlink)
                             vim.api.nvim_buf_set_extmark(buf_id, ns_minifiles, i - 1, 0, {
                                 -- NOTE: if you want the signs on the right uncomment those and comment
                                 -- the 3 lines after
