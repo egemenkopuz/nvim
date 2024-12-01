@@ -109,7 +109,6 @@
 ## Utility
 
 - [noice.nvim](https://github.com/folke/noice.nvim) - Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
-- [nvim-notify](https://github.com/rcarriga/nvim-notify) - A fancy, configurable, notification manager.
 - [nvim-ufo](https://github.com/kevinhwang91/nvim-ufo) - Ultra fold with modern looking and performance boosting.
 
 ## Debugging
