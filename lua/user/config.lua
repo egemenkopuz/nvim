@@ -140,6 +140,7 @@ M.formatting = {
         javascriptreact = { "prettier", timeout_ms = 500, lsp_format = "fallback" },
         json = { "prettier", timeout_ms = 500, lsp_format = "prefer" },
         jsonc = { "prettier", timeout_ms = 500, lsp_format = "prefer" },
+        yaml = { "prettier", timeout_ms = 500, lsp_format = "prefer" },
         typescript = { "prettier",timeout_ms = 500, lsp_format = "fallback" },
         typescriptreact = { "prettier", timeout_ms = 500, lsp_format = "fallback" },
         terraform = { "terraform_fmt", timeout_ms = 500, lsp_format = "prefer" },

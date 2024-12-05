@@ -30,9 +30,12 @@ return {
                 completion = {
                     accept = { auto_brackets = { enabled = true } },
                     menu = {
-                        winblend = vim.o.pumblend,
                         scrollbar = false,
                         border = config.borders,
+                        draw = {
+                            treesitter = true,
+                            columns = { { "label", "label_description", gap = 1 }, { "kind" } },
+                        },
                     },
                     documentation = {
                         auto_show = true,
@@ -64,6 +67,7 @@ return {
                         copilot = {
                             name = "copilot",
                             module = "blink-cmp-copilot",
+                            kind = "Copilot",
                         },
                     },
                     completion = {
@@ -96,6 +100,21 @@ return {
                 )
                 if type(enabled) == "table" and not vim.tbl_contains(enabled, source) then
                     table.insert(enabled, source)
+                end
+            end
+
+            -- check if we need to override symbol kinds
+            for _, provider in pairs(opts.sources.providers or {}) do
+                if provider.kind then
+                    require("blink.cmp.types").CompletionItemKind[provider.kind] = provider.kind
+                    local transform_items = provider.transform_items
+                    provider.transform_items = function(ctx, items)
+                        items = transform_items and transform_items(ctx, items) or items
+                        for _, item in ipairs(items) do
+                            item.kind = provider.kind or item.kind
+                        end
+                        return items
+                    end
                 end
             end
             require("blink.cmp").setup(opts)

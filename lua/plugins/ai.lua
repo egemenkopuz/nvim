@@ -1,7 +1,7 @@
 return {
     {
         "CopilotC-Nvim/CopilotChat.nvim",
-        branch = "canary",
+        branch = "main",
         cmd = { "CopilotChat", "CopilotChatModels" },
         opts = function()
             local icons = require "user.icons"
@@ -87,7 +87,7 @@ return {
         opts = {
             suggestion = {
                 enabled = true,
-                auto_trigger = false,
+                auto_trigger = true,
                 keymap = {
                     accept = false,
                     dismiss = false,
@@ -98,6 +98,7 @@ return {
             panel = { enabled = false },
             filetypes = {
                 markdown = true,
+                yaml = true,
                 sh = function()
                     if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
                         return false

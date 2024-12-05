@@ -67,6 +67,7 @@ M.general = {
     MiniDiffSignChange = { fg = colors.diff.modified },
     MiniDiffSignAdd = { fg = colors.diff.added },
     MiniDiffSignDelete = { fg = colors.diff.removed },
+    CmpItemAbbrMatch = { fg = colors.custom.light_red, bold = true },
 }
 
 M.transparent = {
