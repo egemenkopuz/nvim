@@ -154,18 +154,21 @@ function M.copilot()
             return true
         end,
         init = function(self)
-            local client = vim.lsp.get_clients({ name = "copilot" })[1]
-            self.client = client
+            self.copilot_api = require "copilot.client"
+            self.client = vim.lsp.get_clients({ name = "copilot" })[1]
         end,
         provider = function(self)
-            if vim.tbl_isempty(self.client.requests) then
-                return utils.stylize(self.idle_icon, { padding = { left = 1, right = 1 } })
+            if self.copilot_api.buf_is_attached(vim.api.nvim_get_current_buf()) then
+                if vim.tbl_isempty(self.client.requests) then
+                    return utils.stylize(self.idle_icon, { padding = { left = 1, right = 1 } })
+                end
+                local spinners =
+                    { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+                local ms = vim.loop.hrtime() / 1000000
+                local frame = math.floor(ms / 120) % #spinners
+                return utils.stylize(spinners[frame + 1], { padding = { left = 1, right = 1 } })
             end
-            local spinners =
-                { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-            local ms = vim.loop.hrtime() / 1000000
-            local frame = math.floor(ms / 120) % #spinners
-            return utils.stylize(spinners[frame + 1], { padding = { left = 1, right = 1 } })
+            return ""
         end,
         hl = function(self)
             return { fg = self.color }

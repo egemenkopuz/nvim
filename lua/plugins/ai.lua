@@ -98,7 +98,12 @@ return {
             panel = { enabled = false },
             filetypes = {
                 markdown = true,
-                yaml = true,
+                yaml = function()
+                    if string.find(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "secret") then
+                        return false
+                    end
+                    return true
+                end,
                 sh = function()
                     if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then
                         return false
