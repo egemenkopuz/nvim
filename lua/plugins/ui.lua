@@ -198,12 +198,19 @@ return {
                 require("persistence").load()
             end
             return {
+                input = { enabled = false },
                 styles = {
                     lazygit = { width = 0, height = 0 },
                     notification = { wo = { wrap = true } },
                 },
                 bigfile = { enabled = true },
                 lazygit = { enabled = true },
+                scroll = {
+                    animate = {
+                        duration = { step = 15, total = 250 },
+                        easing = "linear",
+                    },
+                },
                 notifier = { enabled = true, timeout = 1000 },
                 dashboard = {
                     preset = {

@@ -72,7 +72,7 @@
   "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" },
   "schemastore.nvim": { "branch": "main", "commit": "f8c2a0f5d51b800ea4625808e243d9e8f7c5e1df" },
   "smear-cursor.nvim": { "branch": "main", "commit": "a5b840881fc132a88facbfbdee0b1b34df61eaed" },
-  "snacks.nvim": { "branch": "main", "commit": "fc71e36c90f44e0e6180ac6c5f035817709569d8" },
+  "snacks.nvim": { "branch": "main", "commit": "68ebabd1f2d5a0a530e4065a2cdfa36b4e52ba1b" },
   "statuscol.nvim": { "branch": "main", "commit": "8822f76e105549620ef9c0d96e7b95aedf14c490" },
   "telescope.nvim": { "branch": "master", "commit": "2eca9ba22002184ac05eddbe47a7fe2d5a384dfc" },
   "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "5de2eea9c99e7905a813f649c430fc2a70243b9d" },
