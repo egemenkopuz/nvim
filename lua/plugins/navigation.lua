@@ -602,6 +602,7 @@ return {
                             "undotree",
                             "diff",
                             "Glance",
+                            "smear-cursor",
                         },
                         buftype = { "terminal", "quickfix" },
                     },
