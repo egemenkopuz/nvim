@@ -1,6 +1,7 @@
 local M = {}
 
 local utils = require "user.utils"
+local prompts = require "user.prompts"
 
 M.general = {
     [{ "n", "x" }] = {
@@ -144,12 +145,6 @@ M.bufremove = {
             end,
             "Kill force buffer",
         },
-    },
-}
-
-M.zenmode = {
-    n = {
-        ["<leader>tz"] = { "<cmd> ZenMode <cr>", "Zen mode" },
     },
 }
 
@@ -573,27 +568,6 @@ M.flash = {
     -- stylua: ignore end
 }
 
-M.gitlinker = {
-    n = {
-        ["<leader>gy"] = {
-            function()
-                require("gitlinker").get_buf_range_url("n", {})
-            end,
-            "Yank link with line ranges",
-            { silent = true },
-        },
-    },
-    v = {
-        ["<leader>gy"] = {
-            function()
-                require("gitlinker").get_buf_range_url("v", {})
-            end,
-            "Yank link with line ranges",
-            { silent = true },
-        },
-    },
-}
-
 M.visual_multi = {
     n = {
         ["<leader>mj"] = { "<Plug>(VM-Add-Cursor-Down)", "Put Cursor Down" },
@@ -868,7 +842,67 @@ M.snacks = {
     n = {
         -- stylua: ignore start
         ["<leader>gg"] = { function() Snacks.lazygit() end, "Lazygit" },
-        ["<leader>xn"] = {function() Snacks.notifier.show_history() end, "Notification History"},
+        ["<leader>xn"] = { function() Snacks.notifier.show_history() end, "Notification History"},
+        ["<leader>tz"] = { function() Snacks.zen.zoom() end, "Zoom Mode"},
+        ["<leader>tZ"] = { function() Snacks.zen() end, "Zen Mode"},
+    },
+    -- stylua: ignore end
+    [{ "n", "v" }] = {
+        ["<leader>gy"] = {
+            function()
+                local start_line, end_line
+                if vim.fn.mode() == "v" or vim.fn.mode() == "V" then
+                    start_line = vim.fn.line "v"
+                    end_line = vim.fn.line "."
+                    if start_line > end_line then
+                        start_line, end_line = end_line, start_line
+                    end
+                end
+
+                local cmd = string.format(
+                    ":lua Snacks.gitbrowse({ start_line = %s, end_line = %s })",
+                    start_line or "nil",
+                    end_line or "nil"
+                )
+                vim.cmd(cmd)
+            end,
+            "Open repo URL",
+        },
+    },
+}
+
+M.avante = {
+    n = {
+        -- stylua: ignore start
+        -- ["<leader>aa"] = { function() require("avante.api").ask() end, "Ask" },
+        ["<leader>ar"] = { function() require("avante.api").refresh() end, "Refresh" },
+        -- ["<leader>ae"] = { function() require("avante.api").edit() end, "Edit" },
+        ["<leader>af"] = { function() require("avante.api").focus() end, "Focus" },
+        ["<leader>at"] = { function() require("avante.api").toggle() end, "Toggle" },
+        -- stylua: ignore end
+    },
+    [{ "n", "v" }] = {
+        -- stylua: ignore start
+        ["<leader>aa"] = { function() require("avante.api").ask() end, "Ask" },
+        ["<leader>ae"] = { function() require("avante.api").edit() end, "Edit" },
+        ["<leader>apg"] = { function() require('avante.api').ask { question = prompts.grammar_correction } end, "Grammar Correction(ask)" },
+        ["<leader>apr"] = { function() require('avante.api').ask { question = prompts.code_readability_analysis } end, "Code Readability Analysis(ask)" },
+        ["<leader>apo"] = { function() require('avante.api').ask { question = prompts.optimize_code } end, "Optimize Code(ask)" },
+        ["<leader>aps"] = { function() require('avante.api').ask { question = prompts.summarize } end, "Summarize text(ask)" },
+        ["<leader>apt"] = { function() require('avante.api').ask { question = prompts.translate } end, "Translate text(ask)" },
+        ["<leader>ape"] = { function() require('avante.api').ask { question = prompts.explain_code } end, "Explain Code(ask)" },
+        ["<leader>apd"] = { function() require('avante.api').ask { question = prompts.add_docstring } end, "Docstring(ask)" },
+        ["<leader>apf"] = { function() require('avante.api').ask { question = prompts.fix_bugs } end, "Fix Bugs(ask)" },
+        ["<leader>apn"] = { function() require('avante.api').ask { question = prompts.add_tests } end, "Add Tests(ask)" },
+        -- stylua: ignore end
+    },
+    v = {
+        -- stylua: ignore start
+        ["<leader>apG"] = { function() utils.avante_prefill_edit_window(prompts.grammar_correction) end, "Grammar Correction" },
+        ["<leader>apO"] = { function() utils.avante_prefill_edit_window(prompts.optimize_code) end, "Optimize Code(edit)" },
+        ["<leader>apD"] = { function() utils.avante_prefill_edit_window(prompts.add_docstring) end, "Docstring(edit)" },
+        ["<leader>apF"] = { function() utils.avante_prefill_edit_window(prompts.fix_bugs) end, "Fix Bugs(edit)" },
+        ["<leader>apN"] = { function() utils.avante_prefill_edit_window(prompts.add_tests) end, "Add Tests(edit)" },
         -- stylua: ignore end
     },
 }

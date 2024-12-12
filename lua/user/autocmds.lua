@@ -44,6 +44,8 @@ vim.api.nvim_create_autocmd("FileType", {
         "ClangdTypeHierarchy",
         "gitsigns.blame",
         "grug-far",
+        "Avante",
+        "AvanteInput",
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false

@@ -203,6 +203,7 @@ return {
                     lazygit = { width = 0, height = 0 },
                     notification = { wo = { wrap = true } },
                 },
+                gitbrowse = {},
                 bigfile = { enabled = true },
                 lazygit = { enabled = true },
                 scroll = {
@@ -211,6 +212,22 @@ return {
                         easing = "linear",
                     },
                 },
+                indent = {
+                    indent = { char = "┊" },
+                    scope = { enabled = false },
+                    chunk = {
+                        enabled = true,
+                        char = {
+                            corner_top = "┌",
+                            corner_bottom = "└",
+                            horizontal = "─",
+                            vertical = "│",
+                            arrow = "─",
+                        },
+                    },
+                },
+                zen = { enabled = true },
+                zoom = { enabled = true },
                 notifier = { enabled = true, timeout = 1000 },
                 dashboard = {
                     preset = {
@@ -239,35 +256,6 @@ return {
                     },
                 },
             }
-        end,
-    },
-
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        event = "BufReadPre",
-        main = "ibl",
-        opts = {
-            indent = { char = "│" },
-            scope = { enabled = true, show_start = false, show_end = false },
-            exclude = {
-                filetypes = {
-                    "help",
-                    "alpha",
-                    "dashboard",
-                    "neo-tree",
-                    "Trouble",
-                    "trouble",
-                    "lazy",
-                    "mason",
-                    "notify",
-                    "toggleterm",
-                    "lazyterm",
-                    "copilot-chat",
-                },
-            },
-        },
-        config = function(_, opts)
-            require("ibl").setup(opts)
         end,
     },
 
@@ -390,8 +378,9 @@ return {
     },
 
     {
-        "OXY2DEV/markview.nvim",
-        ft = "markdown",
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = { file_types = { "markdown", "Avante" } },
+        ft = { "markdown", "Avante" },
     },
 
     {

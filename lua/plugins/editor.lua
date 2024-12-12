@@ -175,45 +175,6 @@ return {
     },
 
     {
-        "folke/zen-mode.nvim",
-        cmd = { "ZenMode" },
-        init = function()
-            require("user.utils").load_keymap "zenmode"
-        end,
-        config = function(_, _)
-            local opts = {
-                window = { width = 0.75 },
-                on_open = function(win)
-                    local view = require "zen-mode.view"
-                    local layout = view.layout(view.opts)
-                    vim.api.nvim_win_set_config(win, {
-                        width = layout.width,
-                        height = layout.height - 1,
-                    })
-                    vim.api.nvim_win_set_config(view.bg_win, {
-                        width = vim.o.columns,
-                        height = view.height() - 1,
-                        row = 1,
-                        col = layout.col,
-                        relative = "editor",
-                    })
-                end,
-            }
-            require("zen-mode").setup(opts)
-        end,
-    },
-
-    {
-        "ruifm/gitlinker.nvim",
-        event = "BufReadPre",
-        opts = { mappings = nil },
-        config = function(_, opts)
-            require("gitlinker").setup(opts)
-            require("user.utils").load_keymap "gitlinker"
-        end,
-    },
-
-    {
         "echasnovski/mini.bufremove",
         event = "BufReadPre",
         config = function(_, _)
