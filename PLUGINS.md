@@ -1,12 +1,12 @@
 # PLUGINS
 
-## AI
-
-- [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) - A chat interface for GitHub Copilot that allows you to directly ask and receive answers to coding-related questions.
-
 ## Split and Window
 
 - [Navigator.nvim](https://github.com/numToStr/Navigator.nvim) - Smoothly navigate between Neovim splits and Tmux panes.
+
+## AI
+
+- [avante.nvim](https://github.com/yetone/avante.nvim) - Chat with your code as if you are in Cursor AI IDE.
 
 ## Bars and Lines
 
@@ -21,7 +21,6 @@
 ## Formatting
 
 - [conform.nvim](https://github.com/stevearc/conform.nvim) - A lightweight formatting engine that plays nice with LSP.
-- [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) - IndentLine replacement in Lua with more features and Tree-sitter support.
 
 ## Completion
 
@@ -34,7 +33,6 @@
 ## Git
 
 - [diffview.nvim](https://github.com/sindrets/diffview.nvim) - Single tabpage interface for easily cycling through diffs for all modified files for any Git rev.
-- [gitlinker.nvim](https://github.com/linrongbin16/gitlinker.nvim) - Maintained fork of "ruifm's gitlinker", refactored with bug fixes, ssh aliases, blame support and other improvements.
 - [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) - Git integration: signs, hunk actions, blame, etc.
 
 ## Motion
@@ -85,10 +83,6 @@
 
 - [leetcode.nvim](https://github.com/kawre/leetcode.nvim) - Solve Leetcode problems.
 
-## Programming Languages Support
-
-- [markview.nvim](https://github.com/OXY2DEV/markview.nvim) - Highly customisable markdown(latex & inline html) previewer.
-
 ## Editing Support
 
 - [neogen](https://github.com/danymat/neogen) - A better annotation generator. Supports multiple languages and annotation conventions.
@@ -96,11 +90,6 @@
 - [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag) - Use Tree-sitter to autoclose and autorename XML, HTML, JSX tag.
 - [nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) - Sets the `commentstring` option based on the cursor location in the file. The location is checked via Tree-sitter queries.
 - [yanky.nvim](https://github.com/gbprod/yanky.nvim) - Improved Yank and Put functionalities.
-- [zen-mode.nvim](https://github.com/folke/zen-mode.nvim) - Distraction-free coding.
-
-## Scrolling
-
-- [neoscroll.nvim](https://github.com/karb94/neoscroll.nvim) - Smooth scrolling.
 
 ## Test
 
@@ -125,6 +114,10 @@
 ## Project
 
 - [project.nvim](https://github.com/ahmedkhalf/project.nvim) - An all in one Neovim plugin that provides superior project management.
+
+## Programming Languages Support
+
+- [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) - Improve viewing markdown files directly.
 
 ## Terminal Integration
 
