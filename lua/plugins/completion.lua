@@ -62,7 +62,7 @@ return {
                 },
                 sources = {
                     providers = {
-                        lsp = { fallback_for = { "lazydev" } },
+                        lsp = { fallbacks = { "lazydev" } },
                         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
                         copilot = {
                             name = "copilot",
@@ -70,15 +70,13 @@ return {
                             kind = "Copilot",
                         },
                     },
-                    completion = {
-                        enabled_providers = {
-                            "lsp",
-                            "path",
-                            "copilot",
-                            "snippets",
-                            "buffer",
-                            "lazydev",
-                        },
+                    default = {
+                        "lsp",
+                        "path",
+                        "copilot",
+                        "snippets",
+                        "buffer",
+                        "lazydev",
                     },
                 },
                 appearance = {
@@ -91,7 +89,7 @@ return {
         end,
         config = function(_, opts)
             -- setup compat sources
-            local enabled = opts.sources.completion.enabled_providers
+            local enabled = opts.sources.default
             for _, source in ipairs(opts.sources.compat or {}) do
                 opts.sources.providers[source] = vim.tbl_deep_extend(
                     "force",
