@@ -33,7 +33,7 @@ return {
                         scrollbar = false,
                         border = config.borders,
                         draw = {
-                            treesitter = true,
+                            treesitter = { "lsp" },
                             columns = { { "label", "label_description", gap = 1 }, { "kind" } },
                         },
                     },
@@ -56,13 +56,15 @@ return {
                         min_width = 1,
                         max_width = 100,
                         max_height = 10,
-                        scrolbar = false,
                         border = config.borders,
                     },
                 },
                 sources = {
                     providers = {
-                        lsp = { fallbacks = { "lazydev" } },
+                        lsp = {
+                            score_offset = 5,
+                            fallbacks = { "lazydev" },
+                        },
                         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
                         copilot = {
                             name = "copilot",
@@ -70,6 +72,7 @@ return {
                             kind = "Copilot",
                         },
                     },
+                    cmdline = {},
                     default = {
                         "lsp",
                         "path",
@@ -114,6 +117,7 @@ return {
                         return items
                     end
                 end
+                provider.kind = nil
             end
             require("blink.cmp").setup(opts)
         end,

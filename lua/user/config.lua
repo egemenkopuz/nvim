@@ -37,7 +37,7 @@ M.treesitter_packages = {
     "dockerfile",
     "html",
     "javascript",
-    "json",
+    "json5",
     "jsdoc",
     "jsonc",
     "lua",

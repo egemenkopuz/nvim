@@ -10,7 +10,7 @@ return {
         opts = {
             presets = {
                 bottom_search = true,
-                command_palette = true,
+                command_palette = false,
                 long_message_to_split = true,
                 inc_rename = true,
                 lsp_doc_border = true,
@@ -202,6 +202,7 @@ return {
                 styles = {
                     lazygit = { width = 0, height = 0 },
                     notification = { wo = { wrap = true } },
+                    zen = { zindex = 22, width = 0.8 },
                 },
                 gitbrowse = {},
                 bigfile = { enabled = true },
@@ -226,7 +227,10 @@ return {
                         },
                     },
                 },
-                zen = { enabled = true },
+                zen = {
+                    enabled = true,
+                    show = { statusline = true, tabline = false },
+                },
                 zoom = { enabled = true },
                 notifier = { enabled = true, timeout = 1000 },
                 dashboard = {

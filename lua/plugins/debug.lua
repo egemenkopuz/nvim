@@ -7,6 +7,27 @@ return {
             init = function()
                 require("user.utils").load_keymap "dapui"
             end,
+            opts = {
+                layouts = {
+                    {
+                        elements = {
+                            { id = "console", size = 0.55 },
+                            { id = "stacks", size = 0.1 },
+                            { id = "watches", size = 0.1 },
+                            { id = "repl", size = 0.25 },
+                        },
+                        position = "right",
+                        size = 30,
+                    },
+                    {
+                        elements = {
+                            { id = "scopes", size = 1.0 },
+                        },
+                        position = "bottom",
+                        size = 15,
+                    },
+                },
+            },
             config = function(_, opts)
                 require("dapui").setup(opts)
             end,

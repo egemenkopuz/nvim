@@ -39,8 +39,33 @@ return {
             servers = {
                 ["bashls"] = {},
                 ["dockerls"] = {},
-                ["jsonls"] = {},
-                ["yamlls"] = {},
+                ["jsonls"] = {
+                    settings = {
+                        json = {
+                            format = { enable = true },
+                            validate = { enable = true },
+                        },
+                    },
+                },
+                ["yamlls"] = {
+                    capabilities = {
+                        textDocument = {
+                            foldingRange = {
+                                dynamicRegistration = false,
+                                lineFoldingOnly = true,
+                            },
+                        },
+                    },
+                    settings = {
+                        redhat = { telemetry = { enabled = false } },
+                        yaml = {
+                            keyOrdering = false,
+                            format = { enable = true },
+                            validate = true,
+                            schemaStore = { enable = false, url = "" },
+                        },
+                    },
+                },
                 ["marksman"] = {},
                 ["eslint"] = {},
                 ["ansiblels"] = {},
@@ -53,7 +78,7 @@ return {
                     },
                     diagnostics = {
                         enable = true,
-                        experimental = { enable = true },
+                        -- experimental = { enable = true },
                     },
                     checkOnSave = true,
                     procMacro = {
@@ -62,6 +87,19 @@ return {
                             ["async-trait"] = { "async_trait" },
                             ["napi-derive"] = { "napi" },
                             ["async-recursion"] = { "async_recursion" },
+                        },
+                    },
+                    files = {
+                        excludeDirs = {
+                            ".direnv",
+                            ".git",
+                            ".github",
+                            ".gitlab",
+                            "bin",
+                            "node_modules",
+                            "target",
+                            "venv",
+                            ".venv",
                         },
                     },
                 },
@@ -169,20 +207,9 @@ return {
                         end
 
                         if server_name == "jsonls" then
-                            server.settings = {
-                                json = {
-                                    schemas = require("schemastore").json.schemas(),
-                                    validate = { enable = true },
-                                },
-                            }
+                            server.settings.json.schemas = require("schemastore").json.schemas()
                         elseif server_name == "yamlls" then
-                            server.settings = {
-                                yaml = {
-                                    schemas = require("schemastore").json.schemas {
-                                        select = { "docker-compose.yml" },
-                                    },
-                                },
-                            }
+                            server.settings.yaml.schemas = require("schemastore").json.schemas()
                         elseif server_name == "clangd" then
                             server.capabilities.offsetEncoding = "utf-16"
                             require("clangd_extensions").setup {
