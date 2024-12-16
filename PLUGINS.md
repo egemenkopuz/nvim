@@ -14,10 +14,6 @@
 - [heirline.nvim](https://github.com/rebelot/heirline.nvim) - Heirline.nvim is a no-nonsense Neovim Statusline plugin designed around recursive inheritance to be exceptionally fast and versatile.
 - [statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim) - Configurable 'statuscolumn' with builtin segments and click handlers.
 
-## Code Runner
-
-- [cmake-tools.nvim](https://github.com/Civitasv/cmake-tools.nvim) - CMake integration.
-
 ## Formatting
 
 - [conform.nvim](https://github.com/stevearc/conform.nvim) - A lightweight formatting engine that plays nice with LSP.
@@ -78,10 +74,6 @@
 - [lazydev.nvim](https://github.com/folke/lazydev.nvim) - Faster LuaLS setup.
 - [nui.nvim](https://github.com/MunifTanjim/nui.nvim) - UI Component Library.
 - [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - Plenary: full; complete; entire; absolute; unqualified. All the Lua functions I don't want to write twice.
-
-## Game
-
-- [leetcode.nvim](https://github.com/kawre/leetcode.nvim) - Solve Leetcode problems.
 
 ## Editing Support
 
@@ -148,6 +140,7 @@
 - mini&#46;pairs
 - mini&#46;splitjoin
 - mini&#46;surround
+- mini&#46;tabline
 - neotest-python
 - neotest-rust
 - nvim-dap-python
