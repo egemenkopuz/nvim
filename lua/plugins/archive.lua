@@ -583,6 +583,71 @@ local archived = {
             },
         },
     },
+
+    {
+        "akinsho/bufferline.nvim",
+        enabled = false,
+        event = "BufReadPre",
+        opts = {
+            highlights = {
+                tab_separator = { fg = "none", bg = "none" },
+                tab_separator_selected = { fg = "none", bg = "none" },
+                separator_selected = { fg = "none", bg = "none" },
+                separator_visible = { fg = "none", bg = "none" },
+                separator = { fg = "none", bg = "none" },
+            },
+            options = {
+                numbers = function(opts)
+                    return opts.raise(opts.ordinal)
+                end,
+                offsets = {
+                    {
+                        filetype = "undotree",
+                        text = "Undo History",
+                        padding = 0,
+                        text_align = "center",
+                        highlight = "Offset",
+                    },
+                    {
+                        filetype = "Outline",
+                        text = "LSP Symbols",
+                        padding = 0,
+                        text_align = "center",
+                        highlight = "Offset",
+                    },
+                },
+                diagnostics = "nvim_lsp",
+                show_buffer_close_icons = false,
+                show_close_icon = false,
+                color_icons = false,
+                close_command = function(n)
+                    require("mini.bufremove").delete(n, false)
+                end,
+                right_mouse_command = function(n)
+                    require("mini.bufremove").delete(n, false)
+                end,
+                always_show_bufferline = false,
+            },
+        },
+        config = function(_, opts)
+            opts.options.groups = {
+                items = {
+                    require("bufferline.groups").builtin.pinned:with { icon = "" },
+                },
+            }
+            require("bufferline").setup(opts)
+            require("user.utils").load_keymap "bufferline"
+
+            -- Fix bufferline when restoring a session
+            vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
+                callback = function()
+                    vim.schedule(function()
+                        pcall(nvim_bufferline)
+                    end)
+                end,
+            })
+        end,
+    },
 }
 
 return {}

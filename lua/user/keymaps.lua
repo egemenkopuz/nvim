@@ -495,6 +495,16 @@ M.bufferline = {
     },
 }
 
+M.tabline = {
+    n = {
+        ["<leader>bb"] = { "<cmd>e # <cr>", "Go to other buffer" },
+        ["[b"] = { "<cmd>bprevious<cr>", "Prev buffer" },
+        ["]b"] = { "<cmd>bnext<cr>", "Next buffer" },
+        ["[B"] = { "<cmd>bfirst<cr>", "First buffer" },
+        ["]B"] = { "<cmd>blast<cr>", "Last buffer" },
+    },
+}
+
 M.neogen = {
     n = {
         ["<leader>cg"] = {

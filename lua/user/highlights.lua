@@ -53,6 +53,11 @@ M.general = {
     BlinkCmpMenuSelection = { fg = colors.general.selection, bg = "#2E3440" },
     BlinkCmpDocBorder = { fg = colors.general.border },
     BlinkCmpSignatureHelpBorder = { fg = colors.general.border },
+    -- Popup menu
+    Pmenu = { link = "float" },
+    PmenuSel = { link = "BlinkCmpMenuSelection" },
+    PmenuSbar = { link = "BlinkCmpMenuBorder" },
+    PmenuThumb = { link = "BlinkCmpMenuBorder" },
     -- LSP document highlighting
     LspReferenceText = { underline = true, bg = "none" },
     LspReferenceWrite = { link = "LspReferenceText" },
@@ -76,6 +81,13 @@ M.transparent = {
     StatusLineBackground = { bg = "none" },
     Normal = { bg = "none" },
     NormalFLoat = { bg = "none" },
+    MsgArea = { bg = "none" },
+    MiniTablineCurrent = { fg = colors.custom.gray3, bg = "none", bold = true },
+    MiniTablineHidden = { fg = colors.custom.gray2, bg = "none" },
+    MiniTablineVisible = { fg = colors.custom.gray2, bg = "none" },
+    MiniTablineModifiedCurrent = { link = "MiniTablineCurrent" },
+    MiniTablineModifiedHidden = { link = "MiniTablineHidden" },
+    MiniTablineModifiedVisible = { link = "MiniTablineVisible" },
 }
 
 return M

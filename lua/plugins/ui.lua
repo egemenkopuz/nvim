@@ -15,6 +15,10 @@ return {
                 inc_rename = true,
                 lsp_doc_border = true,
             },
+            cmdline = {
+                view = "cmdline",
+                format = { cmdline = { pattern = "^:", icon = ":", lang = "vim" } },
+            },
             lsp = {
                 signature = { enabled = false },
                 progress = { enabled = false },
@@ -325,63 +329,6 @@ return {
     },
 
     {
-        "akinsho/bufferline.nvim",
-        event = "BufReadPre",
-        opts = {
-            options = {
-                numbers = function(opts)
-                    return opts.raise(opts.ordinal)
-                end,
-                offsets = {
-                    {
-                        filetype = "undotree",
-                        text = "Undo History",
-                        padding = 0,
-                        text_align = "center",
-                        highlight = "Offset",
-                    },
-                    {
-                        filetype = "Outline",
-                        text = "LSP Symbols",
-                        padding = 0,
-                        text_align = "center",
-                        highlight = "Offset",
-                    },
-                },
-                diagnostics = "nvim_lsp",
-                show_buffer_close_icons = false,
-                show_close_icon = false,
-                color_icons = false,
-                close_command = function(n)
-                    require("mini.bufremove").delete(n, false)
-                end,
-                right_mouse_command = function(n)
-                    require("mini.bufremove").delete(n, false)
-                end,
-                always_show_bufferline = false,
-            },
-        },
-        config = function(_, opts)
-            opts.options.groups = {
-                items = {
-                    require("bufferline.groups").builtin.pinned:with { icon = "" },
-                },
-            }
-            require("bufferline").setup(opts)
-            require("user.utils").load_keymap "bufferline"
-
-            -- Fix bufferline when restoring a session
-            vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
-                callback = function()
-                    vim.schedule(function()
-                        pcall(nvim_bufferline)
-                    end)
-                end,
-            })
-        end,
-    },
-
-    {
         "MeanderingProgrammer/render-markdown.nvim",
         opts = { file_types = { "markdown", "Avante" } },
         ft = { "markdown", "Avante" },
@@ -450,5 +397,28 @@ return {
             stiffness = 0.75,
             distance_stop_animating = 0.5,
         },
+    },
+
+    {
+        "echasnovski/mini.tabline",
+        event = "UIEnter",
+        version = false,
+        init = function()
+            require("user.utils").load_keymap "tabline"
+        end,
+        opts = function()
+            local icons = require "user.icons"
+            return {
+                tabpage_section = "right",
+                format = function(buf_id, label)
+                    local modified = vim.bo[buf_id].modified and icons.diff.modified or ""
+                    local readonly = vim.bo[buf_id].readonly and icons.custom.lock or ""
+                    local suffix = modified .. readonly
+
+                    return MiniTabline.default_format(buf_id, label) .. suffix
+                end,
+            }
+        end,
+        config = true,
     },
 }

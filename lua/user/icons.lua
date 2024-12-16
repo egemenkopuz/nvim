@@ -35,6 +35,7 @@ M.custom = {
     copilot = "",
     macro_recording = " ",
     user = "",
+    lock = "",
 }
 
 -- Syntax icons
