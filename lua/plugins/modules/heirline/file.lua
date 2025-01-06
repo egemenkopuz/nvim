@@ -57,7 +57,7 @@ function M.filename()
         init = function(self)
             self.filename = vim.fn.expand "%:~:."
             self.filename = utils.stl_escape(self.filename)
-            self.filename = utils.shorten_path(self.filename, self.path_separator, 40)
+            self.filename = utils.shorten_path(self.filename, self.path_separator, 60)
             if self.filename:find(self.path_separator) then
                 self.parent_path = self.filename:match("(.*)" .. self.path_separator)
                 self.filename = self.filename:match("([^" .. self.path_separator .. "]+)$")

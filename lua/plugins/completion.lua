@@ -65,7 +65,11 @@ return {
                             score_offset = 5,
                             fallbacks = { "lazydev" },
                         },
-                        lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
+                        lazydev = {
+                            name = "LazyDev",
+                            module = "lazydev.integrations.blink",
+                            score_offset = 100,
+                        },
                         copilot = {
                             name = "copilot",
                             module = "blink-cmp-copilot",

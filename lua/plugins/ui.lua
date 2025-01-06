@@ -206,12 +206,13 @@ return {
                 styles = {
                     lazygit = { width = 0, height = 0 },
                     notification = { wo = { wrap = true } },
-                    zen = { zindex = 22, width = 0.8 },
+                    zen = { width = 0.8 },
                 },
                 gitbrowse = {},
                 bigfile = { enabled = true },
                 lazygit = { enabled = true },
                 scroll = {
+                    enabled = false,
                     animate = {
                         duration = { step = 15, total = 250 },
                         easing = "linear",
@@ -220,6 +221,7 @@ return {
                 indent = {
                     indent = { char = "┊" },
                     scope = { enabled = false },
+                    animate = { enabled = false },
                     chunk = {
                         enabled = true,
                         char = {
@@ -330,8 +332,35 @@ return {
 
     {
         "MeanderingProgrammer/render-markdown.nvim",
-        opts = { file_types = { "markdown", "Avante" } },
-        ft = { "markdown", "Avante" },
+        opts = {
+            file_types = { "markdown", "Avante", "copilot-chat" },
+            render_modes = { "n", "c", "t", "i" },
+            code = {
+                sign = false,
+                position = "right",
+                left_pad = 1,
+                right_pad = 1,
+                width = "block",
+            },
+            heading = {
+                sign = false,
+                border = true,
+                below = "▔",
+                above = "▁",
+                left_pad = 0,
+                right_pad = 4,
+                position = "left",
+                icons = {
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                },
+            },
+        },
+        ft = { "markdown", "Avante", "copilot-chat" },
     },
 
     {
@@ -386,7 +415,7 @@ return {
 
     {
         "sphamba/smear-cursor.nvim",
-        enabled = false,
+        enabled = true,
         lazy = false,
         opts = {
             smear_between_buffers = true,
@@ -394,8 +423,14 @@ return {
             use_floating_windows = true,
             legacy_computing_symbols_support = false,
             hide_target_hack = true,
+            cursor_color = "none",
             stiffness = 0.75,
+            trailing_exponent = 3,
+            trailing_stiffness = 0.4,
+            gamma = 1,
+            volume_reduction_exponent = -0.1,
             distance_stop_animating = 0.5,
+            -- filetypes_disabled = { "Avante" },
         },
     },
 

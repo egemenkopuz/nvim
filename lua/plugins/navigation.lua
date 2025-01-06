@@ -144,7 +144,7 @@ return {
                     ["!!"] = { icon = "!", hl_group  = "MiniDiffSignChange"}, -- Ignored files
                     -- stylua: ignore end
                 }
-                local result = status_map[status] or { symbol = "?", hlGroup = "NonText" }
+                local result = status_map[status] or { icon = "?", hlGroup = "NonText" }
                 local symlink_icon = is_symlink and "↩" or ""
                 local combined_icon = (symlink_icon .. result.icon)
                     :gsub("^%s+", "")
@@ -311,36 +311,7 @@ return {
             vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniFilesActionRename",
                 callback = function(args)
-                    if not args.data.from or not args.data.to then
-                        return
-                    end
-                    local changes = {
-                        files = {
-                            {
-                                oldUri = vim.uri_from_fname(args.data.from),
-                                newUri = vim.uri_from_fname(args.data.to),
-                            },
-                        },
-                    }
-                    local clients = vim.lsp.get_clients()
-                    for _, client in ipairs(clients) do
-                        if client.supports_method "workspace/willRenameFiles" then
-                            local resp =
-                                client.request_sync("workspace/willRenameFiles", changes, 10000, 0)
-                            if resp and resp.result ~= nil then
-                                vim.lsp.util.apply_workspace_edit(
-                                    resp.result,
-                                    client.offset_encoding
-                                )
-                            end
-                        end
-                    end
-
-                    for _, client in ipairs(clients) do
-                        if client.supports_method "workspace/didRenameFiles" then
-                            client.notify("workspace/didRenameFiles", changes)
-                        end
-                    end
+                    Snacks.rename.on_rename_file(args.data.from, args.data.to)
                 end,
             })
             vim.api.nvim_create_autocmd("User", {

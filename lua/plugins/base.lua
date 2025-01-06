@@ -8,6 +8,7 @@ return {
     {
         "folke/which-key.nvim",
         opts = {
+            preset = "helix",
             icons = { rules = false },
             disable = { bt = {}, ft = { "TelescopePrompt" } },
         },

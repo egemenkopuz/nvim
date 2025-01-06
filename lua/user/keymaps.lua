@@ -36,6 +36,8 @@ M.general = {
         ["<C-q>"] = { "<Nop>", opts = { noremap = true, silent = true } },
         ["<C-o>"] = { "<Nop>", opts = { noremap = true, silent = true } },
         ["<C-z>"] = { "<Nop>", opts = { noremap = true, silent = true } },
+        -- save file
+        ["<C-s>"] = { "<cmd> w <cr>", "Save file" },
     },
     -- stylua: ignore
     n = {
@@ -104,7 +106,7 @@ M.general = {
         ["<leader><tab>g"] = {":tabfirst<cr>", "First tab"},
         ["<leader><tab>G"] = {":tablast<cr>", "Last tab"},
         -- search and replace under cursor
-        ["<leader>cR"] = {":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Fast search and Replace"}
+        ["<leader>cR"] = {":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Fast search and Replace"},
     },
 }
 
@@ -612,12 +614,12 @@ M.copilot = {
 
 M.copilot_chat = {
     n = {
-        -- ["<leader>ta"] = {
-        --     function()
-        --         require("user.utils").toggle "copilot_chat_window_alt"
-        --     end,
-        --     "Alt copilot window",
-        -- },
+        ["<leader>tA"] = {
+            function()
+                require("user.utils").toggle "copilot_chat_window_alt"
+            end,
+            "Alt copilot window",
+        },
         ["<leader>am"] = { "<cmd> CopilotChatModels <cr>", "Select model" },
     },
     [{ "n", "v" }] = {
@@ -884,11 +886,10 @@ M.snacks = {
 M.avante = {
     n = {
         -- stylua: ignore start
-        -- ["<leader>aa"] = { function() require("avante.api").ask() end, "Ask" },
         ["<leader>ar"] = { function() require("avante.api").refresh() end, "Refresh" },
-        -- ["<leader>ae"] = { function() require("avante.api").edit() end, "Edit" },
         ["<leader>af"] = { function() require("avante.api").focus() end, "Focus" },
         ["<leader>at"] = { function() require("avante.api").toggle() end, "Toggle" },
+        ["<leader>ad"] = { "<cmd>AvanteClear history<cr>",  "Reset" },
         -- stylua: ignore end
     },
     [{ "n", "v" }] = {

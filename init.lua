@@ -33,5 +33,4 @@ require "user.autocmds"
 require "user.cmds"
 require "user.filetype"
 
--- require("user.utils").load_highlights "general"
 require("user.utils").load_keymap "general"

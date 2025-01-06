@@ -648,6 +648,67 @@ local archived = {
             })
         end,
     },
+
+    {
+        "yetone/avante.nvim",
+        enabled = false,
+        event = "VeryLazy",
+        lazy = false,
+        version = false,
+        init = function()
+            require("user.utils").load_keymap "avante"
+        end,
+        opts = {
+            provider = "copilot",
+            behaviour = {
+                auto_suggestions = false,
+                auto_set_highlight_group = true,
+                auto_set_keymaps = false,
+                auto_apply_diff_after_generation = false,
+                support_paste_from_clipboard = false,
+                minimize_diff = true,
+            },
+            windows = {
+                position = "right",
+                wrap = true,
+                width = 30,
+                sidebar_header = { enabled = false },
+                input = { prefix = "> ", height = 8 },
+                edit = { border = require("user.icons").border, start_insert = true },
+                ask = {
+                    floating = false,
+                    border = require("user.icons").border,
+                    focus_on_apply = "ours",
+                },
+            },
+            mappings = {
+                diff = {
+                    ours = "co",
+                    theirs = "ct",
+                    all_theirs = "ca",
+                    both = "cb",
+                    cursor = "cc",
+                    next = "]a",
+                    prev = "[a",
+                },
+                jump = { next = "]]", prev = "[[" },
+                submit = { normal = "<CR>", insert = "<C-s>" },
+                sidebar = {
+                    apply_all = "A",
+                    apply_cursor = "a",
+                    switch_windows = "<Tab>",
+                    reverse_switch_windows = "<S-Tab>",
+                },
+            },
+            hints = { enabled = false },
+        },
+        build = "make",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+            "MeanderingProgrammer/render-markdown.nvim",
+        },
+    },
 }
 
 return {}

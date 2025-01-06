@@ -14,3 +14,9 @@ vim.api.nvim_create_user_command("Format", function(args)
     end
     require("conform").format { async = true, lsp_format = "fallback", range = range }
 end, { range = true })
+
+-- add command NoEndOfLine to remove end of line
+vim.api.nvim_create_user_command("NoEndOfLine", function()
+    vim.bo.binary = true
+    vim.cmd "update"
+end, { nargs = 0 })
