@@ -127,6 +127,7 @@
 
 - FixCursorHold&#46;nvim
 - blink-cmp-copilot
+- blink-ripgrep&#46;nvim
 - blink&#46;cmp
 - clangd_extensions&#46;nvim
 - live-preview&#46;nvim
