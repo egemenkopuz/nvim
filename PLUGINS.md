@@ -1,18 +1,12 @@
 # PLUGINS
 
+## AI
+
+- [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) - A chat interface for GitHub Copilot that allows you to directly ask and receive answers to coding-related questions.
+
 ## Split and Window
 
 - [Navigator.nvim](https://github.com/numToStr/Navigator.nvim) - Smoothly navigate between Neovim splits and Tmux panes.
-
-## AI
-
-- [avante.nvim](https://github.com/yetone/avante.nvim) - Chat with your code as if you are in Cursor AI IDE.
-
-## Bars and Lines
-
-- [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) - A snazzy buffer line built using Lua.
-- [heirline.nvim](https://github.com/rebelot/heirline.nvim) - Heirline.nvim is a no-nonsense Neovim Statusline plugin designed around recursive inheritance to be exceptionally fast and versatile.
-- [statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim) - Configurable 'statuscolumn' with builtin segments and click handlers.
 
 ## Formatting
 
@@ -34,6 +28,7 @@
 ## Motion
 
 - [flash.nvim](https://github.com/folke/flash.nvim) - Navigate your code with search labels, enhanced character motions and Tree-sitter integration.
+- [smear-cursor.nvim](https://github.com/sphamba/smear-cursor.nvim) - Animate the cursor with a smear effect in all terminals. Inspired by Neovide's animated cursor.
 
 ## Snippet
 
@@ -60,6 +55,11 @@
 ## Search
 
 - [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) - Buffer-based live search and replace with full power of `rg` flags. Grug like!
+
+## Bars and Lines
+
+- [heirline.nvim](https://github.com/rebelot/heirline.nvim) - Heirline.nvim is a no-nonsense Neovim Statusline plugin designed around recursive inheritance to be exceptionally fast and versatile.
+- [statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim) - Configurable 'statuscolumn' with builtin segments and click handlers.
 
 ## Colorscheme
 
@@ -102,6 +102,10 @@
 
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Neovim Tree-sitter configurations and abstraction layer.
 - [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) - Create your own textobjects using Tree-sitter queries.
+
+## Session
+
+- [persistence.nvim](https://github.com/folke/persistence.nvim) - Simple automated session management.
 
 ## Project
 
@@ -146,10 +150,8 @@
 - nvim-dap-python
 - nvim-nio
 - nvim-window-picker
-- persistence&#46;nvim
 - promise-async
 - schemastore&#46;nvim
-- smear-cursor&#46;nvim
 - snacks&#46;nvim
 - undotree
 - venv-selector&#46;nvim
