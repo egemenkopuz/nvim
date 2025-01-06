@@ -10,6 +10,7 @@ return {
         dependencies = {
             "rafamadriz/friendly-snippets",
             { "giuxtaposition/blink-cmp-copilot", dependencies = "zbirenbaum/copilot.lua" },
+            "mikavilpas/blink-ripgrep.nvim",
         },
         lazy = false,
         opts = function()
@@ -75,6 +76,26 @@ return {
                             module = "blink-cmp-copilot",
                             kind = "Copilot",
                         },
+                        ripgrep = {
+                            module = "blink-ripgrep",
+                            name = "Ripgrep",
+                            opts = {
+                                prefix_min_len = 3,
+                                context_size = 5,
+                                max_filesize = "1M",
+                                project_root_marker = ".git",
+                                search_casing = "--ignore-case",
+                                additional_rg_options = {},
+                                fallback_to_regex_highlighting = true,
+                                debug = false,
+                            },
+                            transform_items = function(_, items)
+                                for _, item in ipairs(items) do
+                                    item.labelDetails = { description = "(rg)" }
+                                end
+                                return items
+                            end,
+                        },
                     },
                     cmdline = {},
                     default = {
@@ -83,6 +104,7 @@ return {
                         "copilot",
                         "snippets",
                         "buffer",
+                        "ripgrep",
                         "lazydev",
                     },
                 },
