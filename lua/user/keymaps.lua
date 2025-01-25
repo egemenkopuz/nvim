@@ -770,7 +770,7 @@ M.fzf = {
         -- stylua: ignore start
         ["<leader>,"] = { "<cmd>FzfLua command_history<cr>", "Command History" },
         ["<leader>/"] = { function() require("user.utils").pick "live_grep" end, "Grep (Root Dir)" },
-        ["<leader><space>"] = { function() require("user.utils").pick "files" end, "Find Files (Root Dir)" },
+        -- ["<leader><space>"] = { function() require("user.utils").pick "files" end, "Find Files (Root Dir)" },
         ["<leader>fb"] = { "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", "Buffers" },
         ["<leader>ff"] = { function() require("user.utils").pick "files" end, "Find Files (Root Dir)" },
         ["<leader>fF"] = { function() require("user.utils").pick("files", { root = false }) end, "Find Files (cwd)" },
@@ -915,6 +915,13 @@ M.avante = {
         ["<leader>apF"] = { function() utils.avante_prefill_edit_window(prompts.fix_bugs) end, "Fix Bugs(edit)" },
         ["<leader>apN"] = { function() utils.avante_prefill_edit_window(prompts.add_tests) end, "Add Tests(edit)" },
         -- stylua: ignore end
+    },
+}
+
+M.snipe = {
+    n = {
+        -- stylua: ignore
+        ["<leader><space>"] = { function() require("snipe").open_buffer_menu() end, "Open Snipe buffer menu" },
     },
 }
 

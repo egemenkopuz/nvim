@@ -545,7 +545,7 @@ return {
         version = "2.*",
         config = function()
             require("window-picker").setup {
-                hint = "floating-big-letter",
+                hint = "floating-letter",
                 autoselect_one = false,
                 include_current = false,
                 floating_big_letter = { font = "ansi-shadow" },
@@ -626,5 +626,18 @@ return {
         config = function(_, opts)
             require("mini.bracketed").setup(opts)
         end,
+    },
+
+    {
+        "leath-dub/snipe.nvim",
+        init = function()
+            require("user.utils").load_keymap "snipe"
+        end,
+        opts = {
+            ui = { position = "center" },
+            open_win_override = {
+                border = require("user.config").borders,
+            },
+        },
     },
 }

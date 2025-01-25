@@ -46,6 +46,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "grug-far",
         "Avante",
         "AvanteInput",
+        "snipe-menu",
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false
