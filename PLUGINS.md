@@ -154,6 +154,7 @@
 - promise-async
 - schemastore&#46;nvim
 - snacks&#46;nvim
+- snipe&#46;nvim
 - undotree
 - venv-selector&#46;nvim
 
