@@ -8,13 +8,14 @@
 
 - [Navigator.nvim](https://github.com/numToStr/Navigator.nvim) - Smoothly navigate between Neovim splits and Tmux panes.
 
+## Completion
+
+- [blink.cmp](https://github.com/Saghen/blink.cmp) - Really fast completion with LSP & snippet support, along with signature help, cmdline completion, and autobracket support (based on semantic tokens).
+- [copilot.lua](https://github.com/zbirenbaum/copilot.lua) - Fully featured Lua replacement for [GitHub/copilot.vim](https://github.com/github/copilot.vim).
+
 ## Formatting
 
 - [conform.nvim](https://github.com/stevearc/conform.nvim) - A lightweight formatting engine that plays nice with LSP.
-
-## Completion
-
-- [copilot.lua](https://github.com/zbirenbaum/copilot.lua) - Fully featured Lua replacement for [GitHub/copilot.vim](https://github.com/github/copilot.vim).
 
 ## Dependency Management
 
@@ -128,7 +129,6 @@
 - FixCursorHold&#46;nvim
 - blink-cmp-copilot
 - blink-ripgrep&#46;nvim
-- blink&#46;cmp
 - clangd_extensions&#46;nvim
 - live-preview&#46;nvim
 - mason-lspconfig&#46;nvim
