@@ -25,9 +25,12 @@ return {
                 keymap = {
                     preset = "default",
                     ["<C-e>"] = {},
+                    ["<C-k>"] = {},
                     ["<C-g>"] = { vim.g.accept_ai_suggestion },
                     ["<C-space>"] = { "show", "hide" },
                 },
+                cmdline = { enabled = false },
+                term = { enabled = false },
                 completion = {
                     accept = { auto_brackets = { enabled = true } },
                     menu = {
@@ -97,7 +100,6 @@ return {
                             end,
                         },
                     },
-                    cmdline = {},
                     default = {
                         "lsp",
                         "path",
@@ -143,6 +145,8 @@ return {
                         return items
                     end
                 end
+
+                -- Unset custom prop to pass blink.cmp validation
                 provider.kind = nil
             end
             require("blink.cmp").setup(opts)

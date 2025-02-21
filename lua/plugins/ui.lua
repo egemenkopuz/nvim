@@ -202,6 +202,7 @@ return {
                 require("persistence").load()
             end
             return {
+                explorer = { enabled = true },
                 input = { enabled = false },
                 styles = {
                     lazygit = { width = 0, height = 0 },

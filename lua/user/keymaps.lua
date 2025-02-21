@@ -858,6 +858,7 @@ M.snacks = {
         ["<leader>xn"] = { function() Snacks.notifier.show_history() end, "Notification History"},
         ["<leader>tz"] = { function() Snacks.zen.zoom() end, "Zoom Mode"},
         ["<leader>tZ"] = { function() Snacks.zen() end, "Zen Mode"},
+        ["<leader>fe"] = { function() Snacks.explorer() end, "Explorer"},
     },
     -- stylua: ignore end
     [{ "n", "v" }] = {
@@ -923,6 +924,12 @@ M.snipe = {
     n = {
         -- stylua: ignore
         ["<leader><space>"] = { function() require("snipe").open_buffer_menu() end, "Open Snipe buffer menu" },
+    },
+}
+
+M.cellular_automaton = {
+    n = {
+        ["<leader>r"] = { "<cmd>CellularAutomaton make_it_rain<cr>", "Make it rain!" },
     },
 }
 

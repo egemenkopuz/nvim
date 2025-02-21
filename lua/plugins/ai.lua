@@ -70,6 +70,7 @@ return {
         init = function()
             require("user.utils").load_keymap "copilot"
         end,
+        event = "BufReadPost",
         opts = {
             suggestion = {
                 enabled = true,
