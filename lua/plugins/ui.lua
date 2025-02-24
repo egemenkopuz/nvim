@@ -192,6 +192,7 @@ return {
                     },
                 })
             end
+
             local function open_nvim_config()
                 vim.cmd "e $MYVIMRC | cd %:p:h"
                 require("persistence").load()
@@ -201,6 +202,24 @@ return {
                 vim.cmd "e $HOME/.config | cd %:p:h"
                 require("persistence").load()
             end
+
+            local function nvim_version()
+                local version = vim.version()
+                local v = "v" .. version.major .. "." .. version.minor .. "." .. version.patch
+                return v
+            end
+
+            local function plugin_stats()
+                local stats = require("lazy").stats()
+                local updates = require("lazy.manage.checker").updated
+                return {
+                    count = stats.count,
+                    loaded = stats.loaded,
+                    startuptime = (math.floor(stats.startuptime * 100 + 0.5) / 100),
+                    updates = #updates,
+                }
+            end
+
             return {
                 explorer = { enabled = true },
                 input = { enabled = false },
@@ -263,7 +282,21 @@ return {
                         { section = "keys", padding = 1 },
                         { section = "recent_files", padding = 1 },
                         { section = "projects", padding = 1 },
-                        { section = "startup" },
+                        function()
+                            local version = nvim_version()
+                            local ps = plugin_stats()
+                            return {
+                                align = "center",
+                                text = {
+                                    { " ", hl = "footer" },
+                                    { version, hl = "NonText" },
+                                    { "     ", hl = "footer" },
+                                    { tostring(ps.count), hl = "NonText" },
+                                    { "    󰛕 ", hl = "footer" },
+                                    { ps.startuptime .. " ms", hl = "NonText" },
+                                },
+                            }
+                        end,
                     },
                 },
             }
