@@ -247,12 +247,12 @@ return {
         "linux-cultist/venv-selector.nvim",
         dependencies = {
             "neovim/nvim-lspconfig",
-            "nvim-telescope/telescope.nvim",
             "mfussenegger/nvim-dap-python",
         },
         branch = "regexp",
         ft = "python",
         cmd = { "VenvSelect" },
+        opts = { picker = "fzf-lua" },
         init = function()
             require("user.utils").load_keymap "venv"
         end,
