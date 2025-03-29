@@ -248,7 +248,7 @@ return {
                 if not vim.fs.root(vim.uv.cwd(), ".git") then
                     return
                 end
-                local cwd = vim.fn.expand "%:p:h"
+                local cwd = vim.fs.root(buf_id, ".git")
                 local currentTime = os.time()
                 if
                     git_status_cache[cwd]
