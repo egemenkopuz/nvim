@@ -11,7 +11,7 @@ return {
             user = user:sub(1, 1):upper() .. user:sub(2)
             return {
                 allow_insecure = false,
-                model = "gpt-4o",
+                model = "gpt-4o-2024-11-20",
                 agent = "copilot",
                 temperature = 0.1,
                 chat_autocomplete = true,
@@ -83,6 +83,7 @@ return {
                 },
             },
             panel = { enabled = false },
+            model = "gpt-4o-copilot",
             filetypes = {
                 markdown = true,
                 yaml = function()
