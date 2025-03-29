@@ -77,17 +77,30 @@ M.general = {
 }
 
 M.transparent = {
+    MsgArea = { bg = "none" },
     FloatBorder = { fg = colors.general.border, bg = "none" },
+    FloatermBorder = { fg = colors.general.border, bg = "none" },
+    BlinkCmpMenuBorder = { fg = colors.general.border, bg = "none" },
+    SnacksPickerTitle = { fg = colors.custom.light_red, bg = "none" },
+    SnacksBackdrop = { bg = "none" },
     StatusLineBackground = { bg = "none" },
+    FloatTitle = { fg = colors.custom.light_red, bg = "none" },
+    FloatFooter = { bg = "none" },
     Normal = { bg = "none" },
     NormalFLoat = { bg = "none" },
-    MsgArea = { bg = "none" },
+    MiniFilesTitle = { bg = "none", bold = true },
+    MiniFilesTitleFocused = { fg = colors.custom.light_red, bg = "none", bold = true },
     MiniTablineCurrent = { fg = colors.custom.gray3, bg = "none", bold = true },
     MiniTablineHidden = { fg = colors.custom.gray2, bg = "none" },
     MiniTablineVisible = { fg = colors.custom.gray2, bg = "none" },
+    MiniTablineFill = { bg = "none" },
     MiniTablineModifiedCurrent = { link = "MiniTablineCurrent" },
     MiniTablineModifiedHidden = { link = "MiniTablineHidden" },
     MiniTablineModifiedVisible = { link = "MiniTablineVisible" },
+    StatusLine = { bg = "none" },
+    StatusLineNC = { bg = "none" },
+    TabLine = { bg = "none" },
+    TabLineFill = { bg = "none" },
 }
 
 return M

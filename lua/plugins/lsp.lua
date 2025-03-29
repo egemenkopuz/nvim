@@ -144,8 +144,7 @@ return {
                         disableOrganizeImports = true,
                         basedpyright = {
                             analysis = {
-                                -- ignore = { "*" },
-                                typeCheckingMode = "basic",
+                                typeCheckingMode = "recommended",
                                 inlayHints = {
                                     callArgumentNames = "all",
                                     functionReturnTypes = true,
@@ -157,10 +156,7 @@ return {
                         },
                     },
                 },
-                ["ruff"] = {
-                    -- settings = { args = { "--ignore=F821", "--config=$ROOT/pyproject.toml" } },
-                    -- settings = { args = { "--ignore=F821" } },
-                },
+                ["ruff"] = {},
                 ["cmake"] = {},
                 ["lua_ls"] = {
                     settings = {
@@ -185,6 +181,7 @@ return {
 
             vim.diagnostic.config(opts.diagnostics)
             require("mason-lspconfig").setup {
+                automatic_installation = true,
                 ensure_installed = vim.tbl_keys(servers),
                 handlers = {
                     function(server_name)

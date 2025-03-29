@@ -221,7 +221,7 @@ return {
             end
 
             return {
-                explorer = { enabled = true },
+                explorer = { enabled = true, replace_netrw = false },
                 input = { enabled = false },
                 styles = {
                     lazygit = { width = 0, height = 0 },
