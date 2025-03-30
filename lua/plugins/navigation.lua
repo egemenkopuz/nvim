@@ -174,10 +174,6 @@ return {
                 return stat and stat.type == "link"
             end
 
-            local escape_pattern = function(str)
-                return str:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
-            end
-
             local update_mini_with_git = function(buf_id, git_status_map)
                 vim.schedule(function()
                     local nlines = vim.api.nvim_buf_line_count(buf_id)
