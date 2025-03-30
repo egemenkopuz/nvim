@@ -65,6 +65,7 @@ return {
         },
         config = function(_, opts)
             local minifiles = require "mini.files"
+            local uv = vim.uv or vim.loop
             minifiles.setup(opts)
 
             -- show/hide dot-files
@@ -128,8 +129,8 @@ return {
             local map_symbols = function(status, is_symlink)
                 local status_map = {
                     -- stylua: ignore start 
-                    [" M"] = { icon = "•", hl_group  = "GitSignsChange"}, -- Modified in the working directory
-                    ["M "] = { icon = "✹", hl_group  = "GitSignsChange"}, -- modified in index
+                    [" M"] = { icon = "○", hl_group  = "GitSignsChange"}, -- Modified in the working directory
+                    ["M "] = { icon = "●", hl_group  = "GitSignsChange"}, -- modified in index
                     ["MM"] = { icon = "≠", hl_group  = "GitSignsChange"}, -- modified in both working tree and index
                     ["A "] = { icon = "+", hl_group  = "GitSignsAdd"   }, -- Added to the staging area, new file
                     ["AA"] = { icon = "≈", hl_group  = "GitSignsAdd"   }, -- file is added in both working tree and index
@@ -154,21 +155,22 @@ return {
             end
 
             local fetch_git_status = function(cwd, callback)
+                local clean_cwd = cwd:gsub("^minifiles://%d+/", "")
                 local function on_exit(content)
                     if content.code == 0 then
                         callback(content.stdout)
-                        vim.g.content = content.stdout
+                        -- vim.g.content = content.stdout
                     end
                 end
                 vim.system(
                     { "git", "status", "--ignored", "--porcelain" },
-                    { text = true, cwd = cwd },
+                    { text = true, cwd = clean_cwd },
                     on_exit
                 )
             end
 
             local function check_symlink(path)
-                local stat = vim.loop.fs_lstat(path)
+                local stat = uv.fs_lstat(path)
                 return stat and stat.type == "link"
             end
 
@@ -180,10 +182,7 @@ return {
                 vim.schedule(function()
                     local nlines = vim.api.nvim_buf_line_count(buf_id)
                     local cwd = vim.fs.root(buf_id, ".git")
-                    local escapedcwd = escape_pattern(cwd)
-                    if vim.fn.has "win32" == 1 then
-                        escapedcwd = escapedcwd:gsub("\\", "/")
-                    end
+                    local escapedcwd = cwd and vim.pesc(cwd)
 
                     for i = 1, nlines do
                         local entry = MiniFiles.get_fs_entry(buf_id, i)
@@ -194,13 +193,8 @@ return {
                         local status = git_status_map[relativePath]
 
                         if status then
-                            local is_symlink = check_symlink(entry.path)
-                            local symbol, hl_group = map_symbols(status, is_symlink)
+                            local symbol, hl_group = map_symbols(status, check_symlink(entry.path))
                             vim.api.nvim_buf_set_extmark(buf_id, ns_minifiles, i - 1, 0, {
-                                -- NOTE: if you want the signs on the right uncomment those and comment
-                                -- the 3 lines after
-                                -- virt_text = { { symbol, hl_group } },
-                                -- virt_text_pos = "right_align",
                                 sign_text = symbol,
                                 sign_hl_group = hl_group,
                                 priority = 2,
@@ -245,24 +239,24 @@ return {
             end
 
             local update_git_status = function(buf_id)
-                if not vim.fs.root(vim.uv.cwd(), ".git") then
+                if not vim.fs.root(buf_id, ".git") then
                     return
                 end
                 local cwd = vim.fs.root(buf_id, ".git")
-                local currentTime = os.time()
+                local current_time = os.time()
                 if
                     git_status_cache[cwd]
-                    and currentTime - git_status_cache[cwd].time < cache_timeout
+                    and current_time - git_status_cache[cwd].time < cache_timeout
                 then
                     update_mini_with_git(buf_id, git_status_cache[cwd].statusMap)
                 else
                     fetch_git_status(cwd, function(content)
-                        local gitStatusMap = parse_git_status(content)
+                        local git_status_map = parse_git_status(content)
                         git_status_cache[cwd] = {
-                            time = currentTime,
-                            statusMap = gitStatusMap,
+                            time = current_time,
+                            statusMap = git_status_map,
                         }
-                        update_mini_with_git(buf_id, gitStatusMap)
+                        update_mini_with_git(buf_id, git_status_map)
                     end)
                 end
             end
@@ -318,7 +312,7 @@ return {
                 pattern = "MiniFilesBufferUpdate",
                 callback = function(args)
                     local bufnr = args.data.buf_id
-                    local cwd = vim.fn.expand "%:p:h"
+                    local cwd = vim.fs.root(bufnr, ".git")
                     if git_status_cache[cwd] then
                         update_mini_with_git(bufnr, git_status_cache[cwd].statusMap)
                     end
