@@ -221,7 +221,10 @@ return {
             end
 
             return {
-                explorer = { enabled = true, replace_netrw = false },
+                explorer = {
+                    enabled = true,
+                    replace_netrw = false,
+                },
                 input = { enabled = false },
                 styles = {
                     lazygit = { width = 0, height = 0 },
@@ -259,6 +262,37 @@ return {
                 },
                 zoom = { enabled = true },
                 notifier = { enabled = true, timeout = 1000 },
+                picker = {
+                    sources = {
+                        explorer = {
+                            layout = {
+                                preset = "sidebar",
+                                auto_hide = { "input" },
+                                preview = false,
+                            },
+                            icons = {
+                                diagnostics = {
+                                    Error = " ",
+                                    Warn = " ",
+                                    Info = " ",
+                                    Hint = " ",
+                                },
+                            },
+                            git = {
+                                enabled = true,
+                                commit = "󰜘 ",
+                                staged = "●",
+                                added = "+",
+                                deleted = "-",
+                                modified = "○",
+                                renamed = "→",
+                                unmerged = "⇄",
+                                untracked = "?",
+                                ignored = "!",
+                            },
+                        },
+                    },
+                },
                 dashboard = {
                     preset = {
                         header = require("user.icons").dashboard,
