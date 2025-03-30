@@ -128,28 +128,28 @@ return {
             local map_symbols = function(status, is_symlink)
                 local status_map = {
                     -- stylua: ignore start 
-                    [" M"] = { icon = "•", hl_group  = "MiniDiffSignChange"}, -- Modified in the working directory
-                    ["M "] = { icon = "✹", hl_group  = "MiniDiffSignChange"}, -- modified in index
-                    ["MM"] = { icon = "≠", hl_group  = "MiniDiffSignChange"}, -- modified in both working tree and index
-                    ["A "] = { icon = "+", hl_group  = "MiniDiffSignAdd"   }, -- Added to the staging area, new file
-                    ["AA"] = { icon = "≈", hl_group  = "MiniDiffSignAdd"   }, -- file is added in both working tree and index
-                    ["D "] = { icon = "-", hl_group  = "MiniDiffSignDelete"}, -- Deleted from the staging area
-                    ["AM"] = { icon = "⊕", hl_group  = "MiniDiffSignChange"}, -- added in working tree, modified in index
-                    ["AD"] = { icon = "-•", hl_group = "MiniDiffSignChange"}, -- Added in the index and deleted in the working directory
-                    ["R "] = { icon = "→", hl_group  = "MiniDiffSignChange"}, -- Renamed in the index
-                    ["U "] = { icon = "‖", hl_group  = "MiniDiffSignChange"}, -- Unmerged path
-                    ["UU"] = { icon = "⇄", hl_group  = "MiniDiffSignAdd"   }, -- file is unmerged
-                    ["UA"] = { icon = "⊕", hl_group  = "MiniDiffSignAdd"   }, -- file is unmerged and added in working tree
-                    ["??"] = { icon = "?", hl_group  = "MiniDiffSignDelete"}, -- Untracked files
-                    ["!!"] = { icon = "!", hl_group  = "MiniDiffSignChange"}, -- Ignored files
+                    [" M"] = { icon = "•", hl_group  = "GitSignsChange"}, -- Modified in the working directory
+                    ["M "] = { icon = "✹", hl_group  = "GitSignsChange"}, -- modified in index
+                    ["MM"] = { icon = "≠", hl_group  = "GitSignsChange"}, -- modified in both working tree and index
+                    ["A "] = { icon = "+", hl_group  = "GitSignsAdd"   }, -- Added to the staging area, new file
+                    ["AA"] = { icon = "≈", hl_group  = "GitSignsAdd"   }, -- file is added in both working tree and index
+                    ["D "] = { icon = "-", hl_group  = "GitSignsDelete"}, -- Deleted from the staging area
+                    ["AM"] = { icon = "⊕", hl_group  = "GitSignsChange"}, -- added in working tree, modified in index
+                    ["AD"] = { icon = "-•", hl_group = "GitSignsChange"}, -- Added in the index and deleted in the working directory
+                    ["R "] = { icon = "→", hl_group  = "GitSignsChange"}, -- Renamed in the index
+                    ["U "] = { icon = "‖", hl_group  = "GitSignsChange"}, -- Unmerged path
+                    ["UU"] = { icon = "⇄", hl_group  = "GitSignsAdd"   }, -- file is unmerged
+                    ["UA"] = { icon = "⊕", hl_group  = "GitSignsAdd"   }, -- file is unmerged and added in working tree
+                    ["??"] = { icon = "?", hl_group  = "GitSignsDelete"}, -- Untracked files
+                    ["!!"] = { icon = "!", hl_group  = "GitSignsChange"}, -- Ignored files
                     -- stylua: ignore end
                 }
-                local result = status_map[status] or { icon = "?", hlGroup = "NonText" }
+                local result = status_map[status] or { icon = "?", hl_group = "NonText" }
                 local symlink_icon = is_symlink and "↩" or ""
                 local combined_icon = (symlink_icon .. result.icon)
                     :gsub("^%s+", "")
                     :gsub("%s+$", "")
-                local combined_hl_group = is_symlink and "MiniDiffSignDelete" or result.hl_group
+                local combined_hl_group = is_symlink and "GitSignsDelete" or result.hl_group
                 return combined_icon, combined_hl_group
             end
 
@@ -195,14 +195,14 @@ return {
 
                         if status then
                             local is_symlink = check_symlink(entry.path)
-                            local symbol, hlGroup = map_symbols(status, is_symlink)
+                            local symbol, hl_group = map_symbols(status, is_symlink)
                             vim.api.nvim_buf_set_extmark(buf_id, ns_minifiles, i - 1, 0, {
                                 -- NOTE: if you want the signs on the right uncomment those and comment
                                 -- the 3 lines after
-                                -- virt_text = { { symbol, hlGroup } },
+                                -- virt_text = { { symbol, hl_group } },
                                 -- virt_text_pos = "right_align",
                                 sign_text = symbol,
-                                sign_hl_group = hlGroup,
+                                sign_hl_group = hl_group,
                                 priority = 2,
                             })
                         else
