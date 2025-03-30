@@ -141,15 +141,18 @@ return {
                 },
                 ["basedpyright"] = {
                     settings = {
-                        disableOrganizeImports = true,
                         basedpyright = {
+                            disableOrganizeImports = true,
                             analysis = {
                                 typeCheckingMode = "recommended",
+                                diagnosticMode = "openFilesOnly",
                                 inlayHints = {
                                     callArgumentNames = "all",
                                     functionReturnTypes = true,
                                     pytestParameters = true,
                                     variableTypes = true,
+                                    genericTypes = true,
+                                    useTypingExtensions = true,
                                 },
                             },
                             linting = { enabled = false },
