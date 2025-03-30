@@ -155,6 +155,7 @@
 - nvim-nio
 - nvim-window-picker
 - promise-async
+- rose-pine
 - schemastore&#46;nvim
 - snacks&#46;nvim
 - snipe&#46;nvim
