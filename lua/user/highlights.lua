@@ -77,6 +77,8 @@ M.general = {
     GitSignsAdd = { fg = colors.diff.added },
     GitSignsChange = { fg = colors.diff.modified },
     GitSignsDelete = { fg = colors.diff.removed },
+    MiniFilesUntracked = { fg = colors.custom.gray3 },
+    MiniFilesIgnored = { fg = colors.custom.gray2 },
 }
 
 M.transparent = {

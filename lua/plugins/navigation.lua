@@ -141,8 +141,8 @@ return {
                     ["U "] = { icon = "‖", hl_group  = "GitSignsChange"}, -- Unmerged path
                     ["UU"] = { icon = "⇄", hl_group  = "GitSignsAdd"   }, -- file is unmerged
                     ["UA"] = { icon = "⊕", hl_group  = "GitSignsAdd"   }, -- file is unmerged and added in working tree
-                    ["??"] = { icon = "?", hl_group  = "GitSignsDelete"}, -- Untracked files
-                    ["!!"] = { icon = "!", hl_group  = "GitSignsChange"}, -- Ignored files
+                    ["??"] = { icon = "?", hl_group  = "MiniFilesUntracked"}, -- Untracked files
+                    ["!!"] = { icon = "!", hl_group  = "MiniFilesIgnored"}, -- Ignored files
                     -- stylua: ignore end
                 }
                 local result = status_map[status] or { icon = "?", hl_group = "NonText" }
