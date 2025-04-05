@@ -3,14 +3,14 @@ local M = {}
 M.diagnostics = {
     info = "#78a5a3",
     hint = "#82a0aa",
-    warn = "#e1b16a",
-    error = "#ce5a57",
+    warn = "#ebbf7f",
+    error = "#db7572",
 }
 
 M.diff = {
     added = "#78a5a3",
-    modified = "#e1b16a",
-    removed = "#ce5a57",
+    modified = "#ebbf7f",
+    removed = "#db7572",
 }
 
 M.branch_type = {
@@ -19,8 +19,8 @@ M.branch_type = {
     dev = "#AD49E1",
     nightly = "#AD49E1",
     feat = "#90EE90",
-    fix = "#ce5a57",
-    release = "#e1b16a",
+    fix = "#db7572",
+    release = "#ebbf7f",
 }
 
 M.general = {
@@ -34,9 +34,9 @@ M.custom = {
     gray = "gray",
     gray2 = "#625e5a",
     gray3 = "#B7B7B7",
-    light_red = "#ce5a57",
+    light_red = "#db7572",
     light_green = "#90EE90",
-    light_orange = "#e1b16a",
+    light_orange = "#ebbf7f",
     light_cyan = "#82a0aa",
     light_purple = "#c792ea",
     light_gray = "#a0a1a7",

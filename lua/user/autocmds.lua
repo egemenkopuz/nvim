@@ -43,6 +43,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "ClangdAST",
         "ClangdTypeHierarchy",
         "gitsigns.blame",
+        "gitsigns-blame",
         "grug-far",
         "Avante",
         "AvanteInput",

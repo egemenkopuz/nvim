@@ -74,6 +74,9 @@ M.general = {
     MiniDiffSignDelete = { fg = colors.diff.removed },
     CmpItemAbbrMatch = { fg = colors.custom.light_red, bold = true },
     SnacksIndentScope = { fg = colors.custom.gray },
+    GitSignsAdd = { fg = colors.diff.added },
+    GitSignsChange = { fg = colors.diff.modified },
+    GitSignsDelete = { fg = colors.diff.removed },
 }
 
 M.transparent = {

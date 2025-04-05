@@ -195,6 +195,19 @@ return {
                                 sign_hl_group = hl_group,
                                 priority = 2,
                             })
+                            local line = vim.api.nvim_buf_get_lines(buf_id, i - 1, i, false)[1]
+                            -- Find the name position accounting for potential icons
+                            local nameStartCol = line:find(vim.pesc(entry.name)) or 0
+                            if nameStartCol > 0 then
+                                vim.api.nvim_buf_add_highlight(
+                                    buf_id,
+                                    ns_minifiles,
+                                    hl_group,
+                                    i - 1,
+                                    nameStartCol - 1,
+                                    nameStartCol + #entry.name - 1
+                                )
+                            end
                         else
                         end
                     end
