@@ -8,7 +8,7 @@ M.diagnostics = {
 }
 
 M.diff = {
-    added = "#78a5a3",
+    added = "#73bd73",
     modified = "#ebbf7f",
     removed = "#db7572",
 }
