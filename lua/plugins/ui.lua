@@ -464,15 +464,6 @@ return {
     },
 
     {
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        event = "LspAttach",
-        init = function()
-            require("user.utils").load_keymap "lsp_lines"
-        end,
-        config = true,
-    },
-
-    {
         "sphamba/smear-cursor.nvim",
         enabled = true,
         lazy = false,

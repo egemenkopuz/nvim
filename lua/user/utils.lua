@@ -78,7 +78,7 @@ function M.toggle_diagnostics()
     end
 end
 
-function M.toggle_diagnostic_lines()
+function M.toggle_diagnostic_virtual_lines()
     if not M.is_enabled "diagnostics" then
         return
     end

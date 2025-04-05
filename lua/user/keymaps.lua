@@ -107,6 +107,12 @@ M.general = {
         ["<leader><tab>G"] = {":tablast<cr>", "Last tab"},
         -- search and replace under cursor
         ["<leader>cR"] = {":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Fast search and Replace"},
+        ["<leader>tx"] = {
+            function()
+                require("user.utils").toggle_diagnostic_virtual_lines()
+            end,
+            "Diagnostics lines",
+        },
     },
 }
 
@@ -527,17 +533,6 @@ M.undotree = {
 M.symbols = {
     n = {
         ["<leader>ts"] = { "<cmd> Outline <cr>", "Symbols outline" },
-    },
-}
-
-M.lsp_lines = {
-    n = {
-        ["<leader>tx"] = {
-            function()
-                require("user.utils").toggle_diagnostic_lines()
-            end,
-            "Diagnostics lines",
-        },
     },
 }
 
