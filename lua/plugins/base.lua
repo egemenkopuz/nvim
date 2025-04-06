@@ -66,13 +66,4 @@ return {
             require("user.utils").load_keymap "persistence"
         end,
     },
-
-    {
-        "ahmedkhalf/project.nvim",
-        lazy = false,
-        opts = { manual_mode = true },
-        config = function()
-            require("project_nvim").setup()
-        end,
-    },
 }

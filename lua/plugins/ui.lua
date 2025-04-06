@@ -160,6 +160,7 @@ return {
             require("heirline").setup(opts)
         end,
     },
+
     {
         "folke/snacks.nvim",
         priority = 1000,
@@ -167,31 +168,43 @@ return {
         init = function()
             require("user.utils").load_keymap "snacks"
         end,
+        keys = {
+            -- stylua: ignore start
+            { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
+            { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+            { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
+            { "<leader>fw", function() Snacks.picker.grep() end, desc = "Grep" },
+            { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
+            { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+            { "<leader>ff", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
+            { "<leader>fF", function() Snacks.picker.files() end, desc = "Find Files" },
+            { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
+            { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
+            { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
+            { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep" },
+            { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
+            { '<leader>s"', function() Snacks.picker.registers() end, desc = "Registers" },
+            { '<leader>s/', function() Snacks.picker.search_history() end, desc = "Search History" },
+            { "<leader>sa", function() Snacks.picker.autocmds() end, desc = "Autocmds" },
+            { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
+            { "<leader>sc", function() Snacks.picker.command_history() end, desc = "Command History" },
+            { "<leader>sC", function() Snacks.picker.commands() end, desc = "Commands" },
+            { "<leader>sx", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
+            { "<leader>sX", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
+            { "<leader>sh", function() Snacks.picker.help() end, desc = "Help Pages" },
+            { "<leader>sH", function() Snacks.picker.highlights() end, desc = "Highlights" },
+            { "<leader>si", function() Snacks.picker.icons() end, desc = "Icons" },
+            { "<leader>sj", function() Snacks.picker.jumps() end, desc = "Jumps" },
+            { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+            { "<leader>sl", function() Snacks.picker.loclist() end, desc = "Location List" },
+            { "<leader>sp", function() Snacks.picker.lazy() end, desc = "Search for Plugin Spec" },
+            { "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
+            { "<leader>sr", function() Snacks.picker.resume() end, desc = "Resume" },
+            { "<leader>su", function() Snacks.picker.undo() end, desc = "Undo History" },
+            -- stylua: ignore end
+        },
         opts = function()
-            local project_pick = function()
-                local fzf_lua = require "fzf-lua"
-                local history = require "project_nvim.utils.history"
-                fzf_lua.fzf_exec(function(cb)
-                    local results = history.get_recent_projects()
-                    for _, e in ipairs(results) do
-                        cb(e)
-                    end
-                    cb()
-                end, {
-                    actions = {
-                        ["default"] = function(e)
-                            vim.cmd("e " .. e[1] .. " | cd %:p:h")
-                            require("persistence").load()
-                        end,
-                        ["ctrl-d"] = {
-                            function(selected)
-                                history.delete_project { value = selected[1] }
-                            end,
-                            fzf_lua.actions.resume,
-                        },
-                    },
-                })
-            end
+            local icons = require "user.icons"
 
             local function open_nvim_config()
                 vim.cmd "e $MYVIMRC | cd %:p:h"
@@ -220,7 +233,7 @@ return {
                 }
             end
 
-            return {
+            local out = {
                 explorer = {
                     enabled = true,
                     replace_netrw = false,
@@ -263,6 +276,7 @@ return {
                 zoom = { enabled = true },
                 notifier = { enabled = true, timeout = 1000 },
                 picker = {
+                    prompt = "  ",
                     sources = {
                         explorer = {
                             layout = {
@@ -270,26 +284,26 @@ return {
                                 auto_hide = { "input" },
                                 preview = false,
                             },
-                            icons = {
-                                diagnostics = {
-                                    Error = " ",
-                                    Warn = " ",
-                                    Info = " ",
-                                    Hint = " ",
-                                },
-                            },
-                            git = {
-                                enabled = true,
-                                commit = "󰜘 ",
-                                staged = "●",
-                                added = "+",
-                                deleted = "-",
-                                modified = "○",
-                                renamed = "→",
-                                unmerged = "⇄",
-                                untracked = "?",
-                                ignored = "!",
-                            },
+                        },
+                    },
+                    icons = {
+                        diagnostics = {
+                            Error = icons.diagnostics.error,
+                            Warn = icons.diagnostics.warn,
+                            Info = icons.diagnostics.info,
+                            Hint = icons.diagnostics.hint,
+                        },
+                        git = {
+                            enabled = true,
+                            commit = "󰜘 ",
+                            staged = "●",
+                            added = "+",
+                            deleted = "-",
+                            modified = "○",
+                            renamed = "→",
+                            unmerged = "⇄",
+                            untracked = "?",
+                            ignored = "!",
                         },
                     },
                 },
@@ -299,11 +313,9 @@ return {
                         keys = {
                             -- stylua: ignore start
                             { action = ":ene | startinsert", desc = " New File", icon = " ", key = "fn", },
-                            { action = ":FzfLua files", desc = " Find File", icon = " ", key = "ff", },
-                            { action = ":FzfLua live_grep", desc = " Find Text", icon = " ", key = "fg", },
-                            { action = ":FzfLua oldfiles", desc = " Recent Files", icon = "󱋡 ", key = "fr", },
+                            { action = function() Snacks.picker.recent() end, desc = " Recent Files", icon = "󱋡 ", key = "fr", },
                             { action = require("persistence").select, desc = " Sessions", icon = " ", key = "ss", },
-                            { action = project_pick, desc = " Projects", icon = " ", key = "sp", },
+                            { action = function() Snacks.picker.projects() end, desc = " Projects", icon = " ", key = "sp", },
                             { action = open_nvim_config, desc = "Nvim Config", icon = "  ", key = "cc" },
                             { action = open_global_config, desc = "Global Config", icon = "  ", key = "cf" },
                             { action = ":Lazy", desc = " Plugins", icon = " ", key = "cp", },
@@ -334,6 +346,8 @@ return {
                     },
                 },
             }
+
+            return out
         end,
     },
 
