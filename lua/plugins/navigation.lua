@@ -448,17 +448,4 @@ return {
             require("mini.bracketed").setup(opts)
         end,
     },
-
-    {
-        "leath-dub/snipe.nvim",
-        -- init = function()
-        --     require("user.utils").load_keymap "snipe"
-        -- end,
-        opts = {
-            ui = { position = "center" },
-            open_win_override = {
-                border = require("user.config").borders,
-            },
-        },
-    },
 }

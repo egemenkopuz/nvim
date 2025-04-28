@@ -36,7 +36,7 @@ vim.opt.fillchars = { eob = " " }
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.mouse = "a"
-vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.completeopt = "menu,menuone,noselect,popup"
 vim.opt.wildmode = "longest:full,full"
 vim.opt.foldcolumn = "1"
 vim.opt.foldlevel = 99

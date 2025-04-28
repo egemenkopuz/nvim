@@ -18,15 +18,6 @@ return {
     },
 
     {
-        "echasnovski/mini.align",
-        event = "BufReadPre",
-        version = false,
-        config = function(_, opts)
-            require("mini.align").setup(opts)
-        end,
-    },
-
-    {
         "smjonas/inc-rename.nvim",
         dependencies = { "folke/noice.nvim" },
         event = "BufReadPre",
@@ -161,18 +152,8 @@ return {
     },
 
     {
-        "echasnovski/mini.bufremove",
-        event = "BufReadPre",
-        config = function(_, _)
-            require("user.utils").load_keymap "bufremove"
-        end,
-    },
-
-    {
         "brianhuster/live-preview.nvim",
         cmd = "LivePreview",
-        dependencies = { "ibhagwan/fzf-lua" },
-        opts = { picker = "fzf-lua" },
     },
 
     {

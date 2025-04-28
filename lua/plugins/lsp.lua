@@ -252,7 +252,7 @@ return {
         branch = "regexp",
         ft = "python",
         cmd = { "VenvSelect" },
-        opts = { picker = "fzf-lua" },
+        opts = { picker = "native" },
         init = function()
             require("user.utils").load_keymap "venv"
         end,

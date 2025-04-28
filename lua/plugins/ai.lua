@@ -2,7 +2,7 @@ return {
     {
         "CopilotC-Nvim/CopilotChat.nvim",
         branch = "main",
-        cmd = { "CopilotChat", "CopilotChatModels" },
+        cmd = { "CopilotChat", "CopilotChatModels", "CopilotChatPrompts" },
         build = "make tiktoken",
         dependencies = { "MeanderingProgrammer/render-markdown.nvim" },
         opts = function()
@@ -11,7 +11,7 @@ return {
             user = user:sub(1, 1):upper() .. user:sub(2)
             return {
                 allow_insecure = false,
-                model = "gpt-4o-2024-11-20",
+                model = "gpt-4o",
                 agent = "copilot",
                 temperature = 0.1,
                 chat_autocomplete = true,

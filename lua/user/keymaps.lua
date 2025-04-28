@@ -327,7 +327,7 @@ M.trouble = {
         ["<leader>xD"] = { "<cmd> Trouble diagnostics toggle <cr>", "Workspace diagnostics", },
         ["<leader>xl"] = { "<cmd> Trouble loclist toggle <cr>", "Loclist" },
         ["<leader>xq"] = { "<cmd> Trouble quickfix toggle <cr>", "Quickfix" },
-        ["<leader>xs"] = { "<cmd> Trouble symbols toggle win.position=right <cr>", "Symbols"},
+        ["<leader>xs"] = { "<cmd> Trouble snacks <cr>", "List from Picker" },
     },
 }
 
@@ -452,18 +452,18 @@ M.window_picker = {
                 end
                 local buf = vim.api.nvim_win_get_buf(win)
                 local modified = vim.api.nvim_buf_get_option(buf, "modified")
-                local bd = require("mini.bufremove").delete
+                local bd = Snacks.bufdelete
                 if modified then
                     local choice = vim.fn.confirm(
                         ("Save changes to %q?"):format(vim.fn.bufname(buf)),
                         "&Yes\n&No\n&Cancel"
                     )
                     if choice == 1 then -- Yes
-                        bd(buf)
+                        bd { buf = buf }
                         vim.api.nvim_win_close(win, true)
                     end
                 else
-                    bd(buf)
+                    bd { buf = buf }
                     vim.api.nvim_win_close(win, true)
                 end
             end,
@@ -671,20 +671,7 @@ M.copilot_chat = {
             end,
             "Quick Buffer Chat",
         },
-        ["<leader>ah"] = {
-            function()
-                local actions = require "CopilotChat.actions"
-                require("CopilotChat.integrations.fzflua").pick(actions.help_actions())
-            end,
-            "Diagnostic Help",
-        },
-        ["<leader>ap"] = {
-            function()
-                local actions = require "CopilotChat.actions"
-                require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
-            end,
-            "Prompt Chat Actions",
-        },
+        ["<leader>ap"] = { "<cmd> CopilotChatPrompts <cr>", "Prompt Chat Actions" },
     },
 }
 
@@ -847,13 +834,48 @@ M.yanky = {
 }
 
 M.snacks = {
+    -- stylua: ignore start
     n = {
-        -- stylua: ignore start
+        ["<leader>bd"] = { function() Snacks.bufdelete { buf = 0, force = false } end, "Kill buffer" },
+        ["<leader>bD"] = { function() Snacks.bufdelete { buf = 0, force = true } end, "Kill force buffer" },
+        ["<leader>bo"] = { function() Snacks.bufdelete.other{ force = false } end, "Kill  other buffers" },
+        ["<leader>bO"] = { function() Snacks.bufdelete.other{ force = true } end, "Kill force other buffers" },
         ["<leader>gg"] = { function() Snacks.lazygit() end, "Lazygit" },
         ["<leader>xn"] = { function() Snacks.notifier.show_history() end, "Notification History"},
         ["<leader>tz"] = { function() Snacks.zen.zoom() end, "Zoom Mode"},
         ["<leader>tZ"] = { function() Snacks.zen() end, "Zen Mode"},
         ["<leader>fe"] = { function() Snacks.explorer() end, "Explorer"},
+        ["<leader><space>"] = { function() Snacks.picker.smart() end, "Smart Find Files" },
+        ["<leader>fb"] = { function() Snacks.picker.buffers() end, "Buffers" },
+        ["<leader>/"] = { function() Snacks.picker.grep() end, "Grep" },
+        ["<leader>fw"] = { function() Snacks.picker.grep() end, "Grep" },
+        ["<leader>:"] = { function() Snacks.picker.command_history() end, "Command History" },
+        ["<leader>ff"] = { function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, "Find Config File" },
+        ["<leader>fF"] = { function() Snacks.picker.files() end, "Find Files" },
+        ["<leader>fg"] = { function() Snacks.picker.git_files() end, "Find Git Files" },
+        ["<leader>sb"] = { function() Snacks.picker.lines() end, "Buffer Lines" },
+        ["<leader>sB"] = { function() Snacks.picker.grep_buffers() end, "Grep Open Buffers" },
+        ["<leader>sg"] = { function() Snacks.picker.grep() end, "Grep" },
+        ['<leader>s"'] = { function() Snacks.picker.registers() end, "Registers" },
+        ['<leader>s/'] = { function() Snacks.picker.search_history() end, "Search History" },
+        ["<leader>sa"] = { function() Snacks.picker.autocmds() end, "Autocmds" },
+        ["<leader>sc"] = { function() Snacks.picker.command_history() end, "Command History" },
+        ["<leader>sC"] = { function() Snacks.picker.commands() end, "Commands" },
+        ["<leader>sx"] = { function() Snacks.picker.diagnostics_buffer() end, "Buffer Diagnostics" },
+        ["<leader>sX"] = { function() Snacks.picker.diagnostics() end, "Diagnostics" },
+        ["<leader>sh"] = { function() Snacks.picker.help() end, "Help Pages" },
+        ["<leader>sH"] = { function() Snacks.picker.highlights() end, "Highlights" },
+        ["<leader>si"] = { function() Snacks.picker.icons() end, "Icons" },
+        ["<leader>sj"] = { function() Snacks.picker.jumps() end, "Jumps" },
+        ["<leader>sk"] = { function() Snacks.picker.keymaps() end, "Keymaps" },
+        ["<leader>sl"] = { function() Snacks.picker.loclist() end, "Location List" },
+        ["<leader>sp"] = { function() Snacks.picker.lazy() end, "Search for Plugin Spec" },
+        ["<leader>sq"] = { function() Snacks.picker.qflist() end, "Quickfix List" },
+        ["<leader>sr"] = { function() Snacks.picker.resume() end, "Resume" },
+        ["<leader>su"] = { function() Snacks.picker.undo() end, "Undo History" },
+    },
+    [{ "n", "v" }] = {
+        ["<leader>sw"] = { function() Snacks.picker.grep_word() end, "Visual selection or word", mode = { "n", "x" } },
     },
     -- stylua: ignore end
     [{ "n", "v" }] = {

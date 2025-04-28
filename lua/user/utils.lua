@@ -216,24 +216,6 @@ function M.get_root()
     return root
 end
 
-function M.pick(command, opts)
-    opts = opts or {}
-    opts = vim.deepcopy(opts)
-
-    local picker = opts.picker or "fzf"
-
-    if not opts.cwd and opts.root ~= false then
-        opts.cwd = M.get_root()
-    end
-
-    if picker == "fzf" then
-        if opts.cmd == nil and command == "git_files" and opts.show_untracked then
-            opts.cmd = "git ls-files --exclude-standard --cached --others"
-        end
-        return require("fzf-lua")[command](opts)
-    end
-end
-
 -- return a function that calls telescope.
 -- for `files`, git_files or find_files will be chosen depending on .git
 function M.telescope(builtin, opts)
