@@ -39,10 +39,6 @@
 
 - [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) - Set of preconfigured snippets for different languages.
 
-## Fuzzy Finder
-
-- [fzf-lua](https://github.com/ibhagwan/fzf-lua) - The Lua version of `fzf.vim`, high-performance and fully async, supports `nvim-web-devicons`, Git indicators, LSP, quickfix/location lists and more. Also supports [`skim`](https://github.com/lotabout/skim) as its fzf binary.
-
 ## LSP
 
 - [glance.nvim](https://github.com/DNLHC/glance.nvim) - A pretty window for previewing, navigating and editing your LSP locations.
@@ -131,16 +127,13 @@
 - live-preview&#46;nvim
 - mason-lspconfig&#46;nvim
 - mini&#46;ai
-- mini&#46;align
 - mini&#46;bracketed
-- mini&#46;bufremove
 - mini&#46;comment
 - mini&#46;files
 - mini&#46;hipatterns
 - mini&#46;icons
 - mini&#46;map
 - mini&#46;move
-- mini&#46;pairs
 - mini&#46;splitjoin
 - mini&#46;surround
 - mini&#46;tabline
@@ -152,7 +145,6 @@
 - promise-async
 - schemastore&#46;nvim
 - snacks&#46;nvim
-- snipe&#46;nvim
 - undotree
 - venv-selector&#46;nvim
 
