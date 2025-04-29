@@ -21,10 +21,6 @@
 
 - [conform.nvim](https://github.com/stevearc/conform.nvim) - A lightweight formatting engine that plays nice with LSP.
 
-## Dependency Management
-
-- [crates.nvim](https://github.com/Saecki/crates.nvim) - Rust dependency management for `Cargo.toml`.
-
 ## Git
 
 - [diffview.nvim](https://github.com/sindrets/diffview.nvim) - Single tabpage interface for easily cycling through diffs for all modified files for any Git rev.
@@ -123,7 +119,6 @@
 - FixCursorHold&#46;nvim
 - blink-cmp-copilot
 - blink-ripgrep&#46;nvim
-- clangd_extensions&#46;nvim
 - live-preview&#46;nvim
 - mason-lspconfig&#46;nvim
 - mini&#46;ai
