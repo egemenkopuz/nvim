@@ -1,7 +1,6 @@
 local M = {}
 
 local utils = require "user.utils"
-local prompts = require "user.prompts"
 
 M.general = {
     [{ "n", "x" }] = {
