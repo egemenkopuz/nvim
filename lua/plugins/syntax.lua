@@ -17,9 +17,6 @@ return {
             require "nvim-treesitter.query_predicates"
         end,
         opts = function()
-            -- local MAX_FILE_LINES = 3000
-            -- local MAX_FILE_SIZE = 1048576 -- 1MB
-
             return {
                 sync_install = false,
                 indent = { enable = true },
@@ -27,14 +24,6 @@ return {
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = false,
-                    -- being done by snacks.nvim
-                    -- max_file_lines = MAX_FILE_LINES,
-                    -- disable = function(_, bufnr)
-                    --     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
-                    --     if ok and stats and stats.size > MAX_FILE_SIZE then
-                    --         return true
-                    --     end
-                    -- end,
                 },
                 incremental_selection = { enable = false },
                 textobjects = {

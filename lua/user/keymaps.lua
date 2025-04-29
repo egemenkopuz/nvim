@@ -162,45 +162,6 @@ M.treesitter_context = {
     },
 }
 
-M.telescope = {
-    -- stylua: ignore
-    v = {
-        ["<leader>sw"] = { utils.telescope "grep_visual_selection", "Word (root dir)" },
-        ["<leader>sW"] = { utils.telescope("grep_visual_selection", { cwd = false }), "Word (cwd)" },
-    },
-    -- stylua: ignore
-    n = {
-        ["<leader>f:"] = { "<cmd> Telescope command_history <cr>", "Command history" },
-        ["<leader>ff"] = { utils.telescope "files", "Files (root)" },
-        ["<leader>fF"] = { utils.telescope("files", { cwd = false }), "Files (cwd)" },
-        ["<leader>fw"] = { utils.telescope "live_grep_args", "Live grep (root)" },
-        ["<leader>fW"] = { utils.telescope("live_grep_args", { cwd = false }), "Live grep (cwd)" },
-        ["<leader>fb"] = { "<cmd> Telescope buffers sort_mru=true sort_lastused=true<cr>", "Buffers" },
-        ["<leader>fo"] = { "<cmd> Telescope oldfiles <cr>", "Recent files" },
-        ["<leader>gc"] = { "<cmd> Telescope git_commits <cr>", "Git commits" },
-        ["<leader>gg"] = { "<cmd> Telescope git_status <cr>", "Git status" },
-        ["<leader>xf"] = { "<cmd> Telescope diagnostics <cr>", "Diagnostics" },
-        ["<leader>sr"] = { "<cmd> Telescope resume <cr>", "Resume last picker" },
-        ["<leader>sa"] = { "<cmd> Telescope autocommands <cr>", "Autocommands" },
-        ['<leader>s"'] = { "<cmd> Telescope registers <cr>", "Registers" },
-        ["<leader>sc"] = { "<cmd> Telescope command_history <cr>", "Command history" },
-        ["<leader>sC"] = { "<cmd> Telescope commands <cr>", "Commands" },
-        ["<leader>sd"] = { "<cmd> Telescope diagnostics <cr>", "Diagnostics" },
-        ["<leader>sh"] = { "<cmd> Telescope help_tags<cr>", "Help Pages" },
-        ["<leader>sH"] = { "<cmd> Telescope highlights<cr>", "Search highlight groups" },
-        ["<leader>sk"] = { "<cmd> Telescope keymaps<cr>", "Key maps" },
-        ["<leader>sM"] = { "<cmd> Telescope man_pages<cr>", "Man pages" },
-        ["<leader>sm"] = { "<cmd> Telescope marks<cr>", "Jump to mark" },
-        ["<leader>so"] = { "<cmd> Telescope vim_options<cr>", "Options" },
-        ["<leader>sw"] = { utils.telescope "grep_word_under_cursor", "Word (root dir)" },
-        ["<leader>sW"] = { utils.telescope("grep_word_under_cursor", { cwd = false }), "Word (cwd)" },
-        ["<leader>xn"] = { "<cmd> Telescope notify <cr>", "Notifications" },
-        ["<leader>ss"] = { utils.telescope("lsp_document_symbols", { symbols = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Struct", "Trait", "Field", "Property", }, }), "LSP symbols" },
-        ["<leader>st"] = { "<cmd> Telescope terraform_doc full_name=hashicorp/aws<cr>", "Terraform AWS docs" },
-        ["<leader><leader>"] = { function () require("telescope").extensions.smart_open.smart_open() end, "Quick navigate" }
-    },
-}
-
 M.rename = {
     -- stylua: ignore
     n = {
@@ -303,14 +264,6 @@ M.gitsigns = {
     },
 }
 
-M.illuminate = {
-    -- stylua: ignore
-    n = {
-        ["]]"] = { function() require("illuminate").goto_next_reference(false) end, "Next reference", },
-        ["[["] = { function() require("illuminate").goto_prev_reference(false) end, "Prev reference", },
-    },
-}
-
 M.navigator = {
     [{ "n", "t" }] = {
         ["<C-h>"] = { "<cmd> NavigatorLeft <cr>", "Navigate left" },
@@ -370,28 +323,6 @@ M.dapui = {
         ["<leader>dt"] = { function() require("dapui").toggle() end, "DAP ui toggle", },
         ["<leader>dT"] = { function() require("dapui").close() end, "DAP ui close", },
         ["<leader>df"] = { function() require("dapui").float_element() end, "DAP ui float", },
-    },
-}
-
-M.neotree = {
-    n = {
-        ["<C-n>"] = {
-            function()
-                require("neo-tree.command").execute { toggle = true, dir = vim.loop.cwd() }
-            end,
-            "Neotree",
-        },
-    },
-}
-
-M.spectre = {
-    n = {
-        ["<leader>cR"] = {
-            function()
-                require("spectre").open()
-            end,
-            "Replace in files (Spectre)",
-        },
     },
 }
 
@@ -472,37 +403,6 @@ M.window_picker = {
     },
 }
 
-M.bufferline = {
-    -- stylua: ignore
-    n = {
-        ["<leader>b1"] = { "<cmd> BufferLineGoToBuffer 1 <cr>", "Go to buffer 1" },
-        ["<leader>b2"] = { "<cmd> BufferLineGoToBuffer 2 <cr>", "Go to buffer 2" },
-        ["<leader>b3"] = { "<cmd> BufferLineGoToBuffer 3 <cr>", "Go to buffer 3" },
-        ["<leader>b4"] = { "<cmd> BufferLineGoToBuffer 4 <cr>", "Go to buffer 4" },
-        ["<leader>b5"] = { "<cmd> BufferLineGoToBuffer 5 <cr>", "Go to buffer 5" },
-        ["<leader>b6"] = { "<cmd> BufferLineGoToBuffer 6 <cr>", "Go to buffer 6" },
-        ["<leader>b7"] = { "<cmd> BufferLineGoToBuffer 7 <cr>", "Go to buffer 7" },
-        ["<leader>b8"] = { "<cmd> BufferLineGoToBuffer 8 <cr>", "Go to buffer 8" },
-        ["<leader>b9"] = { "<cmd> BufferLineGoToBuffer 9 <cr>", "Go to buffer 9" },
-        ["<leader>b0"] = { "<cmd> BufferLineGoToBuffer 10 <cr>", "Go to buffer 10" },
-        ["<leader>bb"] = { "<cmd>e # <cr>", "Go to other buffer"},
-        ["<leader>b["] = { "<cmd> BufferLineMovePrev <cr>", "Move buffer left" },
-        ["<leader>b]"] = { "<cmd> BufferLineMoveNext <cr>", "Move buffer right" },
-        ["<leader>bw"] = { "<cmd> BufferLinePick <cr>", "Pick buffer" },
-        ["<leader>bse"] = { "<cmd> BufferLineSortByExtension <cr>", "Sort buffers by extension" },
-        ["<leader>bsd"] = { "<cmd> BufferLineSortByDirectory <cr>", "Sort buffers by directory" },
-        ["<leader>bcr"] = { "<cmd> BufferLineCloseRight <cr>", "Close all visible buffers to the right" },
-        ["<leader>bcl"] = { "<cmd> BufferLineCloseLeft <cr>", "Close all visible buffers to the left" },
-        ["<leader>bco"] = { "<cmd> BufferLineCloseOthers <cr>", "Close other buffers" },
-        ["<leader>bp"] = { "<cmd> BufferLineTogglePin <cr>", "Pin buffer" },
-        ["<leader>bcp"] = { "<cmd> BufferLineGroupClose ungrouped <cr>", "Close non-pinned buffers" },
-        ["[b"] = { "<cmd>BufferLineCyclePrev<cr>", "Prev buffer" },
-        ["]b"] = { "<cmd>BufferLineCycleNext<cr>", "Next buffer" },
-        ["[B"] = { "<cmd>lua require('bufferline').go_to(1, true)<cr>", "First buffer" },
-        ["]B"] = { "<cmd>lua require('bufferline').go_to(-1, true)<cr>", "Last buffer" },
-    },
-}
-
 M.tabline = {
     n = {
         ["<leader>bb"] = { "<cmd>e # <cr>", "Go to other buffer" },
@@ -547,16 +447,6 @@ M.notify = {
     },
 }
 
-M.todo_comments = {
-    n = {
-        ["<leader>xt"] = { "<cmd>TodoTrouble <cr>", "Toggle Todo" },
-        ["<leader>xT"] = {
-            "<cmd>TodoTrouble keywords=TODO,FIX,FIXME <cr>",
-            "Toggle Todo/Fix/Fixme",
-        },
-    },
-}
-
 M.venv = {
     n = {
         ["<leader>cv"] = { "<cmd> VenvSelect <cr>", "Select Python venv" },
@@ -573,27 +463,6 @@ M.flash = {
     [{ "o", "x" }] = { ["R"] = { function() require("flash").treesitter_search() end, "Treesitter search" }, },
     -- c = { ["<c-s>"] = { function() require("flash").toggle() end, "Toggle Flash Search" }, },
     -- stylua: ignore end
-}
-
-M.visual_multi = {
-    n = {
-        ["<leader>mj"] = { "<Plug>(VM-Add-Cursor-Down)", "Put Cursor Down" },
-        ["<leader>mk"] = { "<Plug>(VM-Add-Cursor-Up)", "Put Cursor Up" },
-        ["<leader>ma"] = { "<Plug>(VM-Select-All)<Tab>", "Select All" },
-        ["<leader>mr"] = { "<Plug>(VM-Start-Regex-Search)", "Start Regex Search" },
-        ["<leader>mp"] = { "<Plug>(VM-Add-Cursor-At-Pos)", "Add Cursor At Pos" },
-        ["<leader>mo"] = { "<Plug>(VM-Toggle-Mappings)", "Toggle Mapping" },
-    },
-    v = {
-        ["<leader>mv"] = {
-            function()
-                vim.cmd 'silent! execute "normal! \\<Plug>(VM-Visual-Cursors)"'
-                vim.cmd "sleep 200m"
-                vim.cmd 'silent! execute "normal! A"'
-            end,
-            "Visual Cursors",
-        },
-    },
 }
 
 M.copilot = {
@@ -747,66 +616,12 @@ M.neotest = {
     },
 }
 
-M.fzf = {
-    n = {
-        -- stylua: ignore start
-        ["<leader>,"] = { "<cmd>FzfLua command_history<cr>", "Command History" },
-        ["<leader>/"] = { function() require("user.utils").pick "live_grep" end, "Grep (Root Dir)" },
-        -- ["<leader><space>"] = { function() require("user.utils").pick "files" end, "Find Files (Root Dir)" },
-        ["<leader>fb"] = { "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", "Buffers" },
-        ["<leader>ff"] = { function() require("user.utils").pick "files" end, "Find Files (Root Dir)" },
-        ["<leader>fF"] = { function() require("user.utils").pick("files", { root = false }) end, "Find Files (cwd)" },
-        ["<leader>fg"] = { "<cmd>FzfLua git_files<cr>", "Find Files (git-files)" },
-        ["<leader>fr"] = { "<cmd>FzfLua oldfiles<cr>", "Recent" },
-        ["<leader>fR"] = { function() require("user.utils").pick("oldfiles", { cwd = vim.uv.cwd() }) end, "Recent (cwd)" },
-        ["<leader>fw"] = { function() require("user.utils").pick "live_grep" end, "Grep (Root Dir)" },
-        ["<leader>fW"] = { function() require("user.utils").pick("live_grep", { root = false }) end, "Grep (cwd)" },
-        ["<leader>sgc"] = { "<cmd>FzfLua git_bcommits<CR>", "Buffer Commits" },
-        ["<leader>sgC"] = { "<cmd>FzfLua git_commits<CR>", "Commits" },
-        ["<leader>sgf"] = { "<cmd>FzfLua git_status<CR>", "File status" },
-        ['<leader>s"'] = { "<cmd>FzfLua registers<cr>", "Registers" },
-        ["<leader>sa"] = { "<cmd>FzfLua autocmds<cr>", "Auto Commands" },
-        ["<leader>sb"] = { "<cmd>FzfLua grep_curbuf<cr>", "Buffer" },
-        ["<leader>s:"] = { "<cmd>FzfLua command_history<cr>", "Command History" },
-        ["<leader>sc"] = { "<cmd>FzfLua commands<cr>", "Commands" },
-        ["<leader>sx"] = { "<cmd>FzfLua diagnostics_document<cr>", "Document Diagnostics" },
-        ["<leader>sX"] = { "<cmd>FzfLua diagnostics_workspace<cr>", "Workspace Diagnostics" },
-        ["<leader>sh"] = { "<cmd>FzfLua help_tags<cr>", "Help Pages" },
-        ["<leader>sH"] = { "<cmd>FzfLua highlights<cr>", "Search Highlight Groups" },
-        ["<leader>sj"] = { "<cmd>FzfLua jumps<cr>", "Jumplist" },
-        ["<leader>sk"] = { "<cmd>FzfLua keymaps<cr>", "Key Maps" },
-        ["<leader>sl"] = { "<cmd>FzfLua loclist<cr>", "Location List" },
-        ["<leader>sM"] = { "<cmd>FzfLua man_pages<cr>", "Man Pages" },
-        ["<leader>sm"] = { "<cmd>FzfLua marks<cr>", "Jump to Mark" },
-        ["<leader>sr"] = { "<cmd>FzfLua resume<cr>", "Resume" },
-        ["<leader>sq"] = { "<cmd>FzfLua quickfix<cr>", "Quickfix List" },
-        ["<leader>sw"] = { function() require("user.utils").pick "grep_cword" end, "Word (Root Dir)" },
-        ["<leader>sW"] = { function() require("user.utils").pick("grep_cword", { root = false }) end, "Word (cwd)" },
-        ["<leader>sd"] = { "<cmd>FzfLua dap_breakpoints<cr>", "DAP breakpoints" },
-        ["<leader>sD"] = { "<cmd>FzfLua dap_variables<cr>", "DAP variables" },
-        -- stylua: ignore end
-    },
-    v = {
-        -- stylua: ignore start
-        ["<leader>sw"] = { function() require("user.utils").pick "grep_visual" end, "Selection (Root Dir)" },
-        ["<leader>sW"] = { function() require("user.utils").pick("grep_visual", { root = false }) end, "Selection (cwd)"},
-        -- stylua: ignore end
-    },
-}
-
 M.persistence = {
     n = {
         -- stylua: ignore start
         ["<leader>ws"] = { function() require("persistence").load() end, "Load session" },
         ["<leader>wS"] = { function() require("persistence").stop() end, "Stop session" },
         -- stylua: ignore end
-    },
-}
-
-M.noice = {
-    n = {
-        -- ["<leader>xn"] = { "<cmd> Noice fzf <cr>", "Notifications" },
-        -- ["<leader>xN"] = { "<cmd> Noice errors <cr>", "Error notifications" },
     },
 }
 
@@ -899,48 +714,6 @@ M.snacks = {
             end,
             "Open repo URL",
         },
-    },
-}
-
-M.avante = {
-    n = {
-        -- stylua: ignore start
-        ["<leader>ar"] = { function() require("avante.api").refresh() end, "Refresh" },
-        ["<leader>af"] = { function() require("avante.api").focus() end, "Focus" },
-        ["<leader>at"] = { function() require("avante.api").toggle() end, "Toggle" },
-        ["<leader>ad"] = { "<cmd>AvanteClear history<cr>",  "Reset" },
-        -- stylua: ignore end
-    },
-    [{ "n", "v" }] = {
-        -- stylua: ignore start
-        ["<leader>aa"] = { function() require("avante.api").ask() end, "Ask" },
-        ["<leader>ae"] = { function() require("avante.api").edit() end, "Edit" },
-        ["<leader>apg"] = { function() require('avante.api').ask { question = prompts.grammar_correction } end, "Grammar Correction(ask)" },
-        ["<leader>apr"] = { function() require('avante.api').ask { question = prompts.code_readability_analysis } end, "Code Readability Analysis(ask)" },
-        ["<leader>apo"] = { function() require('avante.api').ask { question = prompts.optimize_code } end, "Optimize Code(ask)" },
-        ["<leader>aps"] = { function() require('avante.api').ask { question = prompts.summarize } end, "Summarize text(ask)" },
-        ["<leader>apt"] = { function() require('avante.api').ask { question = prompts.translate } end, "Translate text(ask)" },
-        ["<leader>ape"] = { function() require('avante.api').ask { question = prompts.explain_code } end, "Explain Code(ask)" },
-        ["<leader>apd"] = { function() require('avante.api').ask { question = prompts.add_docstring } end, "Docstring(ask)" },
-        ["<leader>apf"] = { function() require('avante.api').ask { question = prompts.fix_bugs } end, "Fix Bugs(ask)" },
-        ["<leader>apn"] = { function() require('avante.api').ask { question = prompts.add_tests } end, "Add Tests(ask)" },
-        -- stylua: ignore end
-    },
-    v = {
-        -- stylua: ignore start
-        ["<leader>apG"] = { function() utils.avante_prefill_edit_window(prompts.grammar_correction) end, "Grammar Correction" },
-        ["<leader>apO"] = { function() utils.avante_prefill_edit_window(prompts.optimize_code) end, "Optimize Code(edit)" },
-        ["<leader>apD"] = { function() utils.avante_prefill_edit_window(prompts.add_docstring) end, "Docstring(edit)" },
-        ["<leader>apF"] = { function() utils.avante_prefill_edit_window(prompts.fix_bugs) end, "Fix Bugs(edit)" },
-        ["<leader>apN"] = { function() utils.avante_prefill_edit_window(prompts.add_tests) end, "Add Tests(edit)" },
-        -- stylua: ignore end
-    },
-}
-
-M.snipe = {
-    n = {
-        -- stylua: ignore
-        ["<leader><space>"] = { function() require("snipe").open_buffer_menu() end, "Open Snipe buffer menu" },
     },
 }
 

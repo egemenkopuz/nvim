@@ -6,7 +6,6 @@ return {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "b0o/schemastore.nvim",
-            "p00f/clangd_extensions.nvim",
             {
                 "folke/lazydev.nvim",
                 ft = "lua",
@@ -15,23 +14,6 @@ return {
                         { path = "luvit-meta/library", words = { "vim%.uv" } },
                     },
                 },
-            },
-            {
-                "saecki/crates.nvim",
-                event = { "BufRead Cargo.toml" },
-                tag = "stable",
-                opts = {
-                    lsp = {
-                        enabled = true,
-                        actions = true,
-                        completion = true,
-                        hover = true,
-                    },
-                    completion = { cmp = { enabled = false } },
-                },
-                config = function(_, opts)
-                    require("crates").setup(opts)
-                end,
             },
         },
         opts = {
@@ -212,9 +194,6 @@ return {
                             server.settings.yaml.schemas = require("schemastore").json.schemas()
                         elseif server_name == "clangd" then
                             server.capabilities.offsetEncoding = "utf-16"
-                            require("clangd_extensions").setup {
-                                ast = require("user.icons").clangd,
-                            }
                         end
 
                         lspconfig[server_name].setup(server)

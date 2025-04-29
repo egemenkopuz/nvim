@@ -1,47 +1,5 @@
 return {
     {
-        "folke/noice.nvim",
-        enabled = true,
-        event = "VeryLazy",
-        dependencies = { "MunifTanjim/nui.nvim" },
-        init = function()
-            require("user.utils").load_keymap "noice"
-        end,
-        opts = {
-            presets = {
-                bottom_search = true,
-                command_palette = false,
-                long_message_to_split = true,
-                inc_rename = true,
-                lsp_doc_border = true,
-            },
-            cmdline = {
-                view = "cmdline",
-                format = { cmdline = { pattern = "^:", icon = ":", lang = "vim" } },
-            },
-            lsp = {
-                signature = { enabled = false },
-                progress = { enabled = false },
-                hover = {
-                    enabled = true,
-                    opts = {
-                        scrollbar = false,
-                        size = {
-                            max_height = math.floor(vim.o.lines * 0.5),
-                            max_width = math.floor(vim.o.columns * 0.4),
-                        },
-                    },
-                },
-                override = {
-                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                    ["vim.lsp.util.stylize_markdown"] = true,
-                },
-            },
-        },
-        config = true,
-    },
-
-    {
         "rebelot/heirline.nvim",
         event = "BufReadPre",
         dependencies = {
@@ -229,18 +187,26 @@ return {
             render_modes = { "n", "c", "t", "i" },
             code = {
                 sign = false,
+                style = "normal",
                 position = "right",
                 right_pad = 1,
                 width = "block",
+                highlight = "MsgArea",
             },
             checkbox = { enabled = false },
             heading = {
-                sign = false,
-                below = "▔",
-                above = "▁",
-                left_pad = 0,
-                right_pad = 4,
-                position = "left",
+                icons = { "󰬺 ", "󰬻 ", "󰬼 ", "󰬽 ", "󰬾 ", "󰬿 " },
+                position = "inline",
+                backgrounds = {},
+            },
+            custom = {
+                python = { pattern = "%.py$", icon = "󰌠 " },
+                markdown = { pattern = "%.md$", icon = "󰍔 " },
+            },
+            quote = { repeat_linebreak = true },
+            pipe_table = {
+                preset = "round",
+                alignment_indicator = "",
             },
         },
         ft = { "markdown", "Avante", "copilot-chat" },
@@ -252,13 +218,6 @@ return {
         event = "BufReadPre",
         config = function()
             local hipatterns = require "mini.hipatterns"
-
-            vim.api.nvim_set_hl(0, "MiniHipatternsFix", { fg = "#ffffff", bg = "#db4b4b" })
-            vim.api.nvim_set_hl(0, "MiniHipatternsHack", { fg = "#181616", bg = "#e0af68" })
-            vim.api.nvim_set_hl(0, "MiniHipatternsWarn", { fg = "#181616", bg = "#ffcc00" })
-            vim.api.nvim_set_hl(0, "MiniHipatternsTodo", { fg = "#181616", bg = "#80C4E9" })
-            vim.api.nvim_set_hl(0, "MiniHipatternsPerf", { fg = "#181616", bg = "#bb9af7" })
-            vim.api.nvim_set_hl(0, "MiniHipatternsNote", { fg = "#181616", bg = "#10b981" })
 
             hipatterns.setup {
                 -- stylua: ignore
@@ -304,7 +263,6 @@ return {
             gamma = 1,
             volume_reduction_exponent = -0.1,
             distance_stop_animating = 0.5,
-            -- filetypes_disabled = { "Avante" },
         },
     },
 

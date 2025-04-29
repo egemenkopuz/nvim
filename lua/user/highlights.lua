@@ -79,6 +79,12 @@ M.general = {
     GitSignsDelete = { fg = colors.diff.removed },
     MiniFilesUntracked = { fg = colors.custom.gray3 },
     MiniFilesIgnored = { fg = colors.custom.gray2 },
+    MiniHipatternsFix = { fg = colors.custom.white, bg = colors.patterns.fix },
+    MiniHipatternsHack = { fg = colors.custom.std_bg, bg = colors.patterns.hack },
+    MiniHipatternsWarn = { fg = colors.custom.std_bg, bg = colors.patterns.warn },
+    MiniHipatternsTodo = { fg = colors.custom.std_bg, bg = colors.patterns.todo },
+    MiniHipatternsPerf = { fg = colors.custom.std_bg, bg = colors.patterns.perf },
+    MiniHipatternsNote = { fg = colors.custom.std_bg, bg = colors.patterns.note },
 }
 
 M.transparent = {

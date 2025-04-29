@@ -870,6 +870,47 @@ local archived = {
             require("user.utils").load_keymap "bufremove"
         end,
     },
+
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        dependencies = { "MunifTanjim/nui.nvim" },
+        init = function()
+            require("user.utils").load_keymap "noice"
+        end,
+        opts = {
+            presets = {
+                bottom_search = true,
+                command_palette = false,
+                long_message_to_split = true,
+                inc_rename = true,
+                lsp_doc_border = true,
+            },
+            cmdline = {
+                view = "cmdline",
+                format = { cmdline = { pattern = "^:", icon = ":", lang = "vim" } },
+            },
+            lsp = {
+                signature = { enabled = false },
+                progress = { enabled = false },
+                hover = {
+                    enabled = true,
+                    opts = {
+                        scrollbar = false,
+                        size = {
+                            max_height = math.floor(vim.o.lines * 0.5),
+                            max_width = math.floor(vim.o.columns * 0.4),
+                        },
+                    },
+                },
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                },
+            },
+        },
+        config = true,
+    },
 }
 
 return {}

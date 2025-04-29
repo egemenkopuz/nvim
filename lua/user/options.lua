@@ -51,3 +51,4 @@ vim.opt.updatetime = 200
 vim.opt.splitkeep = "screen"
 vim.opt.scrolloff = 10
 vim.g.markdown_recommended_style = 0
+vim.opt.winborder = "single"

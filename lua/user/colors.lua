@@ -29,7 +29,17 @@ M.general = {
     status_line_bg = "#181818",
 }
 
+M.patterns = {
+    fix = "#db7572",
+    hack = "#ebbf7f",
+    warn = "#ffcc00",
+    todo = "#80C4E9",
+    perf = "#bb9af7",
+    note = "#10b981",
+}
+
 M.custom = {
+    std_bg = "#181818",
     white = "white",
     gray = "gray",
     gray2 = "#625e5a",
