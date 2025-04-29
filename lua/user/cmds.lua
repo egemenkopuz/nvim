@@ -3,6 +3,7 @@ vim.api.nvim_create_user_command("TrimWSLPaste", function()
     vim.cmd "%s/\\r//g"
 end, { nargs = 0 })
 
+-- add command to format given range
 vim.api.nvim_create_user_command("Format", function(args)
     local range = nil
     if args.count ~= -1 then

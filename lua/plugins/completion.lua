@@ -26,7 +26,7 @@ return {
                     preset = "default",
                     ["<C-e>"] = {},
                     ["<C-k>"] = {},
-                    ["<C-g>"] = { vim.g.accept_ai_suggestion },
+                    ["<C-g>"] = { require("user.utils").accept_ai_suggestion },
                     ["<C-space>"] = { "show", "hide" },
                 },
                 cmdline = { enabled = false },
@@ -69,11 +69,11 @@ return {
                             score_offset = 5,
                             fallbacks = { "lazydev" },
                         },
-                        lazydev = {
-                            name = "LazyDev",
-                            module = "lazydev.integrations.blink",
-                            score_offset = 100,
-                        },
+                        -- lazydev = {
+                        --     name = "LazyDev",
+                        --     module = "lazydev.integrations.blink",
+                        --     score_offset = 100,
+                        -- },
                         copilot = {
                             name = "copilot",
                             module = "blink-cmp-copilot",
@@ -107,7 +107,7 @@ return {
                         "snippets",
                         "buffer",
                         "ripgrep",
-                        "lazydev",
+                        -- "lazydev",
                     },
                 },
                 appearance = {

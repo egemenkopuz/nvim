@@ -24,6 +24,7 @@ require("lazy").setup("plugins", {
     defaults = { lazy = true },
     lockfile = vim.fn.stdpath "config" .. "/plugin-lock.json",
     ui = { size = { width = 0.9, height = 0.9 }, border = require("user.config").borders },
+    rocks = { enabled = false },
     performance = {
         cache = { enabled = true },
         rtp = { disabled_plugins = require("user.config").disabled_plugins },
@@ -34,5 +35,6 @@ require("lazy").setup("plugins", {
 require "user.autocmds"
 require "user.cmds"
 require "user.filetype"
+require "user.lsp"
 
 require("user.utils").load_keymap "general"
