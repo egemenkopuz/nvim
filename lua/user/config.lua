@@ -97,6 +97,7 @@ M.mason_packages = {
     "codelldb",
     -- docker
     "dockerfile-language-server",
+    "docker-compose-language-service",
     "hadolint",
     -- md
     "marksman",
