@@ -261,67 +261,7 @@ function M.swap_window()
     vim.api.nvim_win_set_buf(0, target_buffer)
 end
 
-function M.lsp_on_attach()
-    local methods = vim.lsp.protocol.Methods
-    return function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-
-        M.load_keymap("lsp", { buffer = bufnr })
-
-        if vim.g.lsp_highlight_cursor_enabled then
-            if client.server_capabilities.documentHighlightProvider then
-                local hl_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
-                vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-                    buffer = bufnr,
-                    group = hl_augroup,
-                    callback = vim.lsp.buf.document_highlight,
-                })
-                vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-                    buffer = bufnr,
-                    group = hl_augroup,
-                    callback = vim.lsp.buf.clear_references,
-                })
-                vim.api.nvim_create_autocmd("LspDetach", {
-                    group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
-                    callback = function(event_d)
-                        vim.lsp.buf.clear_references()
-                        vim.api.nvim_clear_autocmds {
-                            group = "lsp-highlight",
-                            buffer = event_d.buf,
-                        }
-                    end,
-                })
-            end
-        end
-
-        if client.supports_method(methods.textDocument_documentHighlight) then
-            vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
-                desc = "Highlight references under the cursor",
-                buffer = bufnr,
-                callback = vim.lsp.buf.document_highlight,
-            })
-            vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter", "BufLeave" }, {
-                desc = "Clear highlight references",
-                buffer = bufnr,
-                callback = vim.lsp.buf.clear_references,
-            })
-        end
-
-        if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            M.load_keymap "lsp_inlay_hints"
-            if vim.g.lsp_inlay_hints_enabled then
-                vim.lsp.inlay_hint.enable(true)
-            end
-        end
-        if client.name == "ruff" then
-            -- Disable hover in favor of basedpyright
-            client.server_capabilities.hoverProvider = false
-        end
-    end
-end
-
-vim.g.accept_ai_suggestion = function()
+function M.accept_ai_suggestion()
     if require("copilot.suggestion").is_visible() then
         if vim.api.nvim_get_mode().mode == "i" then
             vim.api.nvim_feedkeys(

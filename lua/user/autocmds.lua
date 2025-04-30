@@ -89,10 +89,37 @@ vim.api.nvim_create_autocmd("User", {
     command = "set showtabline=0 | set laststatus=0",
 })
 
+-- hide statusline and tabline on copilot chat
 vim.api.nvim_create_autocmd("BufEnter", {
     pattern = "copilot-chat",
     callback = function()
         vim.opt_local.relativenumber = false
         vim.opt_local.number = false
+    end,
+})
+
+-- attach LSP client
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+        if not client then
+            return
+        end
+
+        require("user.lsp").on_attach(client, args.buf)
+    end,
+})
+
+-- set up LSP servers
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+    once = true,
+    callback = function()
+        local server_configs = vim.iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
+            :map(function(file)
+                return vim.fn.fnamemodify(file, ":t:r")
+            end)
+            :totable()
+        vim.lsp.enable(server_configs)
     end,
 })
