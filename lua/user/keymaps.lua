@@ -18,8 +18,8 @@ M.general = {
     i = {
         -- to quit insert mode fast
         ["jk"] = { "<ESC>", "Leave insert mode" },
-        ["kj"] = { "<ESC>", "Leave insert mode" },
-        ["jj"] = { "<ESC>", "Leave insert mode" },
+        -- ["kj"] = { "<ESC>", "Leave insert mode" },
+        -- ["jj"] = { "<ESC>", "Leave insert mode" },
         -- go to beginning of line
         ["<C-b>"] = { "<ESC>^i", "Go to beginning of line" },
         -- go to end of line
