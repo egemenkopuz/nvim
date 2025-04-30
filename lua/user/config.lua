@@ -112,6 +112,8 @@ M.mason_packages = {
     "prettier",
     -- github actions
     "actionlint",
+    -- toml
+    "taplo",
 }
 
 M.linting = {
