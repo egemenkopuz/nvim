@@ -77,8 +77,8 @@ M.general = {
         -- toggle word wrap
         ["<leader>tw"] = { "<cmd> set wrap! <cr>", "Word wrap" },
         -- centered page navigation
-        -- ["<C-u>"] = { "<C-u>zz", "Jump half-page up" },
-        -- ["<C-d>"] = { "<C-d>zz", "Jump half-page down" },
+        ["<C-u>"] = { "<C-u>zz", "Jump half-page up" },
+        ["<C-d>"] = { "<C-d>zz", "Jump half-page down" },
         -- centered search navigation
         ["n"] = { "nzzzv", "Next searched" },
         ["N"] = { "Nzzzv", "Previous searched" },
