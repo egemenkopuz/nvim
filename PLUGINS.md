@@ -42,7 +42,6 @@
 - [lsp-progress.nvim](https://github.com/linrongbin16/lsp-progress.nvim) - A performant LSP progress status.
 - [mason.nvim](https://github.com/williamboman/mason.nvim) - Portable package manager that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters.
 - [nvim-lint](https://github.com/mfussenegger/nvim-lint) - An asynchronous linter plugin, complementary to the built-in Language Server Protocol support.
-- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) - Quickstart configurations for the LSP client.
 - [outline.nvim](https://github.com/hedyhli/outline.nvim) - A significantly enhanced and refactored fork of `symbols-outline.nvim`.
 - [tiny-inline-diagnostic.nvim](https://github.com/rachartier/tiny-inline-diagnostic.nvim) - Display prettier diagnostic messages. Display one line diagnostic messages where the cursor is, with icons and colors.
 - [trouble.nvim](https://github.com/folke/trouble.nvim) - A pretty diagnostics list to help you solve all the trouble your code is causing.
@@ -64,12 +63,6 @@
 
 - [lazy.nvim](https://github.com/folke/lazy.nvim) - A modern plugin manager, featuring a graphical interface, async execution, a lockfile and more.
 
-## Neovim Lua Development
-
-- [lazydev.nvim](https://github.com/folke/lazydev.nvim) - Faster LuaLS setup.
-- [nui.nvim](https://github.com/MunifTanjim/nui.nvim) - UI Component Library.
-- [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - Plenary: full; complete; entire; absolute; unqualified. All the Lua functions I don't want to write twice.
-
 ## Editing Support
 
 - [neogen](https://github.com/danymat/neogen) - A better annotation generator. Supports multiple languages and annotation conventions.
@@ -86,6 +79,11 @@
 
 - [noice.nvim](https://github.com/folke/noice.nvim) - Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
 - [nvim-ufo](https://github.com/kevinhwang91/nvim-ufo) - Ultra fold with modern looking and performance boosting.
+
+## Neovim Lua Development
+
+- [nui.nvim](https://github.com/MunifTanjim/nui.nvim) - UI Component Library.
+- [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - Plenary: full; complete; entire; absolute; unqualified. All the Lua functions I don't want to write twice.
 
 ## Debugging
 
@@ -120,7 +118,6 @@
 - blink-cmp-copilot
 - blink-ripgrep&#46;nvim
 - live-preview&#46;nvim
-- mason-lspconfig&#46;nvim
 - mini&#46;ai
 - mini&#46;bracketed
 - mini&#46;comment
