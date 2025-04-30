@@ -105,6 +105,8 @@ return {
                 others.macro(),
                 others.fill(),
                 lm.lsp_progress(),
+                lm.conform(),
+                lm.lint(),
                 others.search_count(),
                 dm.diagnostics(),
                 others.copilot(),

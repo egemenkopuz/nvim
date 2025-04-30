@@ -55,6 +55,8 @@ M.custom = {
     sl_filename = "#a0a1a7",
     sl_parent_path = "#545862",
     sl_lsp_progress = "#545862",
+    sl_conform = "#625458",
+    sl_lint = "#586254",
     sl_python_env = "#c4b28a",
 }
 
