@@ -1,7 +1,5 @@
 vim.filetype.add {
     pattern = {
-        [".*/compose%.yaml"] = "yaml.docker-compose",
-        [".*/compose%.yml"] = "yaml.docker-compose",
         [".*/.github/workflows/.*%.yml"] = "yaml.ghaction",
         [".*/.github/workflows/.*%.yaml"] = "yaml.ghaction",
         [".*/playbooks/.*%.yml"] = "yaml.ansible",
@@ -22,5 +20,7 @@ vim.filetype.add {
         [".*%.ansible.yaml"] = "yaml.ansible",
         [".*%.yml.draft"] = "yaml",
         [".*%.yaml.draft"] = "yaml",
+        [".*/compose%.yaml"] = "yaml.docker-compose",
+        [".*/compose%.yml"] = "yaml.docker-compose",
     },
 }
