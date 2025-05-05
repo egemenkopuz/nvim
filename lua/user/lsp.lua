@@ -69,21 +69,6 @@ function M.on_attach(client, bufnr)
             max_width = math.floor(vim.o.columns * 0.4),
         }
     end
-
-    -- Update when registering dynamic capabilities.
-    local register_capability = vim.lsp.handlers[methods.client_registerCapability]
-    vim.lsp.handlers[methods.client_registerCapability] = function(err, res, ctx)
-        ---@diagnostic disable-next-line: redefined-local
-        local client = vim.lsp.get_client_by_id(ctx.client_id)
-
-        if not client then
-            return
-        end
-
-        M.on_attach(client, vim.api.nvim_get_current_buf())
-
-        return register_capability(err, res, ctx)
-    end
 end
 
 return M
