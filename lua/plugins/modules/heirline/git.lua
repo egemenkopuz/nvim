@@ -162,7 +162,7 @@ function M.git_branch()
         on_click = {
             callback = function()
                 vim.defer_fn(function()
-                    vim.cmd "lua _LAZYGIT_TOGGLE()"
+                    Snacks.lazygit()
                 end, 100)
             end,
             name = "heirline_lazygit",
