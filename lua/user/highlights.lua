@@ -69,22 +69,51 @@ M.general = {
     SnacksNotifierBorderDebug = { link = "FloatBorder" },
     SnacksNotifierBorderError = { link = "FloatBorder" },
     SnacksNotifierBorderTrace = { link = "FloatBorder" },
+    -- mini.diff
     MiniDiffSignChange = { fg = colors.diff.modified },
     MiniDiffSignAdd = { fg = colors.diff.added },
     MiniDiffSignDelete = { fg = colors.diff.removed },
+    MiniFilesUntracked = { fg = colors.custom.gray3 },
+    MiniFilesIgnored = { fg = colors.custom.gray2 },
+    -- cmp related
     CmpItemAbbrMatch = { fg = colors.custom.light_red, bold = true },
+    -- snacks indent scope
     SnacksIndentScope = { fg = colors.custom.gray },
+    -- git signs
     GitSignsAdd = { fg = colors.diff.added },
     GitSignsChange = { fg = colors.diff.modified },
     GitSignsDelete = { fg = colors.diff.removed },
-    MiniFilesUntracked = { fg = colors.custom.gray3 },
-    MiniFilesIgnored = { fg = colors.custom.gray2 },
+    -- mini.patterns
     MiniHipatternsFix = { fg = colors.custom.white, bg = colors.patterns.fix },
     MiniHipatternsHack = { fg = colors.custom.std_bg, bg = colors.patterns.hack },
     MiniHipatternsWarn = { fg = colors.custom.std_bg, bg = colors.patterns.warn },
     MiniHipatternsTodo = { fg = colors.custom.std_bg, bg = colors.patterns.todo },
     MiniHipatternsPerf = { fg = colors.custom.std_bg, bg = colors.patterns.perf },
     MiniHipatternsNote = { fg = colors.custom.std_bg, bg = colors.patterns.note },
+}
+
+M.dim = {
+    -- git signs
+    GitSignsAdd = { fg = colors.diff_dim.added },
+    GitSignsChange = { fg = colors.diff_dim.modified },
+    GitSignsDelete = { fg = colors.diff_dim.removed },
+    -- diagnostics
+    DiagnosticError = { fg = colors.diagnostics_dim.error },
+    DiagnosticSignError = { fg = colors.diagnostics_dim.error },
+    DiagnosticFloatingError = { fg = colors.diagnostics_dim.error },
+    TinyInlineDiagnosticVirtualTextError = { fg = colors.diagnostics_dim.error },
+    DiagnosticWarn = { fg = colors.diagnostics_dim.warn },
+    DiagnosticSignWarn = { fg = colors.diagnostics_dim.warn },
+    DiagnosticFloatingWarn = { fg = colors.diagnostics_dim.warn },
+    TinyInlineDiagnosticVirtualTextWarn = { fg = colors.diagnostics_dim.warn },
+    DiagnosticInfo = { fg = colors.diagnostics_dim.info },
+    DiagnosticSignInfo = { fg = colors.diagnostics_dim.info },
+    DiagnosticFloatingInfo = { fg = colors.diagnostics_dim.info },
+    TinyInlineDiagnosticVirtualTextInfo = { fg = colors.diagnostics_dim.info },
+    DiagnosticHint = { fg = colors.diagnostics_dim.hint },
+    DiagnosticSignHint = { fg = colors.diagnostics_dim.hint },
+    DiagnosticFloatingHint = { fg = colors.diagnostics_dim.hint },
+    TinyInlineDiagnosticVirtualTextHint = { fg = colors.diagnostics_dim.hint },
 }
 
 M.transparent = {

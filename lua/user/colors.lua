@@ -7,10 +7,23 @@ M.diagnostics = {
     error = "#db7572",
 }
 
+M.diagnostics_dim = {
+    info = "#78a5a3",
+    hint = "#82a0aa",
+    warn = "#c09863",
+    error = "#99514f",
+}
+
 M.diff = {
     added = "#73bd73",
     modified = "#ebbf7f",
     removed = "#db7572",
+}
+
+M.diff_dim = {
+    added = "#89a0aa",
+    modified = "#ebbf7f",
+    removed = "#6b3a3b",
 }
 
 M.branch_type = {

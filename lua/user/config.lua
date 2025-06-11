@@ -9,7 +9,7 @@ vim.g.transparent = true
 
 -- main configurations
 
-M.colorscheme = "kanagawa"
+M.colorscheme = "ash"
 M.logo = icons.dashboard
 M.borders = icons.borders.sharp
 M.copilot_chat_window_alt_opts = { layout = "vertical", width = 0.5, height = 0.5 }
@@ -235,7 +235,7 @@ vim.fn.sign_define( "DiagnosticSignError", { text = "", numhl = "DiagnosticError
 vim.fn.sign_define( "DiagnosticSignWarn", { text = "", numhl = "DiagnosticWarn", linehl = "DiagnosticLineWarn" })
 vim.fn.sign_define( "DiagnosticSignInfo", { text = "", numhl = "DiagnosticInfo", linehl = "DiagnosticLineInfo" })
 vim.fn.sign_define( "DiagnosticSignHint", { text = "", numhl = "DiagnosticHint", linehl = "DiagnosticLineHint" })
-vim.fn.sign_define( "DapBreakpoint", { text = "", numhl = "DapBreakpoint", linehl = "DapBreakpoint" })
+vim.fn.sign_define( "DapBreakpoint", { text = "", numhl = "DapBreakpoint" })
 vim.fn.sign_define( "DagLogPoint", { text = "", numhl = "DapLogPoint", linehl = "DapLogPoint" })
 vim.fn.sign_define( "DapStopped", { text = "", numhl = "DapStopped", linehl = "DapStopped" })
 -- stylua: ignore end
