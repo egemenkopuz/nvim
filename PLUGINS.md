@@ -115,6 +115,7 @@
 ## Not Categorized
 
 - FixCursorHold&#46;nvim
+- ash&#46;nvim
 - blink-cmp-copilot
 - blink-ripgrep&#46;nvim
 - live-preview&#46;nvim
