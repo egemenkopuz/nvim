@@ -30,7 +30,7 @@ return {
     },
 
     {
-        "egemenkopuz/ash.nvim",
+        "drewxs/ash.nvim",
         enabled = require("user.utils").colorscheme_selection "ash",
         lazy = false,
         priority = 1000,
