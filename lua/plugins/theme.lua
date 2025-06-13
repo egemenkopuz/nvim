@@ -32,8 +32,8 @@ return {
     {
         "drewxs/ash.nvim",
         enabled = require("user.utils").colorscheme_selection "ash",
-        lazy = false,
         priority = 1000,
+        lazy = false,
         opts = {
             transparent = vim.g.transparent,
             highlights = function(colors)

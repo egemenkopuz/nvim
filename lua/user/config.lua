@@ -87,7 +87,6 @@ M.mason_packages = {
     "debugpy",
     "black",
     "isort",
-    "docformatter",
     -- Rust
     "rust-analyzer",
     -- cpp
@@ -134,7 +133,7 @@ M.formatting = {
     -- stylua: ignore
     formatters_by_ft = {
         lua = { "stylua" },
-        python = { "isort", "black", "docformatter" },
+        python = { "ruff_format", "ruff_organize_imports" },
         c = { "clang_format", timeout_ms = 500, lsp_format = "prefer" },
         cpp = { "clang_format", timeout_ms = 500, lsp_format = "prefer" },
         cmake = { "cmake_format", timeout_ms = 500, lsp_format = "prefer" },
