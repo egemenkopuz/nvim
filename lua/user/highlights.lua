@@ -90,6 +90,16 @@ M.general = {
     MiniHipatternsTodo = { fg = colors.custom.std_bg, bg = colors.patterns.todo },
     MiniHipatternsPerf = { fg = colors.custom.std_bg, bg = colors.patterns.perf },
     MiniHipatternsNote = { fg = colors.custom.std_bg, bg = colors.patterns.note },
+    NeotestFailed = { link = "DiagnosticError" },
+    NeotestTarget = { link = "DiagnosticError" },
+    NeotestPassed = { link = "DiagnosticInfo" },
+    NeotestRunning = { link = "DiagnosticWarn" },
+    NeotestSkipped = { link = "DiagnosticHint" },
+    NeotestWatching = { link = "DiagnosticHint" },
+    NeotestFile = { link = "DiagnosticInfo" },
+    NeotestDir = { link = "DiagnosticInfo" },
+    NeotestWinSelect = { link = "DiagnosticInfo" },
+    NeotestAdapterName = { fg = colors.custom.light_red, bold = true },
 }
 
 M.dim = {
