@@ -36,16 +36,21 @@ return {
         lazy = false,
         opts = {
             transparent = vim.g.transparent,
-            highlights = function(colors)
+            highlights = function(_)
                 local out = require("user.highlights").general
                 out = vim.tbl_deep_extend("force", out, require("user.highlights").dim)
                 if vim.g.transparent then
                     out = vim.tbl_deep_extend("force", out, require("user.highlights").transparent)
+                else
+                    out["Normal"] = { bg = "#19191a" }
+                    out["NormalNC"] = { bg = "#19191a" }
+                    out["NormalFloat"] = { bg = "#19191a" }
                 end
                 out["@variable.parameter"] = { fg = "#B7B7B7" }
                 out["SnacksDashboardDesc"] = { fg = "#B7B7B7" }
                 out["RenderMarkdownCode"] = { fg = "#8a9a7b", bg = "#1e1e1e" }
-                out["Normal"] = { bg = "#19191a" }
+                out["LspInlayHint"] = { fg = "#838383", italic = true }
+                out["LineNr"] = { fg = "#4f4f4f" }
                 return out
             end,
         },
