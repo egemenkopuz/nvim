@@ -5,7 +5,6 @@ local icons = require "user.icons"
 -- configurations that are set via environment variables
 
 vim.g.transparent = vim.env.NVIM_TRANSPARENT == "true"
-vim.g.transparent = true
 
 -- main configurations
 

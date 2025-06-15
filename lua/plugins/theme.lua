@@ -45,6 +45,7 @@ return {
                 out["@variable.parameter"] = { fg = "#B7B7B7" }
                 out["SnacksDashboardDesc"] = { fg = "#B7B7B7" }
                 out["RenderMarkdownCode"] = { fg = "#8a9a7b", bg = "#1e1e1e" }
+                out["Normal"] = { bg = "#19191a" }
                 return out
             end,
         },
