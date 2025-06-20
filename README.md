@@ -4,6 +4,12 @@
 
 You can find the list of plugins in [PLUGINS.md](PLUGINS.md)
 
+![Screenshot 1](.github/assets/1.png)
+
+![Screenshot 2](.github/assets/2.png)
+
+![Screenshot 3](.github/assets/3.png)
+
 ## Install Instructions
 
 Clone the repository:
