@@ -56,7 +56,7 @@ return {
                     -- stylua: ignore end
                 end
                 out["TreesitterContextLineNumber"] = { fg = "#4f4f4f", bg = "#19191a" }
-                out["@variable.parameter"] = { fg = "#B7B7B7" }
+                out["@variable.parameter"] = { fg = "#6d889a" }
                 out["SnacksDashboardDesc"] = { fg = "#B7B7B7" }
                 out["RenderMarkdownCode"] = { fg = "#8a9a7b", bg = "#1e1e1e" }
                 out["LspInlayHint"] = { fg = "#838383", italic = true }
