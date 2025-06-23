@@ -130,8 +130,10 @@
 - mini&#46;splitjoin
 - mini&#46;surround
 - mini&#46;tabline
+- neotest-golang
 - neotest-python
 - neotest-rust
+- nvim-dap-go
 - nvim-dap-python
 - nvim-nio
 - nvim-window-picker
