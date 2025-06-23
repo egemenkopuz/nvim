@@ -59,6 +59,7 @@ M.treesitter_packages = {
     "rst",
     "ninja",
     "rust",
+    "go",
     "ron",
     "requirements",
 }
@@ -88,6 +89,12 @@ M.mason_packages = {
     "isort",
     -- Rust
     "rust-analyzer",
+    -- go
+    "gopls",
+    "gofumpt",
+    "goimports",
+    "golangci-lint",
+    "delve",
     -- cpp
     "clangd",
     "clang-format",
@@ -125,6 +132,7 @@ M.linting = {
         terraform = { "tflint", "trivy" },
         terragrunt = { "trivy" },
         bash = { "trivy", "shellcheck", "bash" },
+        go = { "golangci_lint" },
     },
 }
 
@@ -149,6 +157,7 @@ M.formatting = {
         terraform = { "terraform_fmt", timeout_ms = 500, lsp_format = "prefer" },
         hcl = { "terragrunt_hclfmt", timeout_ms = 500, lsp_format = "prefer" },
         toml = { "taplo", timeout_ms = 500, lsp_format = "prefer" },
+        go = { "goimports", "gofumpt"}
     },
     formatters = {
         injected = { options = { ignore_errors = true } },

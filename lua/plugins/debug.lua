@@ -35,6 +35,7 @@ return {
         { "nvim-neotest/nvim-nio" },
         { "theHamsta/nvim-dap-virtual-text" },
         { "mfussenegger/nvim-dap-python" },
+        { "leoluz/nvim-dap-go" },
     },
     init = function()
         require("user.utils").load_keymap "dap"
@@ -99,5 +100,7 @@ return {
 
         require("dap-python").setup()
         require("dap-python").test_runner = "pytest"
+
+        require("dap-go").setup()
     end,
 }

@@ -52,6 +52,14 @@ return {
         version = false,
         lazy = false,
         priority = 999,
+        opts = {
+            file = {
+                [".go-version"] = { glyph = "", hl = "MiniIconsBlue" },
+            },
+            filetype = {
+                gotmpl = { glyph = "󰟓", hl = "MiniIconsGrey" },
+            },
+        },
         config = function(_, opts)
             require("mini.icons").setup(opts)
             MiniIcons.mock_nvim_web_devicons()

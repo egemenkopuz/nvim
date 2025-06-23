@@ -8,6 +8,7 @@ return {
             "nvim-treesitter/nvim-treesitter",
             "nvim-neotest/neotest-python",
             "rouge8/neotest-rust",
+            { "fredrikaverpil/neotest-golang", version = "*" },
         },
         init = function()
             require("user.utils").load_keymap "neotest"
@@ -35,6 +36,7 @@ return {
             opts.adapters = {
                 require "neotest-python" { dap = { justMyCode = false } },
                 require "neotest-rust",
+                require "neotest-golang",
                 -- require("neotest-gtest").setup {},
             }
 
