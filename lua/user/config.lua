@@ -105,7 +105,7 @@ M.mason_packages = {
     "docker-compose-language-service",
     "hadolint",
     -- md
-    "marksman",
+    -- "marksman",
     -- json
     "json-lsp",
     -- yaml
