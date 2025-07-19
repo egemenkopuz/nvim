@@ -19,7 +19,6 @@ return {
 
     {
         "smjonas/inc-rename.nvim",
-        dependencies = { "folke/noice.nvim" },
         event = "BufReadPre",
         opts = { save_in_cmdline_history = false },
         config = function(_, opts)
