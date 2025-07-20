@@ -75,11 +75,6 @@
 
 - [neotest](https://github.com/nvim-neotest/neotest) - An extensible framework for interacting with tests within Neovim.
 
-## Utility
-
-- [noice.nvim](https://github.com/folke/noice.nvim) - Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
-- [nvim-ufo](https://github.com/kevinhwang91/nvim-ufo) - Ultra fold with modern looking and performance boosting.
-
 ## Neovim Lua Development
 
 - [nui.nvim](https://github.com/MunifTanjim/nui.nvim) - UI Component Library.
@@ -95,6 +90,10 @@
 
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Neovim Tree-sitter configurations and abstraction layer.
 - [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) - Create your own textobjects using Tree-sitter queries.
+
+## Utility
+
+- [nvim-ufo](https://github.com/kevinhwang91/nvim-ufo) - Ultra fold with modern looking and performance boosting.
 
 ## Session
 
