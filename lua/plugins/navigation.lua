@@ -179,6 +179,7 @@ return {
                     local nlines = vim.api.nvim_buf_line_count(buf_id)
                     local cwd = vim.fs.root(buf_id, ".git")
                     local escapedcwd = cwd and vim.pesc(cwd)
+                    escapedcwd = vim.fs.normalize(escapedcwd)
 
                     for i = 1, nlines do
                         local entry = MiniFiles.get_fs_entry(buf_id, i)
@@ -197,15 +198,17 @@ return {
                             })
                             local line = vim.api.nvim_buf_get_lines(buf_id, i - 1, i, false)[1]
                             -- Find the name position accounting for potential icons
-                            local nameStartCol = line:find(vim.pesc(entry.name)) or 0
-                            if nameStartCol > 0 then
-                                vim.api.nvim_buf_add_highlight(
+                            local name_start_col = line:find(vim.pesc(entry.name)) or 0
+                            if name_start_col > 0 then
+                                vim.api.nvim_buf_set_extmark(
                                     buf_id,
                                     ns_minifiles,
-                                    hl_group,
                                     i - 1,
-                                    nameStartCol - 1,
-                                    nameStartCol + #entry.name - 1
+                                    name_start_col - 1,
+                                    {
+                                        end_col = name_start_col + #entry.name - 1,
+                                        hl_group = hl_group,
+                                    }
                                 )
                             end
                         else
