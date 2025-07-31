@@ -2,12 +2,34 @@ return {
     {
         "CopilotC-Nvim/CopilotChat.nvim",
         branch = "main",
+        version = "v3.12.2",
         cmd = { "CopilotChat", "CopilotChatModels", "CopilotChatPrompts" },
         build = "make tiktoken",
-        dependencies = { "MeanderingProgrammer/render-markdown.nvim" },
+        dependencies = {
+            "MeanderingProgrammer/render-markdown.nvim",
+            {
+                "Davidyz/VectorCode",
+                version = "*",
+                opts = {
+                    async_backend = "lsp",
+                    on_setup = { lsp = true },
+                    notify = true,
+                },
+                dependencies = { "nvim-lua/plenary.nvim" },
+                build = "uv tool upgrade 'vectorcode[lsp]'",
+                cmd = "VectorCode",
+            },
+        },
         opts = function()
             local icons = require "user.icons"
             local user = vim.env.USER or "User"
+            local vectorcode_ctx =
+                require("vectorcode.integrations.copilotchat").make_context_provider {
+                    prompt_header = "Here are relevant files from the repository:", -- Customize header text
+                    prompt_footer = "\nConsider this context when answering:", -- Customize footer text
+                    skip_empty = true, -- Skip adding context when no files are retrieved
+                    max_num = 2, -- Maximum number of files to retrieve
+                }
             user = user:sub(1, 1):upper() .. user:sub(2)
             return {
                 allow_insecure = false,
@@ -34,6 +56,7 @@ return {
                     local select = require "CopilotChat.select"
                     return select.visual(source) or select.buffer(source)
                 end,
+                contexts = { vectorcode = vectorcode_ctx },
                 mappings = {
                     complete = { detail = "Use @<Tab> or /<Tab> for options.", insert = "<Tab>" },
                     close = { normal = "q", insert = "<C-c>" },
