@@ -3,7 +3,6 @@
 ## AI
 
 - [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) - A chat interface for GitHub Copilot that allows you to directly ask and receive answers to coding-related questions.
-- [VectorCode](https://github.com/davidyz/vectorcode) - Supercharge your LLM experience with repository-level RAG.
 
 ## Split and Window
 
@@ -26,10 +25,6 @@
 
 - [diffview.nvim](https://github.com/sindrets/diffview.nvim) - Single tabpage interface for easily cycling through diffs for all modified files for any Git rev.
 - [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) - Git integration: signs, hunk actions, blame, etc.
-
-## Motion
-
-- [flash.nvim](https://github.com/folke/flash.nvim) - Navigate your code with search labels, enhanced character motions and Tree-sitter integration.
 
 ## Snippet
 
@@ -120,6 +115,7 @@
 
 - FixCursorHold&#46;nvim
 - ash&#46;nvim
+- black-metal-theme-neovim
 - blink-cmp-copilot
 - blink-ripgrep&#46;nvim
 - mini&#46;ai
@@ -131,7 +127,6 @@
 - mini&#46;map
 - mini&#46;move
 - mini&#46;splitjoin
-- mini&#46;surround
 - mini&#46;tabline
 - neotest-golang
 - neotest-python
