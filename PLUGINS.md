@@ -30,7 +30,6 @@
 ## Motion
 
 - [flash.nvim](https://github.com/folke/flash.nvim) - Navigate your code with search labels, enhanced character motions and Tree-sitter integration.
-- [smear-cursor.nvim](https://github.com/sphamba/smear-cursor.nvim) - Animate the cursor with a smear effect in all terminals. Inspired by Neovide's animated cursor.
 
 ## Snippet
 
@@ -64,9 +63,14 @@
 
 - [lazy.nvim](https://github.com/folke/lazy.nvim) - A modern plugin manager, featuring a graphical interface, async execution, a lockfile and more.
 
+## Programming Languages Support
+
+- [live-preview.nvim](https://github.com/brianhuster/live-preview.nvim) - Live preview HTML, Markdown and Asciidoc in the browser.
+- [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) - Improve viewing Markdown files directly.
+
 ## Editing Support
 
-- [neogen](https://github.com/danymat/neogen) - A better annotation generator. Supports multiple languages and annotation conventions.
+- [neogen](https://github.com/danymat/neogen) - A better annotation generator which supports multiple languages and annotation conventions.
 - [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context) - Shows floating hover with the current function/block context.
 - [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag) - Use Tree-sitter to autoclose and autorename XML, HTML, JSX tag.
 - [nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) - Sets the `commentstring` option based on the cursor location in the file. The location is checked via Tree-sitter queries.
@@ -100,9 +104,9 @@
 
 - [persistence.nvim](https://github.com/folke/persistence.nvim) - Simple automated session management.
 
-## Programming Languages Support
+## Animation
 
-- [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) - Improve viewing markdown files directly.
+- [smear-cursor.nvim](https://github.com/sphamba/smear-cursor.nvim) - Animate the cursor with a smear effect in all terminals. Inspired by Neovide's animated cursor.
 
 ## Terminal Integration
 
@@ -118,7 +122,6 @@
 - ash&#46;nvim
 - blink-cmp-copilot
 - blink-ripgrep&#46;nvim
-- live-preview&#46;nvim
 - mini&#46;ai
 - mini&#46;bracketed
 - mini&#46;comment
