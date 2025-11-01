@@ -36,7 +36,10 @@ return {
             opts.adapters = {
                 require "neotest-python" { dap = { justMyCode = false } },
                 require "neotest-rust",
-                require "neotest-golang",
+                require "neotest-golang" {
+                    runner = "gotestsum",
+                    -- testify_enabled = false,
+                },
                 -- require("neotest-gtest").setup {},
             }
 

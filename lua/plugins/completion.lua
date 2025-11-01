@@ -1,7 +1,7 @@
 return {
     {
         "saghen/blink.cmp",
-        branch = "main",
+        version = "1.*",
         build = "cargo build --release",
         opts_extend = {
             "sources.completion.enabled_providers",
@@ -29,7 +29,23 @@ return {
                     ["<C-g>"] = { require("user.utils").accept_ai_suggestion },
                     ["<C-space>"] = { "show", "hide" },
                 },
-                cmdline = { enabled = false },
+                cmdline = {
+                    enabled = true,
+                    keymap = {
+                        preset = "cmdline",
+                        ["<Right>"] = false,
+                        ["<Left>"] = false,
+                    },
+                    completion = {
+                        list = { selection = { preselect = false } },
+                        menu = {
+                            auto_show = function(ctx)
+                                return vim.fn.getcmdtype() == ":"
+                            end,
+                        },
+                        ghost_text = { enabled = true },
+                    },
+                },
                 term = { enabled = false },
                 completion = {
                     accept = { auto_brackets = { enabled = true } },
@@ -69,11 +85,6 @@ return {
                             score_offset = 5,
                             fallbacks = { "lazydev" },
                         },
-                        -- lazydev = {
-                        --     name = "LazyDev",
-                        --     module = "lazydev.integrations.blink",
-                        --     score_offset = 100,
-                        -- },
                         copilot = {
                             name = "copilot",
                             module = "blink-cmp-copilot",

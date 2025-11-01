@@ -418,14 +418,14 @@ return {
         end,
     },
 
-    {
-        "folke/flash.nvim",
-        event = "VeryLazy",
-        opts = {},
-        init = function()
-            require("user.utils").load_keymap "flash"
-        end,
-    },
+    -- {
+    --     "folke/flash.nvim",
+    --     event = "VeryLazy",
+    --     opts = {},
+    --     init = function()
+    --         require("user.utils").load_keymap "flash"
+    --     end,
+    -- },
 
     {
         "echasnovski/mini.bracketed",

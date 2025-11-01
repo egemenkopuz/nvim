@@ -63,7 +63,7 @@ M.general = {
     LspReferenceWrite = { link = "LspReferenceText" },
     -- mini.files
     MiniFilesTitleFocused = { fg = colors.custom.light_red, bold = true },
-    StatusLineBackground = { bg = colors.general.status_line_bg },
+    -- StatusLineBackground = { bg = colors.general.status_line_bg },
     SnacksNotifierBorderInfo = { link = "FloatBorder" },
     SnacksNotifierBorderWarn = { link = "FloatBorder" },
     SnacksNotifierBorderDebug = { link = "FloatBorder" },

@@ -8,7 +8,7 @@ vim.g.transparent = vim.env.NVIM_TRANSPARENT == "true"
 
 -- main configurations
 
-M.colorscheme = "ash"
+M.colorscheme = "black-metal"
 M.logo = icons.dashboard
 M.borders = icons.borders.sharp
 M.copilot_chat_window_alt_opts = { layout = "vertical", width = 0.5, height = 0.5 }
@@ -60,6 +60,9 @@ M.treesitter_packages = {
     "ninja",
     "rust",
     "go",
+    "gomod",
+    "gosum",
+    "gowork",
     "ron",
     "requirements",
 }
@@ -129,7 +132,8 @@ M.linting = {
         c = { "cppcheck", "clang_tidy" },
         cpp = { "cppcheck", "clang_tidy" },
         ghaction = { "actionlint" },
-        terraform = { "tflint", "trivy" },
+        terraform = { "terraform_validate", "tflint", "trivy" },
+        tf = { "terraform_validate" },
         terragrunt = { "trivy" },
         bash = { "trivy", "shellcheck", "bash" },
         go = { "golangci_lint" },
@@ -146,6 +150,8 @@ M.formatting = {
         cmake = { "cmake_format", timeout_ms = 500, lsp_format = "prefer" },
         rust = { "rustfmt", lsp_format = "fallback" },
         sh = { "shfmt", "shellcheck" },
+        css = { "prettier", timeout_ms = 500, lsp_format = "prefer" },
+        html = { "prettier", timeout_ms = 500, lsp_format = "prefer" },
         markdown = { "prettier", timeout_ms = 500, lsp_format = "prefer" },
         javascript = { "prettier", timeout_ms = 500, lsp_format = "fallback" },
         javascriptreact = { "prettier", timeout_ms = 500, lsp_format = "fallback" },
@@ -154,10 +160,12 @@ M.formatting = {
         yaml = { "prettier", timeout_ms = 500, lsp_format = "prefer" },
         typescript = { "prettier",timeout_ms = 500, lsp_format = "fallback" },
         typescriptreact = { "prettier", timeout_ms = 500, lsp_format = "fallback" },
-        terraform = { "terraform_fmt", timeout_ms = 500, lsp_format = "prefer" },
-        hcl = { "terragrunt_hclfmt", timeout_ms = 500, lsp_format = "prefer" },
+        hcl = { "packer_fmt" },
+        terraform = { "terraform_fmt" },
+        tf = { "terraform_fmt" },
+        ["terraform-vars"] = { "terraform_fmt" },
         toml = { "taplo", timeout_ms = 500, lsp_format = "prefer" },
-        go = { "goimports", "gofumpt"}
+        go = { "goimports", "gofumpt", "golines" },
     },
     formatters = {
         injected = { options = { ignore_errors = true } },
@@ -166,6 +174,20 @@ M.formatting = {
             append_args = function()
                 return { "--style={BasedOnStyle: Google, IndentWidth: 4}" }
             end,
+        },
+
+        goimports = { args = { "-srcdir", "$FILENAME" } },
+        gofumpt = {
+            stdin = false,
+            prepend_args = { "-extra", "-w", "$FILENAME" },
+        },
+        golines = {
+            prepend_args = {
+                "--base-formatter=gofumpt",
+                "--ignore-generated",
+                "--tab-len=1",
+                "--max-len=120",
+            },
         },
     },
 }
@@ -208,7 +230,7 @@ M.diagnostics = {
             [vim.diagnostic.severity.HINT] = icons.diagnostics.hint,
         },
     },
-    underline = true,
+    underline = false,
     update_in_insert = false,
     virtual_text = false,
     severity_sort = true,

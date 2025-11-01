@@ -1,7 +1,8 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        version = false,
+        -- version = false,
+        branch = "main",
         build = ":TSUpdate",
         event = { "BufReadPost", "BufNewFile" },
         dependencies = {
@@ -14,7 +15,7 @@ return {
         },
         init = function(plugin)
             require("lazy.core.loader").add_to_rtp(plugin)
-            require "nvim-treesitter.query_predicates"
+            -- require "nvim-treesitter.query_predicates"
         end,
         opts = function()
             return {
@@ -41,11 +42,28 @@ return {
             }
         end,
         config = function(_, opts)
+            local utils = require "user.utils"
             require("nvim-ts-autotag").setup()
-            require("nvim-treesitter.configs").setup(opts)
             require("treesitter-context").setup()
             require("ts_context_commentstring").setup { enable_autocmd = false }
 
+            local treesitter = require "nvim-treesitter"
+            treesitter.setup {}
+            treesitter.install(
+                utils.except(require("user.config").treesitter_packages, treesitter.get_installed())
+            )
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function(args)
+                    if
+                        vim.list_contains(
+                            treesitter.get_installed(),
+                            vim.treesitter.language.get_lang(args.match)
+                        )
+                    then
+                        vim.treesitter.start(args.buf)
+                    end
+                end,
+            })
             vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "none" })
             vim.api.nvim_set_hl(0, "TreesitterContextLineNumberBottom", { underline = true })
 
@@ -150,26 +168,26 @@ return {
         end,
     },
 
-    {
-        "echasnovski/mini.surround",
-        event = "BufReadPre",
-        opts = {
-            search_method = "cover",
-            highlight_duration = 500,
-            mappings = {
-                add = "gsa", -- Add surrounding in Normal and Visual modes
-                delete = "gsd", -- Delete surrounding
-                find = "", -- Find surrounding (to the right)
-                find_left = "", -- Find surrounding (to the left)
-                highlight = "", -- Highlight surrounding
-                replace = "gsr", -- Replace surrounding
-                update_n_lines = "", -- Update `n_lines`
-            },
-        },
-        config = function(_, opts)
-            require("mini.surround").setup(opts)
-        end,
-    },
+    -- {
+    --     "echasnovski/mini.surround",
+    --     event = "BufReadPre",
+    --     opts = {
+    --         search_method = "cover",
+    --         highlight_duration = 500,
+    --         mappings = {
+    --             add = "gsa", -- Add surrounding in Normal and Visual modes
+    --             delete = "gsd", -- Delete surrounding
+    --             find = "", -- Find surrounding (to the right)
+    --             find_left = "", -- Find surrounding (to the left)
+    --             highlight = "", -- Highlight surrounding
+    --             replace = "gsr", -- Replace surrounding
+    --             update_n_lines = "", -- Update `n_lines`
+    --         },
+    --     },
+    --     config = function(_, opts)
+    --         require("mini.surround").setup(opts)
+    --     end,
+    -- },
 
     {
         "echasnovski/mini.comment",

@@ -101,6 +101,17 @@ return {
         require("dap-python").setup()
         require("dap-python").test_runner = "pytest"
 
-        require("dap-go").setup()
+        require("dap-go").setup {
+            dap_configurations = {
+                {
+                    type = "go",
+                    name = "Debug (Build Flags & Arguments)",
+                    request = "launch",
+                    program = "${file}",
+                    args = require("dap-go").get_arguments,
+                    buildFlags = require("dap-go").get_build_flags,
+                },
+            },
+        }
     end,
 }

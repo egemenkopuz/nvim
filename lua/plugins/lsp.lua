@@ -22,11 +22,7 @@ return {
 
     {
         "linux-cultist/venv-selector.nvim",
-        dependencies = {
-            -- "neovim/nvim-lspconfig",
-            "mfussenegger/nvim-dap-python",
-        },
-        branch = "regexp",
+        dependencies = { "mfussenegger/nvim-dap-python" },
         ft = "python",
         cmd = { "VenvSelect" },
         opts = { picker = "native" },

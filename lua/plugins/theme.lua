@@ -56,7 +56,12 @@ return {
                     -- stylua: ignore end
                 end
                 out["TreesitterContextLineNumber"] = { fg = "#4f4f4f", bg = "#19191a" }
-                out["@variable.parameter"] = { fg = "#6d889a" }
+                out["SnacksIndentScope"] = { fg = "#4f4f4f" }
+                out["SnacksIndentBlank"] = { fg = "#4f4f4f" }
+                out["SnacksIndent"] = { fg = "#4f4f4f" }
+                out["@variable.parameter"] = { fg = "#ccc7ca" }
+                out["@string.documentation"] = { fg = "#908d8f" }
+                out["Comment"] = { fg = "#908d8f" }
                 out["SnacksDashboardDesc"] = { fg = "#B7B7B7" }
                 out["RenderMarkdownCode"] = { fg = "#8a9a7b", bg = "#1e1e1e" }
                 out["LspInlayHint"] = { fg = "#838383", italic = true }
@@ -67,6 +72,31 @@ return {
         config = function(_, opts)
             require("ash").setup(opts)
             vim.cmd.colorscheme "ash"
+        end,
+    },
+
+    {
+        "metalelf0/black-metal-theme-neovim",
+        enabled = require("user.utils").colorscheme_selection "black-metal",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            local out = require("user.highlights").general
+            out = vim.tbl_deep_extend("force", out, require("user.highlights").dim)
+            require("black-metal").setup {
+                theme = "khold",
+                colored_docstrings = false,
+                highlights = {
+                    ["@variable.parameter"] = { fg = "#ccc7ca" },
+                    ["@lsp.type.parameter"] = { fg = "#8eaff2", fmt = "italic" },
+                    ["@function"] = { fg = "#8a9a7b", fmt = "bold" },
+                },
+            }
+            require("black-metal").load()
+
+            for group, settings in pairs(out) do
+                vim.api.nvim_set_hl(0, group, settings)
+            end
         end,
     },
 }
