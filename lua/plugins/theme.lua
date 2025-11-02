@@ -99,4 +99,16 @@ return {
             end
         end,
     },
+
+    {
+        dir = "../",
+        enabled = require("user.utils").colorscheme_selection "custom",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+        config = function(_, opts)
+            require("custom_theme").setup(opts)
+            require("custom_theme").load()
+        end,
+    },
 }

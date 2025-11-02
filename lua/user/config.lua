@@ -8,7 +8,7 @@ vim.g.transparent = vim.env.NVIM_TRANSPARENT == "true"
 
 -- main configurations
 
-M.colorscheme = "black-metal"
+M.colorscheme = "custom"
 M.logo = icons.dashboard
 M.borders = icons.borders.sharp
 M.copilot_chat_window_alt_opts = { layout = "vertical", width = 0.5, height = 0.5 }
