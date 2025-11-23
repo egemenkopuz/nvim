@@ -19,10 +19,10 @@ M.setup = function()
         Character = { fg = colors.string }, -- character constants
         Comment = { fg = colors.comment }, -- comments
         Conceal = { fg = colors.comment }, -- concealed text
-        Conditional = { fg = colors.type },
+        -- Conditional = { fg = colors.todo }, -- TODO find out what this is exactly
         Constant = { fg = colors.constant }, -- constants
         String = { fg = colors.string }, -- string literals
-        Define = { fg = colors.type },
+        -- Define = { fg = colors.todo }, -- TODO find out what this is exactly
         Directory = { fg = colors.g_2 },
         EndOfBuffer = { fg = colors.bg },
         Error = { fg = colors.error },
@@ -31,24 +31,24 @@ M.setup = function()
         Folded = { fg = colors.g_5 },
         Function = { fg = colors.fn, bold = true }, -- function names
         Identifier = { fg = colors.g_3 },
-        Include = { fg = colors.namespace },
+        -- Include = { fg = colors.todo }, -- TODO find out what this is exactly
         Keyword = { fg = colors.g_6, italic = false }, -- keywords
-        Label = { fg = colors.cyan },
+        -- Label = { fg = colors.todo }, -- TODO find out what this is exactly
         LineNr = { fg = colors.g_6 },
         Macro = { fg = colors.constant },
         NonText = { fg = colors.g_7 },
         Number = { fg = colors.constant },
-        PreCondit = { fg = colors.type },
-        PreProc = { fg = colors.type },
-        Question = { fg = colors.type },
-        Repeat = { fg = colors.type },
+        -- PreCondit = { fg = colors.todo }, -- TODO find out what this is exactly
+        -- PreProc = { fg = colors.todo }, -- TODO find out what this is exactly
+        -- Question = { fg = colors.todo }, -- TODO find out what this is exactly
+        -- Repeat = { fg = colors.todo }, -- TODO find out what this is exactly
         Special = { fg = colors.red_ember, italic = false },
         SpecialComment = { fg = colors.comment, italic = false },
         SpecialKey = { fg = colors.nontext },
-        Statement = { fg = colors.class },
+        Statement = { fg = colors.lilac },
         Structure = { fg = colors.namespace },
         Type = { fg = colors.cyan_dark },
-        TypeDef = { fg = colors.type },
+        -- TypeDef = { fg = colors.todo }, -- TODO find out what this is exactly
 
         -- treesitter
         ["@type"] = { fg = colors.red_burnt_crimson, italic = false },
@@ -132,6 +132,19 @@ M.setup = function()
         NeotestDir = { link = "DiagnosticInfo" },
         NeotestWinSelect = { link = "DiagnosticInfo" },
         NeotestAdapterName = { fg = colors.fg, bold = true },
+
+        -- mini.patterns
+        MiniHipatternsFix = { fg = colors.fg, bg = colors.pattern_fix },
+        MiniHipatternsHack = { fg = colors.bg, bg = colors.pattern_hack },
+        MiniHipatternsWarn = { fg = colors.bg, bg = colors.pattern_warn },
+        MiniHipatternsTodo = { fg = colors.bg, bg = colors.pattern_todo },
+        MiniHipatternsPerf = { fg = colors.bg, bg = colors.pattern_perf },
+        MiniHipatternsNote = { fg = colors.bg, bg = colors.pattern_note },
+
+        -- dap
+        DapBreakpoint = { bg = colors.g_8 },
+        DapLogPoint = { bg = colors.g_8 },
+        DapStopped = { fg = colors.fg, bg = colors.red_glowing },
     }
 end
 

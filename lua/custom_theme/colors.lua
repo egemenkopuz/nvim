@@ -72,6 +72,13 @@ local M = {
     added = "#73bd73",
     modified = "#ebbf7f",
     removed = "#db7572",
+
+    pattern_fix = "#db7572",
+    pattern_hack = "#ebbf7f",
+    pattern_warn = "#ffcc00",
+    pattern_todo = "#80C4E9",
+    pattern_perf = "#bb9af7",
+    pattern_note = "#10b981",
 }
 
 return M
