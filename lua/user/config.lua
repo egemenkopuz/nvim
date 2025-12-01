@@ -122,6 +122,10 @@ M.mason_packages = {
     "actionlint",
     -- toml
     "taplo",
+    -- html
+    "html-lsp",
+    -- css
+    "css-lsp",
 }
 
 M.linting = {

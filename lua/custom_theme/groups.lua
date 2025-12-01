@@ -19,10 +19,10 @@ M.setup = function()
         Character = { fg = colors.string }, -- character constants
         Comment = { fg = colors.comment }, -- comments
         Conceal = { fg = colors.comment }, -- concealed text
-        Conditional = { fg = colors.todo }, -- TODO find out what this is exactly
+        Conditional = { fg = colors.type },
         Constant = { fg = colors.constant }, -- constants
         String = { fg = colors.string }, -- string literals
-        Define = { fg = colors.todo }, -- TODO find out what this is exactly
+        Define = { fg = colors.type },
         Directory = { fg = colors.g_2 },
         EndOfBuffer = { fg = colors.bg },
         Error = { fg = colors.error },
@@ -31,24 +31,24 @@ M.setup = function()
         Folded = { fg = colors.g_5 },
         Function = { fg = colors.fn, bold = true }, -- function names
         Identifier = { fg = colors.g_3 },
-        Include = { fg = colors.todo }, -- TODO find out what this is exactly
+        Include = { fg = colors.namespace },
         Keyword = { fg = colors.g_6, italic = false }, -- keywords
-        Label = { fg = colors.todo }, -- TODO find out what this is exactly
+        Label = { fg = colors.cyan },
         LineNr = { fg = colors.g_6 },
         Macro = { fg = colors.constant },
         NonText = { fg = colors.g_7 },
         Number = { fg = colors.constant },
-        PreCondit = { fg = colors.todo }, -- TODO find out what this is exactly
-        PreProc = { fg = colors.todo }, -- TODO find out what this is exactly
-        Question = { fg = colors.todo }, -- TODO find out what this is exactly
-        Repeat = { fg = colors.todo }, -- TODO find out what this is exactly
+        PreCondit = { fg = colors.type },
+        PreProc = { fg = colors.type },
+        Question = { fg = colors.type },
+        Repeat = { fg = colors.type },
         Special = { fg = colors.red_ember, italic = false },
         SpecialComment = { fg = colors.comment, italic = false },
         SpecialKey = { fg = colors.nontext },
-        Statement = { fg = colors.todo }, -- TODO find out what this is exactly
+        Statement = { fg = colors.class },
         Structure = { fg = colors.namespace },
         Type = { fg = colors.cyan_dark },
-        TypeDef = { fg = colors.todo }, -- TODO find out what this is exactly
+        TypeDef = { fg = colors.type },
 
         -- treesitter
         ["@type"] = { fg = colors.red_burnt_crimson, italic = false },
