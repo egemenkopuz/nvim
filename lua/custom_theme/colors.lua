@@ -34,6 +34,7 @@ local M = {
     g_11 = "#191919",
     g_12 = "#151515",
 
+    ok = "#73bd73",
     info = "#8ebeec",
     hint = "#82a0aa",
     warn = "#ebbf7f",
