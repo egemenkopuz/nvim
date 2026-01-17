@@ -3,14 +3,11 @@ return {
         "saghen/blink.cmp",
         version = "1.*",
         build = "cargo build --release",
-        opts_extend = {
-            "sources.completion.enabled_providers",
-            "sources.compat",
-        },
         dependencies = {
             "rafamadriz/friendly-snippets",
             { "giuxtaposition/blink-cmp-copilot", dependencies = "zbirenbaum/copilot.lua" },
             "mikavilpas/blink-ripgrep.nvim",
+            "marcoSven/blink-cmp-yanky",
         },
         lazy = false,
         opts = function()
@@ -22,6 +19,9 @@ return {
             end
 
             local opts = {
+                fuzzy = {
+                    implementation = "prefer_rust_with_warning",
+                },
                 keymap = {
                     preset = "default",
                     ["<C-e>"] = {},
@@ -112,19 +112,30 @@ return {
                                 return items
                             end,
                         },
+                        yank = {
+                            name = "yank",
+                            module = "blink-yanky",
+                            opts = {
+                                minLength = 5,
+                                onlyCurrentFiletype = true,
+                                trigger_characters = { '"' },
+                                kind_icon = "󰅍",
+                            },
+                        },
                     },
                     default = {
                         "lsp",
                         "path",
                         "copilot",
-                        "snippets",
                         "buffer",
                         "ripgrep",
+                        "yank",
+                        "snippets",
                         -- "lazydev",
                     },
                 },
                 appearance = {
-                    use_nvim_cmp_as_default = true,
+                    use_nvim_cmp_as_default = false,
                     nerd_font_variant = "mono",
                     kind_icons = kind_icons,
                 },
@@ -146,22 +157,22 @@ return {
             end
 
             -- check if we need to override symbol kinds
-            for _, provider in pairs(opts.sources.providers or {}) do
-                if provider.kind then
-                    require("blink.cmp.types").CompletionItemKind[provider.kind] = provider.kind
-                    local transform_items = provider.transform_items
-                    provider.transform_items = function(ctx, items)
-                        items = transform_items and transform_items(ctx, items) or items
-                        for _, item in ipairs(items) do
-                            item.kind = provider.kind or item.kind
-                        end
-                        return items
-                    end
-                end
-
-                -- Unset custom prop to pass blink.cmp validation
-                provider.kind = nil
-            end
+            -- for _, provider in pairs(opts.sources.providers or {}) do
+            --     if provider.kind then
+            --         require("blink.cmp.types").CompletionItemKind[provider.kind] = provider.kind
+            --         local transform_items = provider.transform_items
+            --         provider.transform_items = function(ctx, items)
+            --             items = transform_items and transform_items(ctx, items) or items
+            --             for _, item in ipairs(items) do
+            --                 item.kind = provider.kind or item.kind
+            --             end
+            --             return items
+            --         end
+            --     end
+            --
+            --     -- Unset custom prop to pass blink.cmp validation
+            --     provider.kind = nil
+            -- end
             require("blink.cmp").setup(opts)
         end,
     },

@@ -1,127 +1,223 @@
 local M = {}
 
 local colors = require "custom_theme.colors"
+local utils = require "custom_theme.utils"
 
 M.setup = function()
     return {
-        Float = { fg = colors.g_5, bg = colors.bg },
+        -- basic
         Normal = { fg = colors.fg, bg = colors.bg },
-        NormalFloat = { fg = colors.g_6, bg = colors.bg },
-        NormalFloatBorder = { fg = colors.g_10 },
-        CursorLineNr = { fg = colors.red_glowing, bold = true },
-
-        Title = { fg = colors.red_glowing, bold = true },
-        FloatTitle = { fg = colors.fg, bold = true },
-        Visual = { bg = colors.g_8 }, -- visual selection
-        Substitute = { bg = colors.g_8 }, -- %s
-
-        Boolean = { fg = colors.constant }, -- boolean values
-        Character = { fg = colors.string }, -- character constants
-        Comment = { fg = colors.comment }, -- comments
-        Conceal = { fg = colors.comment }, -- concealed text
-        -- Conditional = { fg = colors.todo }, -- TODO find out what this is exactly
-        Constant = { fg = colors.constant }, -- constants
-        String = { fg = colors.string }, -- string literals
-        -- Define = { fg = colors.todo }, -- TODO find out what this is exactly
-        Directory = { fg = colors.g_2 },
-        EndOfBuffer = { fg = colors.bg },
-        Error = { fg = colors.error },
-        ErrorMsg = { fg = colors.error },
+        NormalFloat = { fg = colors.fg_light, bg = colors.bg },
+        FloatBorder = { fg = colors.border, bg = colors.bg },
+        Cursor = { fg = colors.fg, bg = colors.fg },
+        TermCursor = { link = "Cursor" },
+        lCursor = { link = "Cursor" },
+        CursorIM = { link = "Cursor" },
+        CursorColumn = { link = "Cursor" },
+        CursorLine = { bg = colors.line },
+        ColorColumn = { bg = colors.line },
+        CursorLineNr = { fg = colors.select, bold = true },
+        LineNr = { fg = colors.comment },
+        StatusLine = { fg = colors.fg, bg = "none" },
+        StatusLineNC = { link = "Normal" },
+        StatusLineTerm = { link = "StatusLine" },
+        StatusLineTermNC = { link = "StatusLineNC" },
+        WinBar = { link = "Normal" },
+        WinBarNC = { link = "Normal" },
+        WinSeparator = { fg = colors.border },
+        Pmenu = { bg = colors.bg },
+        PmenuSel = { fg = colors.select, bg = colors.g_10, bold = true },
+        PmenuThumb = { bg = colors.select },
+        PmenuMatch = { fg = colors.const, bold = true },
+        Visual = { bg = colors.g_8 },
+        Search = { fg = colors.highlight },
+        IncSearch = { link = "Search" },
+        CurSearch = { fg = colors.bg, bg = colors.highlight },
+        MatchParen = { fg = colors.highlight, underline = true },
+        NonText = { fg = colors.non_text },
+        EndOfBuffer = { fg = colors.line },
+        Question = { fg = colors.const },
+        MoreMsg = { link = "Question" },
+        ErrorMsg = { fg = colors.danger },
+        WarningMsg = { link = "Question" },
+        ModeMsg = { link = "Question" },
+        Directory = { fg = colors.info },
+        QuickFixLine = { fg = colors.const, underline = true },
+        qfLineNr = { fg = colors.comment },
+        TabLineSel = { fg = colors.select, bg = colors.line },
+        Title = { fg = colors.select, bold = true },
+        DiffAdd = { fg = colors.added, bg = utils.blend(colors.added, colors.bg, 0.2) },
+        DiffChange = { fg = colors.modified, bg = utils.blend(colors.modified, colors.bg, 0.2) },
+        DiffDelete = { fg = colors.removed, bg = utils.blend(colors.removed, colors.bg, 0.2) },
+        DiffText = { fg = colors.modified, bg = utils.blend(colors.modified, colors.bg, 0.4) },
+        Substitute = { fg = colors.modified }, -- %s
         FoldColumn = {},
-        Folded = { fg = colors.g_5 },
-        Function = { fg = colors.fn, bold = true }, -- function names
-        Identifier = { fg = colors.g_3 },
-        -- Include = { fg = colors.todo }, -- TODO find out what this is exactly
-        Keyword = { fg = colors.g_6, italic = false }, -- keywords
-        -- Label = { fg = colors.todo }, -- TODO find out what this is exactly
-        LineNr = { fg = colors.g_6 },
-        Macro = { fg = colors.constant },
-        NonText = { fg = colors.g_7 },
-        Number = { fg = colors.constant },
-        -- PreCondit = { fg = colors.todo }, -- TODO find out what this is exactly
-        -- PreProc = { fg = colors.todo }, -- TODO find out what this is exactly
-        -- Question = { fg = colors.todo }, -- TODO find out what this is exactly
-        -- Repeat = { fg = colors.todo }, -- TODO find out what this is exactly
-        Special = { fg = colors.red_ember, italic = false },
-        SpecialComment = { fg = colors.comment, italic = false },
-        SpecialKey = { fg = colors.nontext },
-        Statement = { fg = colors.lilac },
+        Folded = { fg = colors.comment, bg = colors.g_10 },
+        -- syntax
+        Comment = { fg = colors.comment },
+        Constant = { fg = colors.const },
+        String = { fg = colors.string },
+        Character = { link = "String" },
+        Number = { fg = colors.const },
+        Boolean = { fg = colors.const },
+        Float = { fg = colors.const },
+        Identifier = { link = "Normal" },
+        Function = { fg = colors.func, bold = false },
+        Keyword = { fg = colors.keyword },
+        Statement = { link = "Keyword" },
+        Conditional = { link = "Keyword" },
+        Repeat = { link = "Keyword" },
+        Label = { link = "Keyword" },
+        Operator = { link = "Keyword" },
+        Exception = { link = "Keyword" },
+        PreProc = { link = "Normal" },
+        Include = { link = "Keyword" },
+        Define = { link = "Keyword" },
+        Macro = { link = "Constant" },
+        PreCondit = { link = "Keyword" },
+        Type = { fg = colors.type, bold = false },
+        StorageClass = { link = "Keyword" },
         Structure = { fg = colors.namespace },
-        Type = { fg = colors.cyan_dark },
-        -- TypeDef = { fg = colors.todo }, -- TODO find out what this is exactly
-
+        Typedef = { link = "Keyword" },
+        Special = { link = "Normal" },
+        SpecialChar = { link = "Special" },
+        Tag = { link = "Normal" },
+        Delimiter = { fg = colors.emphasis },
+        SpecialComment = { link = "Comment" },
+        Debug = { fg = colors.const },
+        Underlined = { underline = true },
+        Error = { fg = colors.error },
+        Added = { fg = colors.added },
+        Changed = { fg = colors.modified },
+        Removed = { fg = colors.modified },
         -- treesitter
-        ["@type"] = { fg = colors.red_burnt_crimson, italic = false },
-        ["@variable"] = { fg = colors.g_4 },
-        ["@variable.parameter"] = { fg = colors.g_1 },
-        ["@string.documentation"] = { fg = colors.comment },
-        ["@function"] = { fg = colors.fn, bold = true },
-        ["@property.json"] = { fg = colors.fn, bold = true },
-
-        -- lsp semantic tokens
-        ["@lsp.typemod.variable.readonly"] = { fg = colors.constant, bold = true },
-        ["@lsp.mod.interface.go"] = { fg = colors.red_burnt_crimson, bold = true },
-        ["@lsp.typemod.parameter.interface.go"] = { fg = colors.g_3, bold = true },
-
-        Pmenu = { link = "float" },
-        PmenuSbar = { bg = colors.transparent_blue },
-        PmenuSel = { fg = colors.selection, bg = colors.g_10 },
-        PmenuThumb = { fg = colors.selection },
-
-        -- LSP References, while hovering over a symbol
+        ["@variable"] = { fg = colors.fg_dim },
+        ["@variable.builtin"] = { link = "Constant" }, -- e.g. this, self
+        ["@variable.parameter"] = { link = "Identifier" },
+        ["@variable.parameter.builtin"] = { link = "Identifier" },
+        ["@variable.member"] = { link = "Identifier" },
+        ["@constant"] = { link = "Constant" },
+        ["@constant.macro"] = { link = "Constant" },
+        ["@constant.builtin"] = { link = "Constant" },
+        ["@module"] = { link = "Structure" },
+        ["@module.builtin"] = { link = "Special" },
+        ["@label"] = { link = "Structure" },
+        ["@string"] = { link = "String" },
+        ["@string.documentation"] = { link = "Comment" },
+        ["@string.regexp"] = { link = "String" },
+        ["@string.escape"] = { link = "Special" },
+        ["@string.special"] = { link = "Special" },
+        ["@string.special.symbol"] = { link = "Special" },
+        ["@string.special.path"] = { link = "Special" },
+        ["@string.special.url"] = { link = "Underlined" },
+        ["@character"] = { link = "Character" },
+        ["@character.special"] = { link = "Special" },
+        ["@boolean"] = { link = "Boolean" },
+        ["@number"] = { link = "Number" },
+        ["@number.float"] = { link = "Number" },
+        ["@type"] = { link = "Type" },
+        ["@type.builtin"] = { link = "Type" },
+        ["@type.definition"] = { link = "Type" },
+        ["@attribute"] = { link = "Keyword" },
+        ["@attribute.builtin"] = { link = "Keyword" },
+        ["@property"] = { link = "Identifier" },
+        ["@function"] = { link = "Function" },
+        ["@function.builtin"] = { link = "Function" },
+        ["@function.call"] = { link = "Function" },
+        ["@function.macro"] = { link = "Macro" },
+        ["@function.method"] = { link = "Function" },
+        ["@function.method.call"] = { link = "Function" },
+        ["@constructor"] = { link = "Identifier" },
+        ["@operator"] = { link = "Operator" },
+        ["@keyword"] = { link = "Keyword" },
+        ["@keyword.coroutine"] = { link = "Keyword" },
+        ["@keyword.function"] = { link = "Keyword" },
+        ["@keyword.operator"] = { link = "Operator" },
+        ["@keyword.import"] = { link = "Include" },
+        ["@keyword.type"] = { link = "Keyword" },
+        ["@keyword.modifier"] = { link = "Keyword" },
+        ["@keyword.repeat"] = { link = "Repeat" },
+        ["@keyword.return"] = { fg = colors.emphasis },
+        ["@keyword.debug"] = { link = "Keyword" },
+        ["@keyword.exception"] = { link = "Exception" },
+        ["@keyword.conditional"] = { link = "Conditional" },
+        ["@keyword.conditional.ternary"] = { link = "Conditional" },
+        ["@keyword.directive"] = { link = "Keyword" },
+        ["@keyword.directive.define"] = { link = "Keyword" },
+        ["@punctuation"] = { link = "Keyword" },
+        ["@punctuation.delimiter"] = { link = "Identifier" },
+        ["@punctuation.bracket"] = { link = "Delimiter" },
+        ["@punctuation.special"] = { link = "Delimiter" },
+        ["@comment"] = { link = "Comment" },
+        ["@comment.documentation"] = { link = "Comment" },
+        ["@comment.error"] = { fg = colors.danger },
+        ["@comment.warning"] = { fg = colors.warning },
+        ["@comment.todo"] = { fg = colors.info },
+        ["@comment.note"] = { fg = colors.emphasis },
+        ["@markup.strong"] = { bold = true },
+        ["@markup.italic"] = { italic = true },
+        ["@markup.strikethrough"] = { fg = colors.danger, strikethrough = true },
+        ["@markup.underline"] = { underline = true },
+        ["@markup.heading"] = { fg = colors.emphasis, bold = true },
+        ["@markup.heading.gitcommit"] = { fg = colors.fg },
+        ["@markup.heading.1.markdown"] = { link = "@markup.heading" },
+        ["@markup.heading.2.markdown"] = { link = "@markup.heading" },
+        ["@markup.heading.3.markdown"] = { link = "@markup.heading" },
+        ["@markup.heading.4.markdown"] = { link = "@markup.heading" },
+        ["@markup.heading.5.markdown"] = { link = "@markup.heading" },
+        ["@markup.heading.6.markdown"] = { link = "@markup.heading" },
+        ["@markup.quote"] = { link = "Comment" },
+        ["@markup.math"] = { link = "Special" },
+        ["@markup.link"] = { fg = colors.emphasis, underline = true },
+        ["@markup.link.label"] = { link = "@markup.link.label" },
+        ["@markup.link.url"] = { fg = colors.info, underline = true },
+        ["@markup.raw"] = { fg = colors.const },
+        ["@markup.raw.block"] = { fg = colors.const },
+        ["@markup.list"] = { fg = colors.emphasis },
+        ["@markup.list.checked"] = { fg = colors.success },
+        ["@markup.list.unchecked"] = { fg = colors.danger },
+        ["@diff.plus"] = { link = "DiffAdd" },
+        ["@diff.minus"] = { link = "DiffDelete" },
+        ["@diff.delta"] = { link = "DiffChange" },
+        ["@tag"] = { link = "Keyword" },
+        ["@tag.builtin"] = { link = "Normal" },
+        ["@tag.delimiter"] = { link = "Keyword" },
+        ["@tag.attribute"] = { link = "Keyword" },
+        ["@property.json"] = { fg = colors.type, bold = true },
+        -- lsp
+        DiagnosticOK = { fg = colors.success },
+        DiagnosticError = { fg = colors.danger },
+        DiagnosticWarn = { fg = colors.warning },
+        DiagnosticHint = { fg = colors.info },
+        DiagnosticInfo = { fg = colors.fg },
+        LspInlayHint = { fg = utils.blend(colors.comment, colors.bg, 0.5) },
         LspReferenceText = { underline = true, bg = "none" },
         LspReferenceWrite = { link = "LspReferenceText" },
-
-        -- Diagnostics
-        DiagnosticError = { fg = colors.error },
-        DiagnosticSignError = { fg = colors.error },
-        DiagnosticFloatingError = { fg = colors.error },
-        DiagnosticWarn = { fg = colors.warn },
-        DiagnosticSignWarn = { fg = colors.warn },
-        DiagnosticFloatingWarn = { fg = colors.warn },
-        DiagnosticInfo = { fg = colors.info },
-        DiagnosticSignInfo = { fg = colors.info },
-        DiagnosticFloatingInfo = { fg = colors.info },
-        DiagnosticHint = { fg = colors.hint },
-        DiagnosticSignHint = { fg = colors.hint },
-        DiagnosticFloatingHint = { fg = colors.hint },
-
-        StatusLine = { link = "Normal" },
-        StatusLineNC = { link = "Normal" },
+        -- lsp semantic tokens: Python
+        ["@lsp.type.class.python"] = { fg = colors.class, bold = false },
+        ["@lsp.mod.builtin.python"] = { link = "Type" },
+        -- lsp semantic tokens: Go
+        ["@lsp.type.type.go"] = { fg = colors.class, bold = false },
+        ["@lsp.typemod.type.defaultLibrary.go"] = { link = "Type" },
+        -- -- lsp semantic tokens
+        ["@lsp.typemod.variable.readonly"] = { fg = colors.const, bold = false },
+        ["@lsp.mod.interface.go"] = { fg = colors.go_interface },
+        ["@lsp.typemod.parameter.interface.go"] = {
+            fg = utils.blend(colors.go_interface, colors.fg, 0.25),
+        },
+        ["@lsp.typemod.variable.interface.go"] = {
+            fg = utils.blend(colors.go_interface, colors.fg, 0.25),
+        },
+        -- custom
+        VertSplit = { fg = colors.border },
+        TabLine = { fg = colors.border },
         StatusLineBackground = { link = "Normal" },
-
-        VertSplit = { fg = colors.g_7 },
-        WinSeparator = { fg = colors.g_7 },
-        TabLine = { fg = colors.g_5 },
-        TabLineSel = { fg = colors.selection },
-
-        MatchParen = { fg = colors.fg, bg = colors.g_7, underline = true }, -- matching parentheses
-
-        -- search highlights
-        Search = { fg = colors.fg, bg = colors.g_8 },
-        CurSearch = { bg = colors.g_8, bold = true },
-        IncSearch = { bg = colors.g_8, bold = true },
-
-        ColorColumn = { bg = colors.g_10 },
-
-        -- mini.files
-        MiniFilesTitleFocused = { fg = colors.selection, bold = true },
-
-        -- git signs
-        GitSignsAdd = { fg = colors.added },
-        GitSignsChange = { fg = colors.modified },
-        GitSignsDelete = { fg = colors.removed },
-
-        -- snacks indent scope
+        MiniFilesTitleFocused = { fg = colors.highlight, bold = true },
         SnacksIndentScope = { fg = colors.g_6 }, -- active
-
-        -- snacks dashboard
         SnacksDashboardDesc = { fg = colors.fg },
         SnacksDashboardSpecial = { fg = colors.fg },
         SnacksDashboardIcon = { fg = colors.fg },
         SnacksDashboardFile = { fg = colors.fg },
-
-        -- neotest
         NeotestFailed = { link = "DiagnosticError" },
         NeotestTarget = { link = "DiagnosticError" },
         NeotestPassed = { link = "DiagnosticInfo" },
@@ -132,19 +228,18 @@ M.setup = function()
         NeotestDir = { link = "DiagnosticInfo" },
         NeotestWinSelect = { link = "DiagnosticInfo" },
         NeotestAdapterName = { fg = colors.fg, bold = true },
-
-        -- mini.patterns
-        MiniHipatternsFix = { fg = colors.fg, bg = colors.pattern_fix },
+        MiniHipatternsFix = { fg = colors.bg, bg = colors.pattern_fix },
         MiniHipatternsHack = { fg = colors.bg, bg = colors.pattern_hack },
         MiniHipatternsWarn = { fg = colors.bg, bg = colors.pattern_warn },
         MiniHipatternsTodo = { fg = colors.bg, bg = colors.pattern_todo },
         MiniHipatternsPerf = { fg = colors.bg, bg = colors.pattern_perf },
         MiniHipatternsNote = { fg = colors.bg, bg = colors.pattern_note },
-
-        -- dap
         DapBreakpoint = { bg = colors.g_8 },
         DapLogPoint = { bg = colors.g_8 },
         DapStopped = { fg = colors.fg, bg = colors.red_glowing },
+        BlinkCmpKind = { fg = colors.select, bold = true },
+        BlinkCmpKindYank = { fg = colors.modified, bold = true },
+        BlinkCmpKindRipgrepRipgrep = { fg = colors.hint, bold = true },
     }
 end
 

@@ -4,8 +4,10 @@ local M = {
 }
 
 local default_config = {
-    transparent = false,
+    transparent = true,
 }
+
+local colors = require "custom_theme.colors"
 
 function M.load()
     vim.cmd "hi clear"
@@ -20,7 +22,7 @@ function M.load()
     local hls = require("custom_theme.groups").setup()
 
     for group, setting in pairs(hls) do
-        if M.__opts.transparent and setting.bg then
+        if M.__opts.transparent and setting.bg and setting.bg == colors.bg then
             setting.bg = nil
         end
         hls[group] = setting

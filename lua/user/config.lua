@@ -126,6 +126,8 @@ M.mason_packages = {
     "html-lsp",
     -- css
     "css-lsp",
+    -- openapi
+    "vacuum",
 }
 
 M.linting = {
