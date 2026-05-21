@@ -9,7 +9,7 @@ M.setup = function()
         Normal = { fg = colors.fg, bg = colors.bg },
         NormalFloat = { fg = colors.fg_light, bg = colors.bg },
         FloatBorder = { fg = colors.border, bg = colors.bg },
-        Cursor = { fg = colors.fg, bg = colors.fg },
+        Cursor = { fg = colors.highlight, bg = colors.bg },
         TermCursor = { link = "Cursor" },
         lCursor = { link = "Cursor" },
         CursorIM = { link = "Cursor" },

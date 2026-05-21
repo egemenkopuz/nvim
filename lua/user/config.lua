@@ -142,7 +142,7 @@ M.linting = {
         tf = { "terraform_validate" },
         terragrunt = { "trivy" },
         bash = { "trivy", "shellcheck", "bash" },
-        go = { "golangci_lint" },
+        go = { "golangcilint" },
     },
 }
 

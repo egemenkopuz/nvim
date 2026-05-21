@@ -24,5 +24,8 @@ vim.filetype.add {
         [".*/compose%.yml"] = "yaml.docker-compose",
         ["openapi.*%.ya?ml"] = "yaml.openapi",
         ["openapi.*%.json"] = "json.openapi",
+        ["%.env"] = "sh",
+        [".env%..*"] = "sh",
+        [".*%.env%..*"] = "sh",
     },
 }
