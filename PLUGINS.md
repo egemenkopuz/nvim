@@ -10,7 +10,7 @@
 
 ## Completion
 
-- [blink.cmp](https://github.com/saghen/blink.cmp) - Really fast completion with LSP & snippet support, along with signature help, cmdline completion, and autobracket support (based on semantic tokens).
+- [blink.cmp](https://github.com/saghen/blink.cmp) - Really fast completion with LSP and snippet support, along with signature help, cmdline completion, and autobracket support (based on semantic tokens).
 - [copilot.lua](https://github.com/zbirenbaum/copilot.lua) - Fully featured Lua replacement for [GitHub/copilot.vim](https://github.com/github/copilot.vim).
 
 ## Game
@@ -23,7 +23,7 @@
 
 ## Git
 
-- [diffview.nvim](https://github.com/sindrets/diffview.nvim) - Single tabpage interface for easily cycling through diffs for all modified files for any Git rev.
+- [diffview.nvim](https://github.com/dlyongemallo/diffview.nvim) - Single tabpage interface for easily cycling through diffs for all modified files for any Git rev. Maintained fork of sindrets/diffview.nvim.
 - [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) - Git integration: signs, hunk actions, blame, etc.
 
 ## Snippet
@@ -43,7 +43,7 @@
 
 ## Search
 
-- [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) - Buffer-based live search and replace with full power of `rg` flags. Grug like!
+- [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) - Buffer-based live search and replace with full power of `rg` flags. Grug like.
 
 ## Bars and Lines
 
